@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Interfaz de Operaciones DAO de un Usuario
  */
 package pss1inventarioscunoc.backend.dao.interfaces;
 
@@ -9,6 +7,9 @@ package pss1inventarioscunoc.backend.dao.interfaces;
  *
  * @author bryan
  */
-public interface UsuarioDAO {
+public interface UsuarioDAO extends CRUD<Object>{
+    /*Operaciones Especiales*/
+    
+    /*Querys a utilizar*/
     
 }
