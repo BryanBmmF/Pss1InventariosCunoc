@@ -3,13 +3,20 @@
  */
 package pss1inventarioscunoc.backend.dao.interfaces;
 
+import pss1inventarioscunoc.backend.pojos.Usuario;
+
 /**
  *
  * @author bryan
  */
-public interface UsuarioDAO extends CRUD<Object>{
+public interface UsuarioDAO extends CRUD<Usuario>{
     /*Operaciones Especiales*/
+    public Usuario buscarUsuario(String identificacion, String contrasena);
+    
     
     /*Querys a utilizar*/
-    
+    public static final String CONSULTAR_USUARIO = "SELECT * FROM USUARIO WHERE id_usuario = ? AND contrasena = SHA(?)";
+    //CRUD
+    public static final String INSERTAR_USUARIO="INSERT INTO USUARIO VALUES(?,?,?,SHA(?),?,?,?)";
+    public static final String CONSULTAR_USUARIOS="SELECT * FROM USUARIO";
 }
