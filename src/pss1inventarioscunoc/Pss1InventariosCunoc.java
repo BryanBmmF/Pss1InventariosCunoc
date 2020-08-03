@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase principal del sistema
  */
 package pss1inventarioscunoc;
 
@@ -25,8 +23,10 @@ public class Pss1InventariosCunoc {
     public static void main(String[] args) {
 
         
-        VentanaSesion ventanaInicio = new VentanaSesion();
-        ventanaInicio.setVisible(true);
+        VentanaSesion ventanaLogin = new VentanaSesion();
+        ventanaLogin.setVisible(true);
+        
+        
         //Creacion e insercion de usuarios
         /*ControladorUser contrUser = new ControladorUser();
         //contrUser.registrar(new Usuario("juanPerez", "Juan", "Perez", "1234", "estadoJ", Usuario.USUARIO_NORMAL, "jperez@gmail.com"));
