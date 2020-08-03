@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase Conexion de base de datos implementando patron Singlenton
  */
 package pss1inventarioscunoc.backend.bd;
 
@@ -23,8 +21,8 @@ public class Conexion {
         driver = "com.mysql.jdbc.Driver";
         dataBase = "inventario";
         url = "jdbc:mysql://localhost:3306/" + dataBase + "?autoReconnect=true&useSSL=false";
-        user = "root";
-        password = "Password123#@!";
+        user = "admindb";
+        password = "admindb";
 
         try {
             Class.forName(driver);
