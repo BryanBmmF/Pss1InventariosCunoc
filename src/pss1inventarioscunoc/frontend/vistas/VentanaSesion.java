@@ -5,6 +5,7 @@ package pss1inventarioscunoc.frontend.vistas;
 
 import java.sql.Timestamp;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import pss1inventarioscunoc.backend.controladores.ControladorLogIngreso;
 import pss1inventarioscunoc.backend.controladores.ControladorUser;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
@@ -122,6 +123,11 @@ public class VentanaSesion extends javax.swing.JFrame {
         jButton2.setBorder(null);
         jButton2.setContentAreaFilled(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -226,6 +232,15 @@ public class VentanaSesion extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // habilitando pantalla de registro
+        VentanaRegistro ventanaRegistro = new VentanaRegistro();
+        ventanaRegistro.setAlwaysOnTop(true); //modal
+        ventanaRegistro.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); //evento de salida cerrar solo ventana actual
+        ventanaRegistro.setVisible(true);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
     /**
      * Metodo de habilitacion de ventana de Inicio
      */
