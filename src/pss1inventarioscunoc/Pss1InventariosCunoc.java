@@ -9,6 +9,7 @@ import pss1inventarioscunoc.backend.controladores.ControladorLogIngreso;
 import pss1inventarioscunoc.backend.controladores.ControladorUser;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
 import pss1inventarioscunoc.backend.pojos.Usuario;
+import pss1inventarioscunoc.frontend.vistas.VentanaRegistro;
 import pss1inventarioscunoc.frontend.vistas.VentanaSesion;
 
 /**
@@ -23,8 +24,10 @@ public class Pss1InventariosCunoc {
     public static void main(String[] args) {
 
         
-        VentanaSesion ventanaLogin = new VentanaSesion();
-        ventanaLogin.setVisible(true);
+//        VentanaSesion ventanaLogin = new VentanaSesion();
+//        ventanaLogin.setVisible(true);
+        VentanaRegistro ventanaRegistro = new VentanaRegistro();
+        ventanaRegistro.setVisible(true);
         
         
         //Creacion e insercion de usuarios
