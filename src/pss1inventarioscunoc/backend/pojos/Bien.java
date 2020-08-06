@@ -31,6 +31,7 @@ public class Bien {
     private String seccion;
     private String personaQueRecibio;
 
+    
     public String getCur() {
         return cur;
     }

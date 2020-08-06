@@ -20,6 +20,41 @@ public class Factura {
     private String descripcion;
     private double valor;
 
+    /**
+     * Para recuperacion de facturas
+     * @param idFactura
+     * @param idProveedor
+     * @param numeroFactura
+     * @param fecha
+     * @param descripcion
+     * @param valor 
+     */
+    public Factura(int idFactura, int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor) {
+        this.idFactura = idFactura;
+        this.idProveedor = idProveedor;
+        this.numeroFactura = numeroFactura;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+        this.valor = valor;
+    }
+/**
+ * Para ingreso de facturas
+ * @param idProveedor
+ * @param numeroFactura
+ * @param fecha
+ * @param descripcion
+ * @param valor 
+ */
+    public Factura(int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor) {
+        this.idProveedor = idProveedor;
+        this.numeroFactura = numeroFactura;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+        this.valor = valor;
+    }
+
+    
+    
     public int getIdFactura() {
         return idFactura;
     }
@@ -68,6 +103,13 @@ public class Factura {
         this.valor = valor;
     }
     
-    
+    public String toString(){
+        return "Id"+this.idFactura+
+               "\nIdProveedor"+this.idProveedor+
+               "\nNumero:"+this.numeroFactura+
+               "\nFecha:"+this.fecha+
+               "\nDescripcion"+this.descripcion+
+               "\nValor"+this.valor;
+    }
     
 }
