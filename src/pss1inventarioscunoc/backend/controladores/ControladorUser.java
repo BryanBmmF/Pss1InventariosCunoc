@@ -49,7 +49,10 @@ public class ControladorUser {
     public Usuario buscarUsuario(String identificacion, String contrasena) {
         return usuarioDao.buscarUsuario(identificacion, contrasena);
     }
-    
+    /**
+     * Devuelve todos los usuarios en la base de datos
+     * @return 
+     */
     public List<Usuario> busquedaUsuarios(){
         return usuarioDao.recuperarLista();
     }

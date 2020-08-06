@@ -11,4 +11,12 @@ import pss1inventarioscunoc.backend.pojos.Inventario;
  */
 public interface InventarioDAO extends CRUD<Inventario>{
     
+    //Metodos especiales
+    public Inventario buscarInventario();
+    //***CONSULTAS**//
+    
+    //Otras consultas
+    //CRUD
+    public String CONSULTAR_INVENTARIO = "SELECT * FROM INVENTARIO WHERE no=?";
+    
 }
