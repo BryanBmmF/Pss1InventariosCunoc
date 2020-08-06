@@ -30,8 +30,8 @@ public class Pss1InventariosCunoc {
     public static void main(String[] args) {
 
         
-        //VentanaSesion ventanaLogin = new VentanaSesion();
-        //ventanaLogin.setVisible(true);
+        VentanaSesion ventanaLogin = new VentanaSesion();
+        ventanaLogin.setVisible(true);
         
         //Recuperacion de Inventarios
         ControladorInventario crIn = new ControladorInventario();
