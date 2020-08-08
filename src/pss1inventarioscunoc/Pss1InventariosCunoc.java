@@ -6,11 +6,14 @@ package pss1inventarioscunoc;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import pss1inventarioscunoc.backend.controladores.ControladorBien;
 import pss1inventarioscunoc.backend.controladores.ControladorFactura;
 import pss1inventarioscunoc.backend.controladores.ControladorInventario;
 import pss1inventarioscunoc.backend.controladores.ControladorLogIngreso;
 import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
 import pss1inventarioscunoc.backend.controladores.ControladorUser;
+import pss1inventarioscunoc.backend.enums.TipoDeBien;
+import pss1inventarioscunoc.backend.pojos.Bien;
 import pss1inventarioscunoc.backend.pojos.Factura;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
@@ -67,7 +70,8 @@ public class Pss1InventariosCunoc {
             System.out.println(proveedor);
             prov = proveedor;
         }
-
+        
+        //08/08/20  
         //Ingreso de facturas
         System.out.println("Ingresando factura");
         ControladorFactura crFactura = new ControladorFactura();
@@ -95,6 +99,15 @@ public class Pss1InventariosCunoc {
         for (Factura factura : crFactura.buscarFacturas(fechaInicial, fechaFinal)) {
             System.out.println(factura);
         }
+        
+        //Ingreso de bienes;
+        //Bien normal
+        ControladorBien crBien = new ControladorBien();
+        //crBien.registrarBien(new Bien("cur1pk1", 1, "Procencia", '1', "Primer bien prueba", TipoDeBien.COMPRA, 589.25, "Ciencias de la ingenieria"));
+        //Bien por donacion
+        crBien.registrarBien(new Bien("cur2pk5", 1, "Procencia2", '1', "Segun bien prueba", TipoDeBien.DONACION, 1000.25, "Mi division", 12, "punto", 10));
+        //Bien por traslado
+        crBien.registrarBien(new Bien("curpk6", 1, "Procedencia2",'1', "Otra descripcion", TipoDeBien.TRASLADO, 125.99, "Mo otra division", new Timestamp(System.currentTimeMillis()), '1',"Seccion", "Persona"));
     }
 
 }

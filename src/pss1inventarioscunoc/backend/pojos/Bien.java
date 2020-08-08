@@ -30,7 +30,92 @@ public class Bien {
     private char autorizacion;
     private String seccion;
     private String personaQueRecibio;
+    
+    /**
+     * Para ingreso de bien por traslado
+     * @param cur
+     * @param idFactura
+     * @param procedencia
+     * @param estado
+     * @param descripcion
+     * @param tipo
+     * @param valor
+     * @param division
+     * @param fecha
+     * @param autorizacion
+     * @param seccion
+     * @param personaQueRecibio 
+     */
+    public Bien(String cur, int idFactura, String procedencia, char estado, String descripcion, TipoDeBien tipo, double valor, String division, Timestamp fecha, char autorizacion, String seccion, String personaQueRecibio) {
+        this.cur = cur;
+        this.idFactura = idFactura;
+        this.procedencia = procedencia;
+        this.estado = estado;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.division = division;
+        this.fecha = fecha;
+        this.autorizacion = autorizacion;
+        this.seccion = seccion;
+        this.personaQueRecibio = personaQueRecibio;
+    }
+    
+    
 
+    /**
+     * Para ingreso de bien por compra
+     * @param cur
+     * @param idFactura
+     * @param procedencia
+     * @param estado
+     * @param descripcion
+     * @param tipo
+     * @param valor
+     * @param division 
+     */
+    public Bien(String cur, int idFactura, String procedencia, char estado, String descripcion, TipoDeBien tipo, double valor, String division) {
+        this.cur = cur;
+        this.idFactura = idFactura;
+        this.procedencia = procedencia;
+        this.estado = estado;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.division = division;
+    }
+    
+    /**
+     * Para ingreso de bien por donacion
+     * @param cur
+     * @param idFactura
+     * @param procedencia
+     * @param estado
+     * @param descripcion
+     * @param tipo
+     * @param valor
+     * @param division
+     * @param correlativo
+     * @param punto
+     * @param numeroActa 
+     */
+    public Bien(String cur, int idFactura, String procedencia, char estado, String descripcion, TipoDeBien tipo, double valor, String division, int correlativo, String punto, int numeroActa) {
+        this.cur = cur;
+        this.idFactura = idFactura;
+        this.procedencia = procedencia;
+        this.estado = estado;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.division = division;
+        this.correlativo = correlativo;
+        this.punto = punto;
+        this.numeroActa = numeroActa;
+    }
+
+
+    
+    
     
     public String getCur() {
         return cur;
