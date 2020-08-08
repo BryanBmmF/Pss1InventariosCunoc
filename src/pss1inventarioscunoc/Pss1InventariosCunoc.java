@@ -29,15 +29,14 @@ public class Pss1InventariosCunoc {
      */
     public static void main(String[] args) {
 
-        
         VentanaSesion ventanaLogin = new VentanaSesion();
         ventanaLogin.setVisible(true);
-        
+
         //Recuperacion de Inventarios
         ControladorInventario crIn = new ControladorInventario();
         crIn.buscarInventario();
         System.out.println(ControladorInventario.INVENTARIO_CONTABILIDAD);
-        
+
         //Ingreso de proveedores
         ControladorProveedor crPro = new ControladorProveedor();
         //boolean in=crPro.registrar(new Proveedor("Los emparedados", "776589-10", "Zona 25", "Venta de comida", "losEMparedados.com"));
@@ -49,31 +48,53 @@ public class Pss1InventariosCunoc {
         for (Proveedor proveedor : crPro.buscarProveedores()) {
             System.out.println(proveedor);
         }
-        
+
         //Filtrado de proveedores por nombre
-        System.out.println("\n\n\nBUSCANDO POR NOMBRE:"+"lucitas");
+        System.out.println("\n\n\nBUSCANDO POR NOMBRE:" + "lucitas");
         for (Proveedor proveedor : crPro.buscarProveedoresPorNombre("lucitas")) {
             System.out.println(proveedor);
         }
         //Filtrado de proveedores por direccion
-                //Filtrado de proveedores por nombre
-        System.out.println("\n\n\nBUSCANDO POR DIRECCION:"+"8");
+        //Filtrado de proveedores por nombre
+        System.out.println("\n\n\nBUSCANDO POR DIRECCION:" + "8");
         for (Proveedor proveedor : crPro.buscarProveedoresPorDireccion("8")) {
             System.out.println(proveedor);
         }
         //Filtrado de proveedores por descripcion
-        System.out.println("\n\n\nBUSCANDO POR DESCRIPCION:"+"Muebles");
-        Proveedor prov =null;
+        System.out.println("\n\n\nBUSCANDO POR DESCRIPCION:" + "Muebles");
+        Proveedor prov = null;
         for (Proveedor proveedor : crPro.buscarProveedoresPorDescripcion("Muebles")) {
             System.out.println(proveedor);
-            prov=proveedor;
+            prov = proveedor;
         }
-    
+
         //Ingreso de facturas
         System.out.println("Ingresando factura");
         ControladorFactura crFactura = new ControladorFactura();
-        boolean fac=crFactura.registrar(new Factura(prov.getIdProveedor(), 1, new Timestamp(System.currentTimeMillis()), "COmpra de materiales", 58.5));
-        System.out.println("FACTURA INSERTADA:"+fac);
+        boolean fac = crFactura.registrar(new Factura(prov.getIdProveedor(), 2, new Timestamp(System.currentTimeMillis()), "COmpra de materiales", 58.5));
+        System.out.println("FACTURA INSERTADA:" + fac);
+
+        //Busqueda de facturas
+        System.out.println("Buscando TODAS las facturas");
+        for (Factura factura : crFactura.buscarFacturas()) {
+            System.out.println(factura);
+        }
+
+        //Buscando factura por proveedor
+        System.out.println("------------------------------FACTURA POR PROVEEDOR: LAS-----------------------");
+        for (Factura factura : crFactura.buscarFacturas("Los")) {
+            System.out.println(factura);
+        }
+
+        //Timestamp = java.sql.Timestamp.valueOf("2007-09-23 10:10:10.0");
+        Timestamp fechaInicial = Timestamp.valueOf("2020-08-06 00:00:00");
+        Timestamp fechaFinal = Timestamp.valueOf("2020-08-09 00:00:00");
+
+        //Buscando facturas por fecha
+        System.out.println("\n\n\n-----------------------------FACTURAAS ENTRE LAS FECHAS: '2020-08-06 00:00:00' AND '2020-09-08 00:00:00'------------");
+        for (Factura factura : crFactura.buscarFacturas(fechaInicial, fechaFinal)) {
+            System.out.println(factura);
+        }
     }
 
 }
