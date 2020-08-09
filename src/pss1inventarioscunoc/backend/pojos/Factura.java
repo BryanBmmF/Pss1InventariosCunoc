@@ -19,7 +19,7 @@ public class Factura {
     private Timestamp fecha;
     private String descripcion;
     private double valor;
-
+    private String nombreProveedor;
     /**
      * Para recuperacion de facturas
      * @param idFactura
@@ -29,13 +29,14 @@ public class Factura {
      * @param descripcion
      * @param valor 
      */
-    public Factura(int idFactura, int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor) {
+    public Factura(int idFactura, int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor,String nombreProveedor) {
         this.idFactura = idFactura;
         this.idProveedor = idProveedor;
         this.numeroFactura = numeroFactura;
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.valor = valor;
+        this.nombreProveedor=nombreProveedor;
     }
 /**
  * Para ingreso de facturas
@@ -104,12 +105,13 @@ public class Factura {
     }
     
     public String toString(){
-        return "Id"+this.idFactura+
+        return "->Id"+this.idFactura+
                "\nIdProveedor"+this.idProveedor+
                "\nNumero:"+this.numeroFactura+
                "\nFecha:"+this.fecha+
                "\nDescripcion"+this.descripcion+
-               "\nValor"+this.valor;
+               "\nValor"+this.valor+
+               "\nNombre Proveedor:"+this.nombreProveedor;
     }
     
 }
