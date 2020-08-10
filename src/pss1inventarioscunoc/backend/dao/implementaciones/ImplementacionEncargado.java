@@ -15,6 +15,7 @@ public class ImplementacionEncargado implements EncargadoDAO{
 
     @Override
     public boolean registrar(Encargado model) {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

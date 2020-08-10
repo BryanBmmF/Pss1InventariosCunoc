@@ -8,5 +8,10 @@ package pss1inventarioscunoc.backend.controladores;
  * @author bryan
  */
 public class ControladorEncargado {
+    /**
+     * Metodos pertenecientes a GUI ValidacionEncargados
+     */
+    
+    
     
 }

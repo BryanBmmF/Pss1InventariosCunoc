@@ -30,51 +30,51 @@ public class Pss1InventariosCunoc {
      */
     public static void main(String[] args) {
 
-        VentanaInicio ventanaInicio = new VentanaInicio(); ventanaInicio.setVisible(true);
-//        VentanaSesion ventanaLogin = new VentanaSesion();
-//        ventanaLogin.setVisible(true);
-//        
-//        //Recuperacion de Inventarios
-//        ControladorInventario crIn = new ControladorInventario();
-//        crIn.buscarInventario();
-//        System.out.println(ControladorInventario.INVENTARIO_CONTABILIDAD);
-//        
-//        //Ingreso de proveedores
-//        ControladorProveedor crPro = new ControladorProveedor();
-//        //boolean in=crPro.registrar(new Proveedor("Los emparedados", "776589-10", "Zona 25", "Venta de comida", "losEMparedados.com"));
-//        //crPro.registrar(new Proveedor("Intelaf", "776589-8", "Zona 8 -25", "Venta de tecnologia", "intelaf.com"));
-//        //System.out.println("ProveedorInsertado:"+in);
-//
-//        //Listado de proveedores
-//        System.out.println("BUSQUEDA DE TODOS LOS PROVEEDORS");
-//        for (Proveedor proveedor : crPro.buscarProveedores()) {
-//            System.out.println(proveedor);
-//        }
-//        
-//        //Filtrado de proveedores por nombre
-//        System.out.println("\n\n\nBUSCANDO POR NOMBRE:"+"lucitas");
-//        for (Proveedor proveedor : crPro.buscarProveedoresPorNombre("lucitas")) {
-//            System.out.println(proveedor);
-//        }
-//        //Filtrado de proveedores por direccion
-//                //Filtrado de proveedores por nombre
-//        System.out.println("\n\n\nBUSCANDO POR DIRECCION:"+"8");
-//        for (Proveedor proveedor : crPro.buscarProveedoresPorDireccion("8")) {
-//            System.out.println(proveedor);
-//        }
-//        //Filtrado de proveedores por descripcion
-//        System.out.println("\n\n\nBUSCANDO POR DESCRIPCION:"+"Muebles");
-//        Proveedor prov =null;
-//        for (Proveedor proveedor : crPro.buscarProveedoresPorDescripcion("Muebles")) {
-//            System.out.println(proveedor);
-//            prov=proveedor;
-//        }
-//    
-//        //Ingreso de facturas
-//        System.out.println("Ingresando factura");
-//        ControladorFactura crFactura = new ControladorFactura();
-//        boolean fac=crFactura.registrar(new Factura(prov.getIdProveedor(), 1, new Timestamp(System.currentTimeMillis()), "COmpra de materiales", 58.5));
-//        System.out.println("FACTURA INSERTADA:"+fac);
+//        VentanaInicio ventanaInicio = new VentanaInicio(); ventanaInicio.setVisible(true);
+        VentanaSesion ventanaLogin = new VentanaSesion();
+        ventanaLogin.setVisible(true);
+        
+        //Recuperacion de Inventarios
+        ControladorInventario crIn = new ControladorInventario();
+        crIn.buscarInventario();
+        System.out.println(ControladorInventario.INVENTARIO_CONTABILIDAD);
+        
+        //Ingreso de proveedores
+        ControladorProveedor crPro = new ControladorProveedor();
+        //boolean in=crPro.registrar(new Proveedor("Los emparedados", "776589-10", "Zona 25", "Venta de comida", "losEMparedados.com"));
+        //crPro.registrar(new Proveedor("Intelaf", "776589-8", "Zona 8 -25", "Venta de tecnologia", "intelaf.com"));
+        //System.out.println("ProveedorInsertado:"+in);
+
+        //Listado de proveedores
+        System.out.println("BUSQUEDA DE TODOS LOS PROVEEDORS");
+        for (Proveedor proveedor : crPro.buscarProveedores()) {
+            System.out.println(proveedor);
+        }
+        
+        //Filtrado de proveedores por nombre
+        System.out.println("\n\n\nBUSCANDO POR NOMBRE:"+"lucitas");
+        for (Proveedor proveedor : crPro.buscarProveedoresPorNombre("lucitas")) {
+            System.out.println(proveedor);
+        }
+        //Filtrado de proveedores por direccion
+                //Filtrado de proveedores por nombre
+        System.out.println("\n\n\nBUSCANDO POR DIRECCION:"+"8");
+        for (Proveedor proveedor : crPro.buscarProveedoresPorDireccion("8")) {
+            System.out.println(proveedor);
+        }
+        //Filtrado de proveedores por descripcion
+        System.out.println("\n\n\nBUSCANDO POR DESCRIPCION:"+"Muebles");
+        Proveedor prov =null;
+        for (Proveedor proveedor : crPro.buscarProveedoresPorDescripcion("Muebles")) {
+            System.out.println(proveedor);
+            prov=proveedor;
+        }
+    
+        //Ingreso de facturas
+        System.out.println("Ingresando factura");
+        ControladorFactura crFactura = new ControladorFactura();
+        boolean fac=crFactura.registrar(new Factura(prov.getIdProveedor(), 1, new Timestamp(System.currentTimeMillis()), "COmpra de materiales", 58.5));
+        System.out.println("FACTURA INSERTADA:"+fac);
     }
 
 }
