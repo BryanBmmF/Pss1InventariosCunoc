@@ -6,10 +6,15 @@
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorUser.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/BienDAO.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/Pss1InventariosCunoc.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/GestorReporte.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/UsuarioDAO.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/implementaciones/ImplementacionProveedor.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/GestorBienes.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/ProveedorDAO.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/VentanaRegistro.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/CRUD.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/VentanaInicio.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/VentanaSesion.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/implementaciones/ImplementacionUsuario.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/pojos/Proveedor.java</file>
             <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorLogIngreso.java</file>
