@@ -74,8 +74,9 @@ public class ImplementacionProveedor implements ProveedorDAO {
 
     /**
      * Devuelve los proveedores que contengan el valor de la variable 'nombre'
+     *
      * @param nombre
-     * @return 
+     * @return
      */
     @Override
     public ArrayList<Proveedor> buscarProveedoresPorNombre(String nombre) {
@@ -94,9 +95,11 @@ public class ImplementacionProveedor implements ProveedorDAO {
     }
 
     /**
-     * Devuelve los proveedores que contengan el valor de la variable 'direccion'
+     * Devuelve los proveedores que contengan el valor de la variable
+     * 'direccion'
+     *
      * @param direccion
-     * @return 
+     * @return
      */
     @Override
     public ArrayList<Proveedor> buscarProveedoresPorDireccion(String direccion) {
@@ -115,16 +118,18 @@ public class ImplementacionProveedor implements ProveedorDAO {
     }
 
     /**
-     * Devuelve los proveedores que contengan el valor de la variable 'descripcion'
+     * Devuelve los proveedores que contengan el valor de la variable
+     * 'descripcion'
+     *
      * @param descripcion
-     * @return 
+     * @return
      */
     @Override
     public ArrayList<Proveedor> buscarProveedorPorDescripcion(String descripcion) {
-                ArrayList<Proveedor> proveedores = new ArrayList<>();
+        ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(BUSQUEDA_POR_DESCRIPCION);
-            prepStatement.setString(1, "%"+descripcion+"%");
+            prepStatement.setString(1, "%" + descripcion + "%");
             result = prepStatement.executeQuery();
             while (result.next()) {
                 proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
@@ -133,6 +138,31 @@ public class ImplementacionProveedor implements ProveedorDAO {
             ex.printStackTrace();
         }
         return proveedores;
+    }
+
+    /**
+     * Permite modificar un proveedor ya existente,
+     * regresa null, si existiese un error
+     * @param proveedor
+     * @return 
+     */
+    @Override
+    public boolean modificarProveedor(Proveedor proveedor) {
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(MODIFICAR_PROVEEDOR);
+            prepStatement.setString(1, proveedor.getNombreDeProveedor());
+            prepStatement.setString(2, proveedor.getNit());
+            prepStatement.setString(3, proveedor.getDireccion());
+            prepStatement.setString(4, proveedor.getDescripcion());
+            prepStatement.setString(5, proveedor.getCorreoElectronico());
+            prepStatement.setInt(6, proveedor.getIdProveedor());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }

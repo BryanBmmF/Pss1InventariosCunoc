@@ -18,7 +18,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
-        ventanaPrincipal.add(new ValidacionEncargados());
+        ventanaPrincipal.add(new ProveedorJPanel());
     }
 
     @SuppressWarnings("unchecked")
