@@ -9,13 +9,13 @@ package pss1inventarioscunoc.backend.pojos;
  */
 public class Encargado {
     
-    private int id;
+    private long id;
     private String nombre;
     private String apellido;
     private String cargo;
     private String division;
 
-    public Encargado(int id, String nombre, String apellido, String cargo, String division) {
+    public Encargado(long id, String nombre, String apellido, String cargo, String division) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -23,11 +23,11 @@ public class Encargado {
         this.division = division;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
