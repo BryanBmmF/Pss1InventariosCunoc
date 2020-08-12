@@ -6,6 +6,8 @@ package pss1inventarioscunoc.backend.dao.implementaciones;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +45,7 @@ public class ImplementacionBien implements BienDAO {
                 prepStatement = Conexion.getConexion().prepareStatement(REGISTRAR_BIEN_TRASLADO);
                 prepStatement.setString(1, model.getCur());
                 prepStatement.setTimestamp(2, model.getFecha());
-                prepStatement.setString(3,String.valueOf(model.getAutorizacion()));
+                prepStatement.setString(3, String.valueOf(model.getAutorizacion()));
                 prepStatement.setString(4, model.getSeccion());
                 prepStatement.setString(5, model.getPersonaQueRecibio());
                 System.out.println(prepStatement.toString());
@@ -65,9 +67,65 @@ public class ImplementacionBien implements BienDAO {
         return true;
     }
 
+    /**
+     * Se devuelven todos los bienes
+     *
+     * @return
+     */
     @Override
     public List<Bien> recuperarLista() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Bien> bienes = new ArrayList<>();
+        ResultSet resAux;
+        PreparedStatement prepAux;
+        Bien bien;
+        TipoDeBien tipo;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TODOS_LOS_BIENES);
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                //Busco el tipo de bien    
+                if (result.getString("tipo").equalsIgnoreCase(TipoDeBien.DONACION.toString())) {
+                    tipo = TipoDeBien.DONACION;
+                } else if (result.getString("tipo").equalsIgnoreCase(TipoDeBien.TRASLADO.toString())) {
+                    tipo = TipoDeBien.TRASLADO;
+                } else {
+                    tipo = TipoDeBien.COMPRA;
+                }
+                //Lleno el bien
+                bien = new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), tipo, result.getDouble(7), result.getString(8));
+                if (tipo == TipoDeBien.DONACION) {
+                    prepAux = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_DONACION_POR_CUR);
+                    prepAux.setString(1, result.getString("cur"));
+                    resAux = prepAux.executeQuery();
+                    resAux.next();
+                    //Le seteo las partes de donacion
+                    bien.setCorrelativo(resAux.getInt(1));
+                    bien.setPunto(resAux.getString(2));
+                    bien.setNumeroActa(resAux.getInt(3));
+                    prepAux.close();
+                    resAux.close();
+                } else if (tipo == TipoDeBien.TRASLADO) {
+                    prepAux = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_TRASLADO_POR_CUR);
+                    prepAux.setString(1, result.getString("cur"));
+                    resAux = prepAux.executeQuery();
+                    resAux.next();
+                    //Le seteo las partes de TRASLADO
+                    bien.setFecha(resAux.getTimestamp(1));
+                    bien.setAutorizacion(resAux.getString(2).charAt(0));
+                    bien.setSeccion(resAux.getString(3));
+                    bien.setPersonaQueRecibio(resAux.getString(4));
+                    prepAux.close();
+                    resAux.close();
+                }
+                bienes.add(bien);
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return bienes;
     }
 
     @Override
@@ -78,6 +136,103 @@ public class ImplementacionBien implements BienDAO {
     @Override
     public boolean eliminar(Bien model) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Devuelve los bienes de donacion, null si existiera error
+     *
+     * @return
+     */
+    @Override
+    public ArrayList<Bien> consultarBienDonacion() {
+        ArrayList<Bien> bienes = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_DONACION);
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.DONACION, result.getDouble(7), result.getString(8), result.getInt(10), result.getString(11), result.getInt(12)));
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return bienes;
+    }
+
+    /**
+     * Devuelve los bienes de traslado,null si existiera error
+     *
+     * @return
+     */
+    @Override
+    public ArrayList<Bien> consultarBienTraslado() {
+        ArrayList<Bien> bienes = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_TRASLADO);
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.TRASLADO, result.getDouble(7), result.getString(8), result.getTimestamp(11), result.getString(12).charAt(0), result.getString(13), result.getString(14)));
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return bienes;
+    }
+
+    @Override
+    public ArrayList<Bien> consultarBienCompra() {
+        ArrayList<Bien> bienes = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_COMPRA);
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.TRASLADO, result.getDouble(7), result.getString(8)));
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return bienes;
+    }
+
+    /**
+     * Se ingresa un traslado, y se desactiva el anterior
+     *
+     * @param cur
+     * @param fecha
+     * @param autorizacion
+     * @param seccion
+     * @param persona_que_recibio
+     * @return
+     */
+    @Override
+    public boolean trasladarBien(String cur, Timestamp fecha, String autorizacion, String seccion, String persona_que_recibio) {
+        try {
+            //Se descativa el traslado
+            prepStatement = Conexion.getConexion().prepareStatement(DESACTIVAR_TRASLADO);
+            prepStatement.setString(1, cur);
+            prepStatement.executeUpdate();
+            //Se ingresa el nuevo traslado
+            prepStatement = Conexion.getConexion().prepareStatement(TRASLADAR_BIEN);
+            prepStatement.setString(1, cur);
+            prepStatement.setTimestamp(2, fecha);
+            prepStatement.setString(3, autorizacion);
+            prepStatement.setString(4, seccion);
+            prepStatement.setString(5,persona_que_recibio);
+            prepStatement.executeUpdate();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }

@@ -19,7 +19,7 @@ public class Proveedor {
     private String correoElectronico;
 
     /**
-     * Recuperar Proveedor
+     * Recuperar Proveedor/Modificar Proveedor
      * @param idProveedor
      * @param nombreDeProveedor
      * @param nit

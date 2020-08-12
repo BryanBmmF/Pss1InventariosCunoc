@@ -237,5 +237,24 @@ public class Bien {
         this.personaQueRecibio = personaQueRecibio;
     }
     
-    
+    @Override
+    public String toString(){
+        return "---->Cur:"+this.cur
+                +"\nidFactura:"+this.idFactura
+                +"\nprocedencia:"+this.procedencia
+                +"\nestado:"+this.estado
+                +"\ndescripcion:"+this.descripcion
+                +"\ntipoDeBien:"+this.tipo
+                +"\nvalor:"+this.valor
+                +"\ndivision:"+this.division
+                +"\ncorrelativo:"+this.correlativo
+                +"\npunto:"+this.punto
+                +"\nnumeroActa:"+this.numeroActa
+                +"\nfecha:"+this.fecha
+                +"\nautorizacion:"+this.autorizacion
+                +"\nseccion:"+this.seccion
+                +"\npersonaQueRecibio:"+this.personaQueRecibio+"\n\n\n";
+                        
+                        
+    }
 }
