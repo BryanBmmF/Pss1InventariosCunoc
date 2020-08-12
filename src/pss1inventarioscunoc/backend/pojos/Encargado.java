@@ -9,4 +9,58 @@ package pss1inventarioscunoc.backend.pojos;
  */
 public class Encargado {
     
+    private long id;
+    private String nombre;
+    private String apellido;
+    private String cargo;
+    private String division;
+
+    public Encargado(long id, String nombre, String apellido, String cargo, String division) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cargo = cargo;
+        this.division = division;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+    
 }

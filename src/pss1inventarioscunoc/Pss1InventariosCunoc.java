@@ -18,6 +18,7 @@ import pss1inventarioscunoc.backend.pojos.Factura;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 import pss1inventarioscunoc.backend.pojos.Usuario;
+import pss1inventarioscunoc.frontend.vistas.VentanaInicio;
 import pss1inventarioscunoc.frontend.vistas.VentanaRegistro;
 import pss1inventarioscunoc.frontend.vistas.VentanaSesion;
 

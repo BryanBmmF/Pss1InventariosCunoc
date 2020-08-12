@@ -8,6 +8,7 @@ import java.util.List;
 /**
  *
  * @author bryan
+ * @param <Modelo>
  */
 public interface CRUD <Modelo>{
         public boolean registrar(Modelo model);
