@@ -33,8 +33,8 @@ public class Pss1InventariosCunoc {
      */
     public static void main(String[] args) {
 
-//        VentanaSesion ventanaLogin = new VentanaSesion();
-//        ventanaLogin.setVisible(true);
+       VentanaSesion ventanaLogin = new VentanaSesion();
+       ventanaLogin.setVisible(true);
 //
 //        //Recuperacion de Inventarios
 //        ControladorInventario crIn = new ControladorInventario();
@@ -42,7 +42,7 @@ public class Pss1InventariosCunoc {
 //        System.out.println(ControladorInventario.INVENTARIO_CONTABILIDAD);
 //
 //        //Ingreso de proveedores
-        ControladorProveedor crPro = new ControladorProveedor();
+//      ControladorProveedor crPro = new ControladorProveedor();
 //        //boolean in=crPro.registrar(new Proveedor("Los emparedados", "776589-10", "Zona 25", "Venta de comida", "losEMparedados.com"));
 //        //crPro.registrar(new Proveedor("Intelaf", "776589-8", "Zona 8 -25", "Venta de tecnologia", "intelaf.com"));
 //        //System.out.println("ProveedorInsertado:"+in);
@@ -106,7 +106,7 @@ public class Pss1InventariosCunoc {
 
         //Ingreso de bienes;
 //        //Bien normal
-        ControladorBien crBien = new ControladorBien();
+ //       ControladorBien crBien = new ControladorBien();
 //        crBien.registrarBien(new Bien("curpk1", 1, "Procencia", '1', "Primer bien prueba", TipoDeBien.COMPRA, 589.25, "Ciencias de la ingenieria"));
 //        //Bien por donacion
 //        crBien.registrarBien(new Bien("curpk2", 1, "Procencia2", '1', "Segun bien prueba", TipoDeBien.DONACION, 1000.25, "Mi division", 12, "punto", 10));
@@ -136,7 +136,7 @@ public class Pss1InventariosCunoc {
 //        }
     
         //Trasladando un bien ya existente
-        crBien.trasladarBien("curpk3", new Timestamp(System.currentTimeMillis()), "1", "Seccion jsjsjs", "Otra persona");
+   //     crBien.trasladarBien("curpk3", new Timestamp(System.currentTimeMillis()), "1", "Seccion jsjsjs", "Otra persona");
 
     }
 
