@@ -48,15 +48,43 @@ public class ControladorProveedor {
         return (ArrayList<Proveedor>) proveedorDAO.buscarProveedoresPorNombre(nombre);
     }
 
-
+    /**
+     * Filtra proveedores por la direccion indicada
+     * @param direccion
+     * @return 
+     */
     public ArrayList<Proveedor> buscarProveedoresPorDireccion(String direccion) {
         return (ArrayList<Proveedor>) proveedorDAO.buscarProveedoresPorDireccion(direccion);
     }
 
-    
+    /**
+     * Filtra proveedores por la descripcion indicada
+     * @param descripcion
+     * @return 
+     */
     public ArrayList<Proveedor> buscarProveedoresPorDescripcion(String descripcion) {
         return (ArrayList<Proveedor>) proveedorDAO.buscarProveedorPorDescripcion(descripcion);
     }
 
-
+    
+    /**
+     * Modifica el proveedor enviado en la base de datos
+     * @param proveedor
+     * @return 
+     */
+    public boolean modificarProveedor(Proveedor proveedor){
+        return proveedorDAO.modificarProveedor(proveedor);
+    }
+    
+    /**
+     * Verifica datos del proveedor, si todo esta correcto regresa True
+     * @param datosProveedor
+     * @return 
+     */
+    public boolean verificarDatosProveedor(ArrayList<String> datosProveedor){
+        for (String dato : datosProveedor) {
+            if(dato.isEmpty())return false;
+        }
+        return true;
+    }
 }
