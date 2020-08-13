@@ -75,4 +75,16 @@ public class ControladorProveedor {
     public boolean modificarProveedor(Proveedor proveedor){
         return proveedorDAO.modificarProveedor(proveedor);
     }
+    
+    /**
+     * Verifica datos del proveedor, si todo esta correcto regresa True
+     * @param datosProveedor
+     * @return 
+     */
+    public boolean verificarDatosProveedor(ArrayList<String> datosProveedor){
+        for (String dato : datosProveedor) {
+            if(dato.isEmpty())return false;
+        }
+        return true;
+    }
 }
