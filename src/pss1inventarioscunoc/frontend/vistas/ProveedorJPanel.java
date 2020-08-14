@@ -4,16 +4,21 @@
  * and open the template in the editor.
  */
 package pss1inventarioscunoc.frontend.vistas;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorEncargado;
+import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
 import pss1inventarioscunoc.backend.pojos.Encargado;
+import pss1inventarioscunoc.backend.pojos.Proveedor;
 
 /**
  *
@@ -21,26 +26,26 @@ import pss1inventarioscunoc.backend.pojos.Encargado;
  */
 public class ProveedorJPanel extends javax.swing.JPanel {
 
-    private Encargado encargado = null;
-    private ControladorEncargado controlador = null;
-    public List<Encargado> listaEncargados = null;
-    public ObservableList<Encargado> listaEncargadosObsr = null;
-    
+    private Proveedor proveedorSeleccionado = null;
+    private ControladorProveedor controlador = null;
+    public List<Proveedor> listaProveedores = null;
+    public ObservableList<Proveedor> listaProveedoresObs = null;
+
     private String nombre;
 
     public static final String PROP_NOMBRE = "nombre";
 
-    
     /**
      * Creates new form ValidacionEncargado
      */
     public ProveedorJPanel() {
-        initComponents();
         this.setName("Proveedores");
-        this.controlador = new ControladorEncargado();
-        this.listaEncargados = new LinkedList<>();
-        this.listaEncargadosObsr = ObservableCollections.observableList(listaEncargados);
-        this.actualizarLista();
+        this.controlador = new ControladorProveedor();
+        this.listaProveedores = new LinkedList<>();
+        this.listaProveedoresObs = ObservableCollections.observableList(listaProveedores);
+        this.actualizarLista(controlador.buscarProveedores());
+        initComponents();
+
     }
 
     /**
@@ -51,6 +56,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -63,26 +69,27 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        cargoComboBox = new javax.swing.JComboBox<>();
-        dpiTextField = new javax.swing.JFormattedTextField();
+        tipoBusquedaProveedorComboBox = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         guardarButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         limpiarButton1 = new javax.swing.JButton();
+        nombreBusquedaTextField = new javax.swing.JTextField();
+        buscarButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        dpiTextField1 = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        dpiTextField2 = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
-        dpiTextField3 = new javax.swing.JFormattedTextField();
         jLabel15 = new javax.swing.JLabel();
-        dpiTextField4 = new javax.swing.JFormattedTextField();
         jLabel16 = new javax.swing.JLabel();
-        dpiTextField5 = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         guardarButton1 = new javax.swing.JButton();
         limpiarButton = new javax.swing.JButton();
+        nitTextField = new javax.swing.JTextField();
+        nombreTextField1 = new javax.swing.JTextField();
+        direccionTextField2 = new javax.swing.JTextField();
+        correoElectronicoTextField3 = new javax.swing.JTextField();
+        descripcionTextField4 = new javax.swing.JTextField();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -102,35 +109,41 @@ public class ProveedorJPanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(51, 119, 180));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaProveedoresObs}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreDeProveedor}"));
+        columnBinding.setColumnName("Nombre De Proveedor");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
+        columnBinding.setColumnName("Descripcion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${direccion}"));
+        columnBinding.setColumnName("Direccion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nit}"));
+        columnBinding.setColumnName("Nit");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${correoElectronico}"));
+        columnBinding.setColumnName("Correo Electronico");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${proveedorSeleccionado}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane1.setViewportView(jTable1);
 
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Filtre su busqueda:");
 
-        cargoComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        cargoComboBox.setForeground(new java.awt.Color(0, 50, 102));
-        cargoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        dpiTextField.setBackground(new java.awt.Color(255, 255, 255));
-        dpiTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        dpiTextField.setForeground(new java.awt.Color(0, 0, 51));
-        try {
-            dpiTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### ##### ####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        tipoBusquedaProveedorComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        tipoBusquedaProveedorComboBox.setForeground(new java.awt.Color(0, 50, 102));
+        tipoBusquedaProveedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "todos", "nombre", "direccion", "descripcion" }));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -162,6 +175,22 @@ public class ProveedorJPanel extends javax.swing.JPanel {
             }
         });
 
+        nombreBusquedaTextField.setBackground(new java.awt.Color(255, 255, 255));
+        nombreBusquedaTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        nombreBusquedaTextField.setForeground(new java.awt.Color(0, 0, 102));
+        nombreBusquedaTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        buscarButton2.setBackground(new java.awt.Color(0, 204, 204));
+        buscarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        buscarButton2.setForeground(new java.awt.Color(255, 255, 255));
+        buscarButton2.setText("Buscar");
+        buscarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buscarButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -175,7 +204,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                         .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -183,12 +212,15 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                                 .addGap(43, 43, 43)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(cargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(41, 41, 41)
-                                        .addComponent(jLabel3)))))))
+                                        .addComponent(jLabel3))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(nombreBusquedaTextField)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(11, 11, 11)))))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,85 +231,41 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(cargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreBusquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(limpiarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(limpiarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(51, 119, 180));
 
-        dpiTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        dpiTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        dpiTextField1.setForeground(new java.awt.Color(0, 0, 51));
-        try {
-            dpiTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### ##### ####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Nombre:");
+        jLabel12.setText("Nombre*");
 
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Nit:");
-
-        dpiTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        dpiTextField2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        dpiTextField2.setForeground(new java.awt.Color(0, 0, 51));
-        try {
-            dpiTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### ##### ####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jLabel13.setText("Nit*");
 
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Direccion:");
-
-        dpiTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        dpiTextField3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        dpiTextField3.setForeground(new java.awt.Color(0, 0, 51));
-        try {
-            dpiTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### ##### ####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jLabel14.setText("Direccion*");
 
         jLabel15.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Descripcion:");
-
-        dpiTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        dpiTextField4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        dpiTextField4.setForeground(new java.awt.Color(0, 0, 51));
-        try {
-            dpiTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### ##### ####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jLabel15.setText("Descripcion*");
 
         jLabel16.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Correo electronico:");
-
-        dpiTextField5.setBackground(new java.awt.Color(255, 255, 255));
-        dpiTextField5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        dpiTextField5.setForeground(new java.awt.Color(0, 0, 51));
-        try {
-            dpiTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### ##### ####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jLabel16.setText("Correo electronico");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,64 +293,96 @@ public class ProveedorJPanel extends javax.swing.JPanel {
             }
         });
 
+        nitTextField.setBackground(new java.awt.Color(255, 255, 255));
+        nitTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        nitTextField.setForeground(new java.awt.Color(0, 0, 102));
+        nitTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        nombreTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        nombreTextField1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        nombreTextField1.setForeground(new java.awt.Color(0, 0, 102));
+        nombreTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        direccionTextField2.setBackground(new java.awt.Color(255, 255, 255));
+        direccionTextField2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        direccionTextField2.setForeground(new java.awt.Color(0, 0, 102));
+        direccionTextField2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        correoElectronicoTextField3.setBackground(new java.awt.Color(255, 255, 255));
+        correoElectronicoTextField3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        correoElectronicoTextField3.setForeground(new java.awt.Color(0, 0, 102));
+        correoElectronicoTextField3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        correoElectronicoTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correoElectronicoTextField3ActionPerformed(evt);
+            }
+        });
+
+        descripcionTextField4.setBackground(new java.awt.Color(255, 255, 255));
+        descripcionTextField4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        descripcionTextField4.setForeground(new java.awt.Color(0, 0, 102));
+        descripcionTextField4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(guardarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dpiTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dpiTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(dpiTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                                .addComponent(dpiTextField4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(dpiTextField3, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(guardarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(248, 248, 248))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(direccionTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descripcionTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(correoElectronicoTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dpiTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(nombreTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(nitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel14)
+                        .addGap(9, 9, 9))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(direccionTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dpiTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dpiTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dpiTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descripcionTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(dpiTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(correoElectronicoTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -374,7 +394,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         panelValidacionLayout.setHorizontalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelValidacionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -430,14 +450,40 @@ public class ProveedorJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
-        //this.controlador.limpiarButtonValidacionEncargados(this);
+        limpiarCampos();
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
     private void guardarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton1ActionPerformed
-        // TODO add your handling code here:
+        ArrayList<String> datos = new ArrayList<>();
+        datos.add(this.nombreTextField1.getText());
+        datos.add(this.nitTextField.getText());
+        datos.add(this.direccionTextField2.getText());
+        datos.add(this.descripcionTextField4.getText());
+        if (!controlador.verificarDatosProveedor(datos)) {
+            JOptionPane.showMessageDialog(this,
+                    "Faltan datos para poder crear un proveedor",
+                    "Datos incompletos",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            boolean seRegistro = controlador.registrar(new Proveedor(this.nombreTextField1.getText(), this.nitTextField.getText(), this.direccionTextField2.getText(), this.descripcionTextField4.getText(), this.correoElectronicoTextField3.getText()));
+            if (seRegistro) {
+                JOptionPane.showMessageDialog(this,
+                        "Proveedor ingresado");
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se ha registrado el proveedor. Verifique los datos",
+                        "Error Interno",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+
     }//GEN-LAST:event_guardarButton1ActionPerformed
 
     private void limpiarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButton1ActionPerformed
@@ -448,19 +494,50 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_guardarButton2ActionPerformed
 
-    private void actualizarLista(){
-//        this.controlador.actualizarEncargadosValidacionEncargados(this);
+    private void correoElectronicoTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoElectronicoTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correoElectronicoTextField3ActionPerformed
+
+    private void buscarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton2ActionPerformed
+        buscarProveedor();
+    }//GEN-LAST:event_buscarButton2ActionPerformed
+
+    private void actualizarLista(List<Proveedor> listado) {
+        listaProveedoresObs.clear();
+        listaProveedoresObs.addAll((List<Proveedor>) (List<?>) listado);
     }
-    
-    
+
+    public ObservableList<Proveedor> getListaProveedoresObs() {
+        return listaProveedoresObs;
+    }
+
+    public void setListaProveedoresObs(ObservableList<Proveedor> listaProveedoresObs) {
+        this.listaProveedoresObs = listaProveedoresObs;
+    }
+
+    public Proveedor getProveedorSeleccionado() {
+        return proveedorSeleccionado;
+    }
+
+    public void setProveedorSeleccionado(Proveedor proveedorSeleccionado) {
+        /*       if (this.proveedorSeleccionado != null) {
+            this.proveedorSeleccionado = proveedorSeleccionado.clonarDatos();
+            proveedorSeleccionado.setEnabled(true);
+        } else {
+            actualizarButton.setEnabled(false);
+            this.proveedorSeleccionado = null;
+        }*/
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cargoComboBox;
-    private javax.swing.JFormattedTextField dpiTextField;
-    private javax.swing.JFormattedTextField dpiTextField1;
-    private javax.swing.JFormattedTextField dpiTextField2;
-    private javax.swing.JFormattedTextField dpiTextField3;
-    private javax.swing.JFormattedTextField dpiTextField4;
-    private javax.swing.JFormattedTextField dpiTextField5;
+    private javax.swing.JButton agregarButton;
+    private javax.swing.JButton agregarButton1;
+    private javax.swing.JButton agregarButton2;
+    private javax.swing.JButton buscarButton2;
+    private javax.swing.JTextField correoElectronicoTextField3;
+    private javax.swing.JTextField descripcionTextField4;
+    private javax.swing.JTextField direccionTextField2;
     private javax.swing.JButton guardarButton1;
     private javax.swing.JButton guardarButton2;
     private javax.swing.JLabel jLabel1;
@@ -484,6 +561,33 @@ public class ProveedorJPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton limpiarButton;
     private javax.swing.JButton limpiarButton1;
+    private javax.swing.JTextField nitTextField;
+    private javax.swing.JTextField nombreBusquedaTextField;
+    private javax.swing.JTextField nombreTextField1;
     private javax.swing.JPanel panelValidacion;
+    private javax.swing.JComboBox<String> tipoBusquedaProveedorComboBox;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        this.nombreTextField1.setText("");
+        this.nitTextField.setText("");
+        this.direccionTextField2.setText("");
+        this.descripcionTextField4.setText("");
+        this.correoElectronicoTextField3.setText("");
+    }
+
+    private void buscarProveedor() {
+        if (this.tipoBusquedaProveedorComboBox.getSelectedItem().equals("todos")) {
+            actualizarLista(controlador.buscarProveedores());//Todo
+        } else if (this.tipoBusquedaProveedorComboBox.getSelectedItem().equals("nombre")) {
+            actualizarLista(controlador.buscarProveedoresPorNombre(nombreBusquedaTextField.getText()));
+        } else if (this.tipoBusquedaProveedorComboBox.getSelectedItem().equals("direccion")) {
+            actualizarLista(controlador.buscarProveedoresPorDireccion(nombreBusquedaTextField.getText()));
+        } else {//Descripcion
+            actualizarLista(controlador.buscarProveedoresPorDescripcion(nombreBusquedaTextField.getText()));
+        }
+        setProveedorSeleccionado(null);
+    }
+
 }
