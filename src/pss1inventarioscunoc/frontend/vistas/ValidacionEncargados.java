@@ -51,8 +51,8 @@ public class ValidacionEncargados extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-    	bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -83,17 +83,14 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Validación de Encargados");
 
         panelValidacion.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Agregar Encargado");
 
         nombreTextField.setBackground(new java.awt.Color(255, 255, 255));
@@ -102,7 +99,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         nombreTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Apellido");
 
         cargoComboBox.setBackground(new java.awt.Color(255, 255, 255));
@@ -115,7 +111,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         cargoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Cargo");
 
         divisionComboBox.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,12 +123,10 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         divisionTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("División");
 
         agregarButton.setBackground(new java.awt.Color(51, 204, 0));
         agregarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        agregarButton.setForeground(new java.awt.Color(255, 255, 255));
         agregarButton.setText("AGREGAR");
         agregarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         agregarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -143,50 +136,40 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Tabla de Encargados");
 
-        /*org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaEncargadosObsr}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(
-        	org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tablaEncargados);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(
-        	org.jdesktop.beansbinding.ELProperty.create("${id}"));
-        columnBinding.setColumnName("DPI");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
-        columnBinding.setColumnName("Nombre");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${apellido}"));
-        columnBinding.setColumnName("Apellido");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cargo}"));
-        columnBinding.setColumnName("Cargo");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${division}"));
-        columnBinding.setColumnName("Division");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();*/
-
-
-        /*tablaEncargados.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEncargados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
 
             }
-        ));*/
+        ));
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaEncargadosObsr}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tablaEncargados);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
+        columnBinding.setColumnName("Id");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${apellido}"));
+        columnBinding.setColumnName("Apellido");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cargo}"));
+        columnBinding.setColumnName("Cargo");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${division}"));
+        columnBinding.setColumnName("Division");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
         jScrollPane1.setViewportView(tablaEncargados);
 
         guardarButton.setBackground(new java.awt.Color(255, 153, 0));
         guardarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        guardarButton.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton.setText("GUARDAR");
         guardarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +180,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
 
         eliminarButton.setBackground(new java.awt.Color(204, 0, 0));
         eliminarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
         eliminarButton.setText("ELIMINAR");
         eliminarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +190,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
 
         limpiarButton.setBackground(new java.awt.Color(0, 204, 204));
         limpiarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
         limpiarButton.setText("LIMPIAR");
         limpiarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +204,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         apellidoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("DPI");
 
         dpiTextField.setBackground(new java.awt.Color(255, 255, 255));
@@ -365,6 +345,8 @@ public class ValidacionEncargados extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void actualizarLista(){
