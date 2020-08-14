@@ -74,6 +74,16 @@ public class ImplementacionBien implements BienDAO {
      */
     @Override
     public List<Bien> recuperarLista() {
+        
+        /* para pruebas
+        bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
+        bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
+        bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
+        bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
+        bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
+        bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
+        bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
+        */
         ArrayList<Bien> bienes = new ArrayList<>();
         ResultSet resAux;
         PreparedStatement prepAux;
@@ -125,6 +135,7 @@ public class ImplementacionBien implements BienDAO {
             ex.printStackTrace();
             return null;
         }
+        
         return bienes;
     }
 

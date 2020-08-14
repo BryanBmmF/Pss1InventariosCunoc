@@ -173,6 +173,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         jButton15.setFocusPainted(false);
         jButton15.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
         jButton15.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 250, 60));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -185,7 +190,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 215, Short.MAX_VALUE))
+                .addGap(0, 257, Short.MAX_VALUE))
         );
 
         ventana.setBackground(new java.awt.Color(0, 50, 102));
@@ -200,12 +205,12 @@ public class VentanaInicio extends javax.swing.JFrame {
             .addGroup(ventanaLayout.createSequentialGroup()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ventanaPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
+                .addComponent(ventanaPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ventanaLayout.setVerticalGroup(
             ventanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventanaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ventanaPrincipal)
@@ -270,6 +275,11 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        ventanaPrincipal.add(new ConsultaBienes());
+    }//GEN-LAST:event_jButton15ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
