@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pss1inventarioscunoc.backend.bd.Conexion;
+import pss1inventarioscunoc.backend.controladores.ControladorBien;
 import pss1inventarioscunoc.backend.dao.interfaces.BienDAO;
 import pss1inventarioscunoc.backend.enums.TipoDeBien;
 import pss1inventarioscunoc.backend.pojos.Bien;
@@ -25,22 +26,61 @@ public class ImplementacionBien implements BienDAO {
     private PreparedStatement prepStatement;
     private ResultSet result;
 
+    /**
+     * Ingresa un bien que si posee factura
+     * @param model
+     * @throws SQLException 
+     */
+    private void insertarBienConFactura(Bien model) throws SQLException {
+        prepStatement = Conexion.getConexion().prepareStatement(REGISTRAR_BIEN);
+        prepStatement.setString(1, model.getCur());
+        prepStatement.setInt(2, model.getIdFactura());
+        prepStatement.setString(3, model.getProcedencia());
+        prepStatement.setString(4, String.valueOf(model.getEstado()));
+        prepStatement.setString(5, model.getDescripcion());
+        prepStatement.setString(6, model.getTipo().toString());
+        prepStatement.setDouble(7, model.getValor());
+        prepStatement.setString(8, model.getDivision());
+        //System.out.println(prepStatement.toString());
+        prepStatement.executeUpdate();
+        prepStatement.close();
+
+    }
+    /**
+     * Ingresa un bien que no tiene factura
+     * @param model
+     * @throws SQLException 
+     */
+    private void insertarBinSinFactura(Bien model) throws SQLException {
+        prepStatement = Conexion.getConexion().prepareStatement(REGISTRAR_BIEN_SIN_FACTURA);
+        prepStatement.setString(1, model.getCur());
+        prepStatement.setString(2, model.getProcedencia());
+        prepStatement.setString(3, String.valueOf(model.getEstado()));
+        prepStatement.setString(4, model.getDescripcion());
+        prepStatement.setString(5, model.getTipo().toString());
+        prepStatement.setDouble(6, model.getValor());
+        prepStatement.setString(7, model.getDivision());
+        //System.out.println(prepStatement.toString());
+        prepStatement.executeUpdate();
+        prepStatement.close();
+
+    }
+
+    /**
+     * Se registra un bien
+     *
+     * @param model
+     * @return
+     */
     @Override
     public boolean registrar(Bien model) {
         try {
             //Registro de bien
-            prepStatement = Conexion.getConexion().prepareStatement(REGISTRAR_BIEN);
-            prepStatement.setString(1, model.getCur());
-            prepStatement.setInt(2, model.getIdFactura());
-            prepStatement.setString(3, model.getProcedencia());
-            prepStatement.setString(4, String.valueOf(model.getEstado()));
-            prepStatement.setString(5, model.getDescripcion());
-            prepStatement.setString(6, model.getTipo().toString());
-            prepStatement.setDouble(7, model.getValor());
-            prepStatement.setString(8, model.getDivision());
-            System.out.println(prepStatement.toString());
-            prepStatement.executeUpdate();
-            prepStatement.close();
+            if (model.getIdFactura() == ControladorBien.ID_FACTURA_INEXISTENTE) {
+                insertarBinSinFactura(model);
+            } else {
+                insertarBienConFactura(model);
+            }
             if (model.getTipo() == TipoDeBien.TRASLADO) {
                 prepStatement = Conexion.getConexion().prepareStatement(REGISTRAR_BIEN_TRASLADO);
                 prepStatement.setString(1, model.getCur());
@@ -63,6 +103,7 @@ public class ImplementacionBien implements BienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return false;
         }
         return true;
     }
@@ -236,7 +277,7 @@ public class ImplementacionBien implements BienDAO {
             prepStatement.setTimestamp(2, fecha);
             prepStatement.setString(3, autorizacion);
             prepStatement.setString(4, seccion);
-            prepStatement.setString(5,persona_que_recibio);
+            prepStatement.setString(5, persona_que_recibio);
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
