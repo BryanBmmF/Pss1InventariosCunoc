@@ -32,6 +32,7 @@ public interface BienDAO extends CRUD<Bien> {
     public static final String TRASLADAR_BIEN = "INSERT INTO TRASLADO(cur_bien,fecha,autorizacion,seccion,persona_que_recibio) VALUES(?,?,?,?,?)";
     public static final String DESACTIVAR_TRASLADO = "UPDATE TRASLADO SET autorizacion =0 WHERE cur_bien =?";
     //CRUD
+    public static final String REGISTRAR_BIEN_SIN_FACTURA ="INSERT INTO BIEN(cur,procedencia,estado,descripcion,tipo,valor,division) VALUES(?,?,?,?,?,?,?)";
     public static final String REGISTRAR_BIEN = "INSERT INTO BIEN VALUES(?,?,?,?,?,?,?,?)";
     public static final String REGISTRAR_BIEN_TRASLADO = "INSERT INTO TRASLADO(cur_bien,fecha,autorizacion,seccion,persona_que_recibio) VALUES(?,?,?,?,?)";
     public static final String REGISTRAR_BIEN_DONACION = "INSERT INTO DONACION(correlativo,punto,numero_acta,cur_bien) VALUES(?,?,?,?)";

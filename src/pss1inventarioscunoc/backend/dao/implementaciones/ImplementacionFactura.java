@@ -37,7 +37,7 @@ public class ImplementacionFactura implements FacturaDAO {
     @Override
     public boolean registrar(Factura model) {
         try {
-            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_FACTURA);
+            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_FACTURA_SIN_PROVEEDOR);
             prepStatement.setInt(1, model.getIdProveedor());
             prepStatement.setInt(2, model.getNumeroFactura());
             prepStatement.setTimestamp(3, model.getFecha());
@@ -84,10 +84,13 @@ public class ImplementacionFactura implements FacturaDAO {
     public boolean eliminar(Factura model) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     /**
-     * Devuelve las facturas que coincidan con 'nombreProveedor', null si existio algun error
+     * Devuelve las facturas que coincidan con 'nombreProveedor', null si
+     * existio algun error
+     *
      * @param nombreProveedor
-     * @return 
+     * @return
      */
     @Override
     public ArrayList<Factura> buscarFacturaPorProveedor(String nombreProveedor) {
@@ -109,10 +112,12 @@ public class ImplementacionFactura implements FacturaDAO {
     }
 
     /**
-     * Devuelve las facturas que esten en el rango de fechas especificadas, null si existio algun error
+     * Devuelve las facturas que esten en el rango de fechas especificadas, null
+     * si existio algun error
+     *
      * @param fechaInicial
      * @param fechaFinal
-     * @return 
+     * @return
      */
     @Override
     public ArrayList<Factura> buscarFacturaPorFecha(Timestamp fechaInicial, Timestamp fechaFinal) {
@@ -132,6 +137,51 @@ public class ImplementacionFactura implements FacturaDAO {
             return null;
         }
         return facturas;
+    }
+
+    /**
+     * Se registra una factura que posee proveedor
+     * @param model
+     * @return 
+     */
+    @Override
+    public boolean registrarFacturaConProveedor(Factura model) {
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_FACTURA_CON_PROVEEDOR);
+            prepStatement.setInt(1, model.getIdProveedor());
+            prepStatement.setInt(2, model.getNumeroFactura());
+            prepStatement.setTimestamp(3, model.getFecha());
+            prepStatement.setString(4, model.getDescripcion());
+            prepStatement.setDouble(5, model.getValor());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Se registra una factura que no posee proveedor
+     * @param model
+     * @return 
+     */
+    @Override
+    public boolean registrarFacturaSinProveedor(Factura model) {
+                try {
+            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_FACTURA_SIN_PROVEEDOR);
+            prepStatement.setInt(1, model.getNumeroFactura());
+            prepStatement.setTimestamp(2, model.getFecha());
+            prepStatement.setString(3, model.getDescripcion());
+            prepStatement.setDouble(4, model.getValor());
+                    System.out.println(prepStatement.toString());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }
