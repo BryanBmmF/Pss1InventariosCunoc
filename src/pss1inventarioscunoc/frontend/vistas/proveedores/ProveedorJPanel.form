@@ -34,14 +34,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="jPanel1" min="-2" pref="837" max="-2" attributes="0"/>
+              <Component id="jPanel1" pref="837" max="32767" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -138,7 +138,7 @@
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel2" max="32767" attributes="0"/>
                           <EmptySpace pref="57" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -159,7 +159,7 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
-                                      <Component id="limpiarButton1" min="-2" pref="145" max="-2" attributes="0"/>
+                                      <Component id="modificarButton1" min="-2" pref="145" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="guardarButton2" min="-2" pref="379" max="-2" attributes="0"/>
                                   </Group>
@@ -212,7 +212,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="guardarButton2" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Component id="limpiarButton1" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="modificarButton1" min="-2" pref="34" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -290,7 +290,7 @@
                                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                               </Subbinding>
                             </BindingProperty>
-                            <BindingProperty name="selectedElement" source="Form" sourcePath="${proveedorSeleccionado}" target="jTable1" targetPath="selectedElement" updateStrategy="0" immediately="false">
+                            <BindingProperty name="selectedElement" source="Form" sourcePath="${proveedor}" target="jTable1" targetPath="selectedElement" updateStrategy="0" immediately="false">
                               <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
                             </BindingProperty>
                           </BindingProperties>
@@ -373,7 +373,7 @@
                         <Property name="text" type="java.lang.String" value="Busqueda de proveedores"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="limpiarButton1">
+                    <Component class="javax.swing.JButton" name="modificarButton1">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="0" type="rgb"/>
@@ -392,7 +392,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="limpiarButton1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modificarButton1ActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="nombreBusquedaTextField">

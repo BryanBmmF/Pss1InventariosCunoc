@@ -86,5 +86,5 @@ public class ControladorProveedor {
             if(dato.isEmpty())return false;
         }
         return true;
-    }
+    } 
 }
