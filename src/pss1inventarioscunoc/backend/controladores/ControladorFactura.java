@@ -5,11 +5,14 @@
  */
 package pss1inventarioscunoc.backend.controladores;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionFactura;
 import pss1inventarioscunoc.backend.dao.interfaces.FacturaDAO;
 import pss1inventarioscunoc.backend.pojos.Factura;
+import pss1inventarioscunoc.backend.pojos.Proveedor;
 
 /**
  *
@@ -34,7 +37,28 @@ public class ControladorFactura {
     }
 
     /**
-     * Devuelve todas las facturas del sistema, null si hubiera errores de consulta
+     * Ingresa una factura con proveedor al sistema
+     *
+     * @param factura
+     * @return
+     */
+    public boolean registrarFacturaConProveedor(Factura factura) {
+        return facturaDao.registrarFacturaConProveedor(factura);
+    }
+
+    /**
+     * Ingresa una factura sin proveedor al sistema
+     *
+     * @param factura
+     * @return
+     */
+    public boolean registrarFacturaSinProveedor(Factura factura) {
+        return facturaDao.registrarFacturaSinProveedor(factura);
+    }
+
+    /**
+     * Devuelve todas las facturas del sistema, null si hubiera errores de
+     * consulta
      *
      * @return
      */
@@ -43,22 +67,55 @@ public class ControladorFactura {
     }
 
     /**
-     * Devuelve las facturas del proveedor indicado, null si hubieran errores de consulta
+     * Devuelve las facturas del proveedor indicado, null si hubieran errores de
+     * consulta
+     *
      * @param nombreProveedor
-     * @return 
+     * @return
      */
     public ArrayList<Factura> buscarFacturas(String nombreProveedor) {
         return (ArrayList<Factura>) facturaDao.buscarFacturaPorProveedor(nombreProveedor);
 
     }
-    
+
     /**
-     * Devuelve las facturas que esten en el rango de fechas especificado, null si existio algun error
+     * Devuelve las facturas que esten en el rango de fechas especificado, null
+     * si existio algun error
+     *
      * @param fechaInicial
      * @param fechaFinal
-     * @return 
+     * @return
      */
-    public ArrayList<Factura> buscarFacturas(Timestamp fechaInicial, Timestamp fechaFinal){
-        return (ArrayList<Factura>)facturaDao.buscarFacturaPorFecha(fechaInicial, fechaFinal);
+    public ArrayList<Factura> buscarFacturas(Timestamp fechaInicial, Timestamp fechaFinal) {
+        return (ArrayList<Factura>) facturaDao.buscarFacturaPorFecha(fechaInicial, fechaFinal);
+    }
+
+    /**
+     * Se validadan los campos de ingreso de facturas
+     *
+     * @param numeroDeFactura
+     * @param fecha
+     * @param descripcion
+     * @param valor
+     * @param idProveedor
+     * @return
+     */
+    public Factura validarDatosDeIngreso(String numeroDeFactura, Date fecha, String descripcion, String valor, Proveedor proveedor) {
+        if (numeroDeFactura.isEmpty() || fecha == null || descripcion.isEmpty() || valor.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Faltan datos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        try {
+            Integer.valueOf(numeroDeFactura);
+            Double.valueOf(valor);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor debe ser un decimal Ej: 25.32", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        if (proveedor != null) {
+            return new Factura(proveedor.getIdProveedor(), Integer.valueOf(numeroDeFactura), new Timestamp(fecha.getTime()), descripcion, Double.parseDouble(valor));
+        } else {
+            return new Factura(-1, Integer.valueOf(numeroDeFactura), new Timestamp(fecha.getTime()), descripcion, Double.parseDouble(valor));
+        }
     }
 }

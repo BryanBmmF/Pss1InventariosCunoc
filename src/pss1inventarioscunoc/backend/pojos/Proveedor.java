@@ -51,6 +51,9 @@ public class Proveedor {
         this.descripcion = descripcion;
         this.correoElectronico = correoElectronico;
     }
+
+    public Proveedor() {
+    }
     
     public int getIdProveedor() {
         return idProveedor;
