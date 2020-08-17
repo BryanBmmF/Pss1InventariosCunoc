@@ -216,7 +216,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
                         .addGap(341, 341, 341)
                         .addComponent(jLabel24))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
+                        .addGap(288, 288, 288)
                         .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
@@ -366,6 +366,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
             if (controlador.registrarFacturaConProveedor(factura)) {
                 JOptionPane.showMessageDialog(this, "Se ingreso la factura");
                 limpiarCampos();
+                actualizarLista(controlador.buscarFacturas());
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo ingresar la factura", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -373,6 +374,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
             if (controlador.registrarFacturaSinProveedor(factura)) {
                 JOptionPane.showMessageDialog(this, "Se ingreso la factura");
                 limpiarCampos();
+                actualizarLista(controlador.buscarFacturas());
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo ingresar la factura", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -388,7 +390,9 @@ public class FacturasJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_numeroDeFacturaTextField6KeyTyped
 
     private void modificarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButton2ActionPerformed
-        // TODO add your handling code here:
+        ModificarFacturasDialog mod = new ModificarFacturasDialog(null, true, this.factura);
+        mod.setVisible(true);
+        actualizarLista(controlador.buscarFacturas());
     }//GEN-LAST:event_modificarButton2ActionPerformed
 
     private void actualizarLista(List<Factura> listado) {

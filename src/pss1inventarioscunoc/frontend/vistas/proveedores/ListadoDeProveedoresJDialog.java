@@ -15,6 +15,7 @@ import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
+import pss1inventarioscunoc.frontend.vistas.facturas.ModificarFacturasDialog;
 
 /**
  *
@@ -27,6 +28,7 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
     public ObservableList<Proveedor> listaProveedoresObs = null;
     private Proveedor proveedor;
     private FacturasJPanel panelFacturas;
+    private ModificarFacturasDialog modiFacturasDialog;
 
     /**
      * Creates new form listadoDeProveedoresJDialog
@@ -39,6 +41,18 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
         this.actualizarLista(controlador.buscarProveedores());
         this.proveedor = new Proveedor();
         this.panelFacturas = facturasPanel;
+        initComponents();
+    }
+    
+    
+        public ListadoDeProveedoresJDialog(java.awt.Frame parent, boolean modal, ModificarFacturasDialog modiFacturasDialog) {
+        super(parent, modal);
+        this.controlador = new ControladorProveedor();
+        this.listaProveedores = new LinkedList<>();
+        this.listaProveedoresObs = ObservableCollections.observableList(listaProveedores);
+        this.actualizarLista(controlador.buscarProveedores());
+        this.proveedor = new Proveedor();
+        this.modiFacturasDialog = modiFacturasDialog;
         initComponents();
     }
 
@@ -159,6 +173,9 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
             this.panelFacturas.setProveedor(this.proveedor);
             this.panelFacturas.getProveedorTextField5().setText(this.proveedor.getNombreDeProveedor());
 
+        }else if(modiFacturasDialog!=null){
+            this.modiFacturasDialog.setProveedor(proveedor);
+            this.modiFacturasDialog.getProveedorTextField5().setText(this.proveedor.getNombreDeProveedor());
         }
         JOptionPane.showMessageDialog(this, "Proveedor seleccionado:" + this.proveedor.getNombreDeProveedor());
         this.dispose();

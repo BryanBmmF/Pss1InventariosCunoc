@@ -6,6 +6,7 @@ package pss1inventarioscunoc.frontend.vistas;
 import javax.swing.UIManager;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
+import pss1inventarioscunoc.frontend.vistas.proveedores.ProveedorJPanel;
 
 /**
  *
@@ -20,7 +21,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
-        ventanaPrincipal.add(new BienesJPanel1());
+        ventanaPrincipal.add(new FacturasJPanel());
     }
 
     @SuppressWarnings("unchecked")

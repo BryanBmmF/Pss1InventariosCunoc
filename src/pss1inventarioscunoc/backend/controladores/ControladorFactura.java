@@ -67,6 +67,26 @@ public class ControladorFactura {
     }
 
     /**
+     * Actualiza los datos de una factura, y su proveedor
+     *
+     * @param factura
+     * @return
+     */
+    public boolean actualizarFacturaYSuProveedor(Factura factura) {
+        return facturaDao.actualizarFacturaYSuProveedor(factura);
+    }
+
+    /**
+     * Actualiza los datos de una factura, elimina el proveedor
+     *
+     * @param factura
+     * @return
+     */
+    public boolean actualizarFacturaEliminandoProveedor(Factura factura) {
+        return facturaDao.actualizarFacturaQuitandoProveedor(factura);
+    }
+
+    /**
      * Devuelve las facturas del proveedor indicado, null si hubieran errores de
      * consulta
      *
