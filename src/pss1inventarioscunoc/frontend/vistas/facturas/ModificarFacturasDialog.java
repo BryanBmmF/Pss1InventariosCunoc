@@ -262,22 +262,24 @@ public class ModificarFacturasDialog extends javax.swing.JDialog {
                 this.descripcionTextField10.getText(),
                 this.valorTextField9.getText(),
                 proveedor);
-        if(proveedor==null){
-            factura.setIdProveedor(this.factura.getIdProveedor());
-        }
-        
         if (factura != null) {
-            factura.setIdFactura(this.factura.getIdFactura());
-            if (factura.getIdProveedor() <= 0) {//Ingreso sin proveedor
-                ingreso = controlador.actualizarFacturaEliminandoProveedor(factura);
-            } else {//Ingreso con proveedor
-                ingreso = controlador.actualizarFacturaYSuProveedor(factura);
+            if (proveedor == null) {
+                factura.setIdProveedor(this.factura.getIdProveedor());
             }
-            if (ingreso) {
-                JOptionPane.showMessageDialog(this, "Fatura actualizada");
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo actualizar la factura", "Error", JOptionPane.ERROR_MESSAGE);
+
+            if (factura != null) {
+                factura.setIdFactura(this.factura.getIdFactura());
+                if (factura.getIdProveedor() <= 0) {//Ingreso sin proveedor
+                    ingreso = controlador.actualizarFacturaEliminandoProveedor(factura);
+                } else {//Ingreso con proveedor
+                    ingreso = controlador.actualizarFacturaYSuProveedor(factura);
+                }
+                if (ingreso) {
+                    JOptionPane.showMessageDialog(this, "Fatura actualizada");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo actualizar la factura", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_modificarButton2ActionPerformed
@@ -324,7 +326,7 @@ public class ModificarFacturasDialog extends javax.swing.JDialog {
     private javax.swing.JButton quitarProvedorButton3;
     private javax.swing.JTextField valorTextField9;
     // End of variables declaration//GEN-END:variables
-    
+
     private void limpiarCampos() {
         this.numeroDeFacturaTextField6.setText("");
         this.descripcionTextField10.setText("");
@@ -339,5 +341,5 @@ public class ModificarFacturasDialog extends javax.swing.JDialog {
         this.proveedorTextField5.setText(factura.getNombreProveedor());
         this.fechajDateChooser1.setDate(factura.getFecha());
     }
-    
+
 }

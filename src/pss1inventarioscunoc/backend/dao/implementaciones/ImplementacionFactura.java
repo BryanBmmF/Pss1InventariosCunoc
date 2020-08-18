@@ -125,6 +125,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA_POR_FECHA);
             prepStatement.setTimestamp(1, fechaInicial);
             prepStatement.setTimestamp(2, fechaFinal);
+            System.out.println(prepStatement.toString());
             result = prepStatement.executeQuery();
             while (result.next()) {
                 facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));

@@ -125,6 +125,11 @@ public class ControladorFactura {
             JOptionPane.showMessageDialog(null, "Faltan datos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+        if (descripcion.length() > 45) {
+            JOptionPane.showMessageDialog(null, "Descripcion debe tener 45 caracteres como maximo", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
         try {
             Integer.valueOf(numeroDeFactura);
             Double.valueOf(valor);

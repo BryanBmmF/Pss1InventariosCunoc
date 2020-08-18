@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionBien;
+import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionInventario;
 import pss1inventarioscunoc.backend.dao.interfaces.BienDAO;
+import pss1inventarioscunoc.backend.dao.interfaces.InventarioDAO;
 import pss1inventarioscunoc.backend.pojos.Bien;
 
 /**
@@ -32,7 +34,9 @@ public class ControladorBien {
      * @return
      */
     public boolean registrarBien(Bien bien) {
-        return bienDao.registrar(bien);
+        bienDao.registrar(bien);
+        InventarioDAO inv = new ImplementacionInventario();
+        return inv.insertarRegistroBienInventario(bien);
     }
 
     /**
@@ -91,15 +95,33 @@ public class ControladorBien {
     /**
      * Se verifican si los datos(generales) tipo cadena de bien se han ingresado
      *
-     * @param datosBien
+     * @param cur
+     * @param procedencia
+     * @param descripcion
+     * @param division
+     * @param valor
      * @return
      */
-    public boolean verificarDatosGeneralesBien(ArrayList<String> datosBien, String valor) {
-        for (String dato : datosBien) {
-            if (dato.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Faltan campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+    public boolean verificarValoresGenerales(String cur, String procedencia, String descripcion, String division, String valor) {
+        if (cur.isEmpty() || procedencia.isEmpty() || descripcion.isEmpty() || division.isEmpty() || valor.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Faltan datos obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (cur.length() > 45) {
+            JOptionPane.showMessageDialog(null, "Cur solo debe tener como maximo 45 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (procedencia.length() > 45) {
+            JOptionPane.showMessageDialog(null, "Procedencia solo debe tener como maximo 45 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (descripcion.length() > 70) {
+            JOptionPane.showMessageDialog(null, "Descripcion solo debe tener como maximo 70 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (division.length() > 70) {
+            JOptionPane.showMessageDialog(null, "Division solo debe tener como 70 maximo  caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false;
         }
         return verificarDatoNumerico(valor);
     }
@@ -113,11 +135,15 @@ public class ControladorBien {
      * @return
      */
     public boolean verificarDatosDonacion(String correlativo, String punto, String numeroDeActa) {
+        if (correlativo.isEmpty() || punto.isEmpty() || numeroDeActa.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Faltan campos obligatorios", "Error", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
         try {
             Integer.valueOf(correlativo);
             Integer.valueOf(numeroDeActa);
-            if (punto.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Faltan campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            if (punto.length() > 45) {
+                JOptionPane.showMessageDialog(null, "Putno solo puede tener como maximo 45 caracteres", "Error", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         } catch (NumberFormatException ex) {
@@ -131,13 +157,21 @@ public class ControladorBien {
      * Verifica que los datos del bien traslado sean correctos
      *
      * @param fecha
+     * @param seccion
      * @param receptor
-     * @param personaQueRecibio
      * @return
      */
-    public boolean verificarDatosTraslado(Date fecha, String receptor, String personaQueRecibio) {
-        if (fecha == null || receptor.isEmpty() || personaQueRecibio.isEmpty()) {
+    public boolean verificarDatosTraslado(Date fecha, String seccion, String receptor) {
+        if (fecha == null || seccion.isEmpty() || receptor.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Faltan datos obligatorios en el apartado TRASLADO", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (seccion.length() > 45) {
+            JOptionPane.showMessageDialog(null, "Seccion solo puede tener como maximo 45 caracteres", "Error", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (receptor.length() > 45) {
+            JOptionPane.showMessageDialog(null, "Receptor solo puede tener como maximo 45 caracteres", "Error", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
