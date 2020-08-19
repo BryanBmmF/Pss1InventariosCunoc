@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pss1inventarioscunoc.frontend.vistas;
+package pss1inventarioscunoc.frontend.vistas.proveedores;
 
+import pss1inventarioscunoc.frontend.vistas.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,11 +27,10 @@ import pss1inventarioscunoc.backend.pojos.Proveedor;
  */
 public class ProveedorJPanel extends javax.swing.JPanel {
 
-    private Proveedor proveedorSeleccionado = null;
     private ControladorProveedor controlador = null;
     public List<Proveedor> listaProveedores = null;
     public ObservableList<Proveedor> listaProveedoresObs = null;
-
+    private Proveedor proveedor;
     private String nombre;
 
     public static final String PROP_NOMBRE = "nombre";
@@ -44,6 +44,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         this.listaProveedores = new LinkedList<>();
         this.listaProveedoresObs = ObservableCollections.observableList(listaProveedores);
         this.actualizarLista(controlador.buscarProveedores());
+        this.proveedor = new Proveedor();
         initComponents();
 
     }
@@ -73,7 +74,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         guardarButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        limpiarButton1 = new javax.swing.JButton();
+        modificarButton1 = new javax.swing.JButton();
         nombreBusquedaTextField = new javax.swing.JTextField();
         buscarButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -132,7 +133,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${proveedorSeleccionado}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${proveedor}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         jScrollPane1.setViewportView(jTable1);
@@ -164,14 +165,14 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Busqueda de proveedores");
 
-        limpiarButton1.setBackground(new java.awt.Color(0, 204, 204));
-        limpiarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        limpiarButton1.setForeground(new java.awt.Color(255, 255, 255));
-        limpiarButton1.setText("Editar proveedor");
-        limpiarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        limpiarButton1.addActionListener(new java.awt.event.ActionListener() {
+        modificarButton1.setBackground(new java.awt.Color(0, 204, 204));
+        modificarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        modificarButton1.setForeground(new java.awt.Color(255, 255, 255));
+        modificarButton1.setText("Editar proveedor");
+        modificarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        modificarButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                limpiarButton1ActionPerformed(evt);
+                modificarButton1ActionPerformed(evt);
             }
         });
 
@@ -199,7 +200,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
-                        .addComponent(limpiarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(modificarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -241,7 +242,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(limpiarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(modificarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -405,7 +406,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
@@ -443,12 +444,12 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         bindingGroup.bind();
@@ -475,6 +476,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this,
                         "Proveedor ingresado");
                 limpiarCampos();
+                actualizarLista(controlador.buscarProveedores());
             } else {
                 JOptionPane.showMessageDialog(this,
                         "No se ha registrado el proveedor. Verifique los datos",
@@ -486,9 +488,11 @@ public class ProveedorJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_guardarButton1ActionPerformed
 
-    private void limpiarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_limpiarButton1ActionPerformed
+    private void modificarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButton1ActionPerformed
+        ModificarProveedorJDialog mod = new ModificarProveedorJDialog(null, true, proveedor, controlador);
+        mod.setVisible(true);
+        buscarProveedor();
+    }//GEN-LAST:event_modificarButton1ActionPerformed
 
     private void guardarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton2ActionPerformed
         // TODO add your handling code here:
@@ -515,25 +519,22 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         this.listaProveedoresObs = listaProveedoresObs;
     }
 
-    public Proveedor getProveedorSeleccionado() {
-        return proveedorSeleccionado;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setProveedorSeleccionado(Proveedor proveedorSeleccionado) {
-        /*       if (this.proveedorSeleccionado != null) {
-            this.proveedorSeleccionado = proveedorSeleccionado.clonarDatos();
-            proveedorSeleccionado.setEnabled(true);
+    public void setProveedor(Proveedor proveedor) {
+        if (proveedor != null) {
+            this.modificarButton1.setEnabled(true);
+            this.proveedor = proveedor;
         } else {
-            actualizarButton.setEnabled(false);
-            this.proveedorSeleccionado = null;
-        }*/
+            this.modificarButton1.setEnabled(false);
+            this.proveedor = null;
+        }
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregarButton;
-    private javax.swing.JButton agregarButton1;
-    private javax.swing.JButton agregarButton2;
     private javax.swing.JButton buscarButton2;
     private javax.swing.JTextField correoElectronicoTextField3;
     private javax.swing.JTextField descripcionTextField4;
@@ -560,7 +561,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton limpiarButton;
-    private javax.swing.JButton limpiarButton1;
+    private javax.swing.JButton modificarButton1;
     private javax.swing.JTextField nitTextField;
     private javax.swing.JTextField nombreBusquedaTextField;
     private javax.swing.JTextField nombreTextField1;
@@ -587,7 +588,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         } else {//Descripcion
             actualizarLista(controlador.buscarProveedoresPorDescripcion(nombreBusquedaTextField.getText()));
         }
-        setProveedorSeleccionado(null);
+        setProveedor(null);
     }
 
 }

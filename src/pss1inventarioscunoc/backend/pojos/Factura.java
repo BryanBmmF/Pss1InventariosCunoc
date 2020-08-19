@@ -28,6 +28,7 @@ public class Factura {
      * @param fecha
      * @param descripcion
      * @param valor 
+     * @param nombreProveedor 
      */
     public Factura(int idFactura, int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor,String nombreProveedor) {
         this.idFactura = idFactura;
@@ -102,6 +103,14 @@ public class Factura {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
     }
     
     public String toString(){

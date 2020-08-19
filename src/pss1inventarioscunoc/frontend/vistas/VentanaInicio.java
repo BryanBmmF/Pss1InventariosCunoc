@@ -4,6 +4,8 @@
 package pss1inventarioscunoc.frontend.vistas;
 
 import javax.swing.UIManager;
+import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
+import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
 
 /**
  *
