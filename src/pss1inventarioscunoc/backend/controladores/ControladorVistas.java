@@ -24,7 +24,7 @@ import pss1inventarioscunoc.frontend.vistas.proveedores.*;
  */
 public class ControladorVistas {
     
-    public static GrupoVista defaultGroup = GrupoVista.BIENES;
+    public static GrupoVista defaultGroup = GrupoVista.ENCARGADOS;
     private ManejoEncargados manejoEncargados = null;
     private ModificarProveedorJDialog modificarProveedorJDialog = null;
     private VentanaInicio ventanaInicio = null;
