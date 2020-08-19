@@ -1,5 +1,4 @@
 /*
-
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -126,6 +125,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA_POR_FECHA);
             prepStatement.setTimestamp(1, fechaInicial);
             prepStatement.setTimestamp(2, fechaFinal);
+            System.out.println(prepStatement.toString());
             result = prepStatement.executeQuery();
             while (result.next()) {
                 facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));
@@ -141,8 +141,9 @@ public class ImplementacionFactura implements FacturaDAO {
 
     /**
      * Se registra una factura que posee proveedor
+     *
      * @param model
-     * @return 
+     * @return
      */
     @Override
     public boolean registrarFacturaConProveedor(Factura model) {
@@ -161,20 +162,22 @@ public class ImplementacionFactura implements FacturaDAO {
         }
         return true;
     }
+
     /**
      * Se registra una factura que no posee proveedor
+     *
      * @param model
-     * @return 
+     * @return
      */
     @Override
     public boolean registrarFacturaSinProveedor(Factura model) {
-                try {
+        try {
             prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_FACTURA_SIN_PROVEEDOR);
             prepStatement.setInt(1, model.getNumeroFactura());
             prepStatement.setTimestamp(2, model.getFecha());
             prepStatement.setString(3, model.getDescripcion());
             prepStatement.setDouble(4, model.getValor());
-                    System.out.println(prepStatement.toString());
+            System.out.println(prepStatement.toString());
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -184,4 +187,56 @@ public class ImplementacionFactura implements FacturaDAO {
         return true;
     }
 
+    /**
+     * Permite actualizar todos los parametros de una factura, incluyendo el
+     * proveedor
+     *
+     * @param factura
+     * @return
+     */
+    @Override
+    public boolean actualizarFacturaYSuProveedor(Factura factura) {
+
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(MODIFICAR_FACTURA);
+            prepStatement.setInt(1, factura.getNumeroFactura());
+            prepStatement.setTimestamp(2, factura.getFecha());
+            prepStatement.setString(3, factura.getDescripcion());
+            prepStatement.setDouble(4, factura.getValor());
+            prepStatement.setInt(5, factura.getIdProveedor());
+            prepStatement.setInt(6, factura.getIdFactura());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Permite actualizar una factura que al ingresar a la tabla no tendra
+     * proveedor
+     *
+     * @param factura
+     * @return
+     */
+    @Override
+    public boolean actualizarFacturaQuitandoProveedor(Factura factura) {
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(MODIFICAR_FACTURA_ELIMINANDO_PROVEEDOR);
+            prepStatement.setInt(1, factura.getNumeroFactura());
+            prepStatement.setTimestamp(2, factura.getFecha());
+            prepStatement.setString(3, factura.getDescripcion());
+            prepStatement.setDouble(4, factura.getValor());
+            prepStatement.setInt(5, factura.getIdFactura());
+            System.out.println(prepStatement.toString());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

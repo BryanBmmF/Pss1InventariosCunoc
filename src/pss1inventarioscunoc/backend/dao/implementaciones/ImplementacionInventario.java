@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pss1inventarioscunoc.backend.bd.Conexion;
+import pss1inventarioscunoc.backend.controladores.ControladorInventario;
 import pss1inventarioscunoc.backend.dao.interfaces.InventarioDAO;
+import pss1inventarioscunoc.backend.pojos.Bien;
 import pss1inventarioscunoc.backend.pojos.Inventario;
 
 /**
@@ -59,5 +61,24 @@ public class ImplementacionInventario implements InventarioDAO {
         }
         return inventarioEncontrado;
     }
-
+/**
+ * Permite asociar un bien con su inventario
+ * @param bien
+ * @return 
+ */
+    @Override
+    public boolean insertarRegistroBienInventario(Bien bien) {
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_REGISTRO_BIEN_INVENTARIO);
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_CONTABILIDAD.getNumero());
+            prepStatement.setString(2, bien.getCur());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+        
+    }
 }

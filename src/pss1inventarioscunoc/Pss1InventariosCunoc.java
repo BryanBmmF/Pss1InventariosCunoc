@@ -33,8 +33,11 @@ public class Pss1InventariosCunoc {
      */
     public static void main(String[] args) {
 
-       VentanaSesion ventanaLogin = new VentanaSesion();
-       ventanaLogin.setVisible(true);
+        //NO ELIMINAR-> ES EL INVENTARIO
+        ControladorInventario con = new ControladorInventario();
+        con.buscarInventario();
+        VentanaSesion ventanaLogin = new VentanaSesion();
+        ventanaLogin.setVisible(true);
 //
 //        //Recuperacion de Inventarios
 //        ControladorInventario crIn = new ControladorInventario();
@@ -74,7 +77,6 @@ public class Pss1InventariosCunoc {
 //            System.out.println(proveedor);
 //            prov = proveedor;
 //        }
-
 //        //08/08/20  
 //        //Ingreso de facturas
 //        System.out.println("Ingresando factura");
@@ -103,10 +105,9 @@ public class Pss1InventariosCunoc {
 //        for (Factura factura : crFactura.buscarFacturas(fechaInicial, fechaFinal)) {
 //            System.out.println(factura);
 //        }
-
         //Ingreso de bienes;
 //        //Bien normal
- //       ControladorBien crBien = new ControladorBien();
+        //       ControladorBien crBien = new ControladorBien();
 //        crBien.registrarBien(new Bien("curpk1", 1, "Procencia", '1', "Primer bien prueba", TipoDeBien.COMPRA, 589.25, "Ciencias de la ingenieria"));
 //        //Bien por donacion
 //        crBien.registrarBien(new Bien("curpk2", 1, "Procencia2", '1', "Segun bien prueba", TipoDeBien.DONACION, 1000.25, "Mi division", 12, "punto", 10));
@@ -124,7 +125,6 @@ public class Pss1InventariosCunoc {
 //        crBien.registrarBien(new Bien("curpk9", 1, "Procedencia2", '1', "Otra descripcion", TipoDeBien.TRASLADO, 125.99, "Mo otra division", new Timestamp(System.currentTimeMillis()), '1', "Seccion", "Persona"));
 //    
 //        
-
         //Consulta de bienes 
 //        System.out.println("-------------------------------BIENES POR COMPRA-----------------------------");
 //        for (Bien bien : crBien.consultarBienCompra()) {
@@ -134,10 +134,8 @@ public class Pss1InventariosCunoc {
 //        for (Bien bien : crBien.consultarBienes()) {
 //            System.out.println(bien);
 //        }
-    
         //Trasladando un bien ya existente
-   //     crBien.trasladarBien("curpk3", new Timestamp(System.currentTimeMillis()), "1", "Seccion jsjsjs", "Otra persona");
-
+        //     crBien.trasladarBien("curpk3", new Timestamp(System.currentTimeMillis()), "1", "Seccion jsjsjs", "Otra persona");
     }
 
 }
