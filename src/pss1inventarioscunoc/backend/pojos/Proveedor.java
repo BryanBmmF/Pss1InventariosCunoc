@@ -51,6 +51,24 @@ public class Proveedor {
         this.descripcion = descripcion;
         this.correoElectronico = correoElectronico;
     }
+    
+        /**
+     * Actualizar proveedor
+     * @param nombreDeProveedor
+     * @param nit
+     * @param direccion
+     * @param descripcion
+     * @param correoElectronico 
+     */
+    public Proveedor(String nombreDeProveedor, String nit, String direccion, String descripcion, String correoElectronico,int idProveedor) {
+        this.nombreDeProveedor = nombreDeProveedor;
+        this.nit = nit;
+        this.direccion = direccion;
+        this.descripcion = descripcion;
+        this.correoElectronico = correoElectronico;
+        this.idProveedor=idProveedor;
+    }
+    
 
     public Proveedor() {
     }

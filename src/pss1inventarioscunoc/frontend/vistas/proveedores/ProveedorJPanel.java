@@ -460,17 +460,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
     private void guardarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton1ActionPerformed
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add(this.nombreTextField1.getText());
-        datos.add(this.nitTextField.getText());
-        datos.add(this.direccionTextField2.getText());
-        datos.add(this.descripcionTextField4.getText());
-        if (!controlador.verificarDatosProveedor(datos)) {
-            JOptionPane.showMessageDialog(this,
-                    "Faltan datos para poder crear un proveedor",
-                    "Datos incompletos",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
+        if (controlador.verificarDatosProveedor(nombreTextField1.getText(), nitTextField.getText(), direccionTextField2.getText(), descripcionTextField4.getText(), correoElectronicoTextField3.getText())) {
             boolean seRegistro = controlador.registrar(new Proveedor(this.nombreTextField1.getText(), this.nitTextField.getText(), this.direccionTextField2.getText(), this.descripcionTextField4.getText(), this.correoElectronicoTextField3.getText()));
             if (seRegistro) {
                 JOptionPane.showMessageDialog(this,
@@ -492,6 +482,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         ModificarProveedorJDialog mod = new ModificarProveedorJDialog(null, true, proveedor, controlador);
         mod.setVisible(true);
         buscarProveedor();
+        actualizarLista(controlador.buscarProveedores());
     }//GEN-LAST:event_modificarButton1ActionPerformed
 
     private void guardarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton2ActionPerformed

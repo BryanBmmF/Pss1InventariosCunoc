@@ -156,6 +156,7 @@ public class ImplementacionProveedor implements ProveedorDAO {
             prepStatement.setString(4, proveedor.getDescripcion());
             prepStatement.setString(5, proveedor.getCorreoElectronico());
             prepStatement.setInt(6, proveedor.getIdProveedor());
+            System.out.println(prepStatement);
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
