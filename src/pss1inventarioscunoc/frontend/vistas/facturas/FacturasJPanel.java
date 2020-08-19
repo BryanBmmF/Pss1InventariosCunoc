@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorFactura;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Factura;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 import pss1inventarioscunoc.frontend.vistas.proveedores.ListadoDeProveedoresJDialog;
@@ -23,6 +24,7 @@ import pss1inventarioscunoc.frontend.vistas.proveedores.ListadoDeProveedoresJDia
  */
 public class FacturasJPanel extends javax.swing.JPanel {
 
+    private Vista vista = Vista.FACTURAS_JPANEL;
     private Proveedor proveedor;
     private ControladorFactura controlador;
     public List<Factura> listaFacturas;
@@ -40,6 +42,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
         this.listaObservableFacturas = ObservableCollections.observableList(listaFacturas);
         actualizarLista(controlador.buscarFacturas());
         initComponents();
+        this.setName("Facturas");
     }
 
     /**
@@ -78,7 +81,6 @@ public class FacturasJPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel18.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("numero de factura*");
 
         numeroDeFacturaTextField6.setBackground(new java.awt.Color(255, 255, 255));
@@ -92,11 +94,9 @@ public class FacturasJPanel extends javax.swing.JPanel {
         });
 
         jLabel20.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("fecha*");
 
         jLabel22.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("descripcion*");
 
         descripcionTextField10.setBackground(new java.awt.Color(255, 255, 255));
@@ -105,7 +105,6 @@ public class FacturasJPanel extends javax.swing.JPanel {
         descripcionTextField10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel23.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("valor*");
 
         valorTextField9.setBackground(new java.awt.Color(255, 255, 255));
@@ -119,7 +118,6 @@ public class FacturasJPanel extends javax.swing.JPanel {
         });
 
         jLabel19.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("proveedor");
 
         proveedorTextField5.setBackground(new java.awt.Color(255, 255, 255));
@@ -129,12 +127,10 @@ public class FacturasJPanel extends javax.swing.JPanel {
         proveedorTextField5.setEnabled(false);
 
         jLabel21.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Creacion de factura");
 
         asignarProveedorButton1.setBackground(new java.awt.Color(0, 204, 204));
         asignarProveedorButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        asignarProveedorButton1.setForeground(new java.awt.Color(255, 255, 255));
         asignarProveedorButton1.setText("Asignar Proveedor");
         asignarProveedorButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         asignarProveedorButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -174,12 +170,10 @@ public class FacturasJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel24.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Facturas");
 
         buscarButton1.setBackground(new java.awt.Color(255, 153, 0));
         buscarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        buscarButton1.setForeground(new java.awt.Color(255, 255, 255));
         buscarButton1.setText("Buscar");
         buscarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         buscarButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +184,6 @@ public class FacturasJPanel extends javax.swing.JPanel {
 
         modificarButton2.setBackground(new java.awt.Color(255, 153, 0));
         modificarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        modificarButton2.setForeground(new java.awt.Color(255, 255, 255));
         modificarButton2.setText("Modificar");
         modificarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         modificarButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -203,22 +196,21 @@ public class FacturasJPanel extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(341, 341, 341)
                         .addComponent(jLabel24))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(245, 245, 245)
                         .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,14 +220,13 @@ public class FacturasJPanel extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         guardarButton2.setBackground(new java.awt.Color(255, 153, 0));
         guardarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        guardarButton2.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton2.setText("Guardar factura");
         guardarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         guardarButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -270,14 +261,10 @@ public class FacturasJPanel extends javax.swing.JPanel {
                 .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(jLabel21))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(292, 292, 292)
+                .addComponent(jLabel21)
+                .addContainerGap(365, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,16 +309,11 @@ public class FacturasJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         bindingGroup.bind();
@@ -466,4 +448,8 @@ public class FacturasJPanel extends javax.swing.JPanel {
         this.proveedorTextField5 = proveedorTextField5;
     }
 
+    public Vista getVista() {
+        return vista;
+    }
+    
 }

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pss1inventarioscunoc.frontend.vistas;
+package pss1inventarioscunoc.frontend.vistas.proveedores;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 
 /**
@@ -16,6 +17,7 @@ import pss1inventarioscunoc.backend.pojos.Proveedor;
  */
 public class ModificarProveedorJDialog extends javax.swing.JDialog {
 
+    private Vista vista = Vista.MODIFICAR_PROVEEDOR_JDIALOG;
     private Proveedor proveedor;
     private ControladorProveedor controlador;
 
@@ -60,32 +62,25 @@ public class ModificarProveedorJDialog extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Nombre*");
 
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Nit*");
 
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Direccion*");
 
         jLabel15.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Descripcion*");
 
         jLabel16.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Correo electronico");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Modificar Proveedor");
 
         guardarButton1.setBackground(new java.awt.Color(255, 153, 0));
         guardarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        guardarButton1.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton1.setText("GUARDAR");
         guardarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         guardarButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +91,6 @@ public class ModificarProveedorJDialog extends javax.swing.JDialog {
 
         cancelarButton.setBackground(new java.awt.Color(0, 204, 204));
         cancelarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        cancelarButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelarButton.setText("CANCELAR");
         cancelarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cancelarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -274,6 +268,10 @@ public class ModificarProveedorJDialog extends javax.swing.JDialog {
         this.direccionTextField2.setText(proveedor.getDireccion());
         this.descripcionTextField4.setText(proveedor.getDescripcion());
         this.correoElectronicoTextField3.setText(proveedor.getCorreoElectronico());
+    }
+
+    public Vista getVista() {
+        return vista;
     }
 
 }

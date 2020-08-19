@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
@@ -22,6 +23,7 @@ import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
  */
 public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
 
+    private Vista vista = Vista.LISTADO_DE_PROVEEDORES;
     private ControladorProveedor controlador = null;
     public List<Proveedor> listaProveedores = null;
     public ObservableList<Proveedor> listaProveedoresObs = null;
@@ -189,6 +191,10 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
             this.seleccionarProveedorjButton1.setEnabled(false);
             this.proveedor = null;
         }
+    }
+
+    public Vista getVista() {
+        return vista;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

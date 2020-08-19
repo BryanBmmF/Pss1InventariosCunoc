@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pss1inventarioscunoc.frontend.vistas;
+package pss1inventarioscunoc.frontend.encargados;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorEncargado;
+import pss1inventarioscunoc.backend.enums.GrupoVista;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Encargado;
 
 /**
@@ -21,12 +23,13 @@ import pss1inventarioscunoc.backend.pojos.Encargado;
  */
 public class ManejoEncargados extends javax.swing.JPanel {
 
+    private Vista vista = Vista.MANEJO_ENCARGADOS;
+    public List<Encargado> listaEncargados = null;
+    public ObservableList<Encargado> listaEncargadosObsr = null;
     private Encargado selectedEncargado = null;
     private String selectedCargo = null;
     private String selectedDivision = null;
     private ControladorEncargado controlador = null;
-    public List<Encargado> listaEncargados = null;
-    public ObservableList<Encargado> listaEncargadosObsr = null;
     private boolean tableSelected = false;
 
     public static final String PROP_NOMBRE = "nombre";
@@ -340,8 +343,8 @@ public class ManejoEncargados extends javax.swing.JPanel {
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(divisionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(divisionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -419,15 +422,12 @@ public class ManejoEncargados extends javax.swing.JPanel {
 
     private void dpiTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dpiTextFieldFocusGained
         this.controlador.dpiTextFieldFocusGainedValidacionEncargados(this);
-//        System.out.println("Se ha puesto el caret");
     }//GEN-LAST:event_dpiTextFieldFocusGained
 
     private void dpiTextFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_dpiTextFieldCaretUpdate
     }//GEN-LAST:event_dpiTextFieldCaretUpdate
 
     private void dpiTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dpiTextFieldFocusLost
-//        this.controlador.dpiTextFieldFocusLostValidacionEncargados(this);
-//        System.out.println("Se ha quitado el caret");
     }//GEN-LAST:event_dpiTextFieldFocusLost
 
     private void cargoComboBoxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseEntered
@@ -580,6 +580,10 @@ public class ManejoEncargados extends javax.swing.JPanel {
     
     public String getTextDivisionTextField(){
         return this.divisionTextField.getText();
+    }
+    
+    public Vista getVista(){
+        return this.vista;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

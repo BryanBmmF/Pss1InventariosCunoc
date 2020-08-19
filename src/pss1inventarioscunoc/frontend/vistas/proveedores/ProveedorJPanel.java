@@ -18,6 +18,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorEncargado;
 import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Encargado;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 
@@ -27,6 +28,7 @@ import pss1inventarioscunoc.backend.pojos.Proveedor;
  */
 public class ProveedorJPanel extends javax.swing.JPanel {
 
+    private Vista vista = Vista.PROVEEDOR_JPANEL;
     private ControladorProveedor controlador = null;
     public List<Proveedor> listaProveedores = null;
     public ObservableList<Proveedor> listaProveedoresObs = null;
@@ -39,14 +41,13 @@ public class ProveedorJPanel extends javax.swing.JPanel {
      * Creates new form ValidacionEncargado
      */
     public ProveedorJPanel() {
-        this.setName("Proveedores");
         this.controlador = new ControladorProveedor();
         this.listaProveedores = new LinkedList<>();
         this.listaProveedoresObs = ObservableCollections.observableList(listaProveedores);
         this.actualizarLista(controlador.buscarProveedores());
         this.proveedor = new Proveedor();
         initComponents();
-
+        this.setName("Proveedores");
     }
 
     /**
@@ -63,20 +64,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
         panelValidacion = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
-        tipoBusquedaProveedorComboBox = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
-        guardarButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        modificarButton1 = new javax.swing.JButton();
-        nombreBusquedaTextField = new javax.swing.JTextField();
-        buscarButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -91,6 +79,19 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         direccionTextField2 = new javax.swing.JTextField();
         correoElectronicoTextField3 = new javax.swing.JTextField();
         descripcionTextField4 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        tipoBusquedaProveedorComboBox = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        guardarButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        modificarButton1 = new javax.swing.JButton();
+        nombreBusquedaTextField = new javax.swing.JTextField();
+        buscarButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -100,181 +101,30 @@ public class ProveedorJPanel extends javax.swing.JPanel {
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Proveedores");
-
-        jScrollPane2.setBackground(new java.awt.Color(51, 119, 180));
-
         panelValidacion.setBackground(new java.awt.Color(51, 119, 180));
-
-        jPanel2.setBackground(new java.awt.Color(51, 119, 180));
-
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaProveedoresObs}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreDeProveedor}"));
-        columnBinding.setColumnName("Nombre De Proveedor");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
-        columnBinding.setColumnName("Descripcion");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${direccion}"));
-        columnBinding.setColumnName("Direccion");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nit}"));
-        columnBinding.setColumnName("Nit");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${correoElectronico}"));
-        columnBinding.setColumnName("Correo Electronico");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${proveedor}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
-
-        jScrollPane1.setViewportView(jTable1);
-
-        jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Filtre su busqueda:");
-
-        tipoBusquedaProveedorComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        tipoBusquedaProveedorComboBox.setForeground(new java.awt.Color(0, 50, 102));
-        tipoBusquedaProveedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "todos", "nombre", "direccion", "descripcion" }));
-
-        jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Proveedores encontrados");
-
-        guardarButton2.setBackground(new java.awt.Color(255, 153, 0));
-        guardarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        guardarButton2.setForeground(new java.awt.Color(255, 255, 255));
-        guardarButton2.setText("Utilizar proveedor para registrar un bien");
-        guardarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        guardarButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Busqueda de proveedores");
-
-        modificarButton1.setBackground(new java.awt.Color(0, 204, 204));
-        modificarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        modificarButton1.setForeground(new java.awt.Color(255, 255, 255));
-        modificarButton1.setText("Editar proveedor");
-        modificarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        modificarButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarButton1ActionPerformed(evt);
-            }
-        });
-
-        nombreBusquedaTextField.setBackground(new java.awt.Color(255, 255, 255));
-        nombreBusquedaTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        nombreBusquedaTextField.setForeground(new java.awt.Color(0, 0, 102));
-        nombreBusquedaTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        buscarButton2.setBackground(new java.awt.Color(0, 204, 204));
-        buscarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        buscarButton2.setForeground(new java.awt.Color(255, 255, 255));
-        buscarButton2.setText("Buscar");
-        buscarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        buscarButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(modificarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel9)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(43, 43, 43)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(41, 41, 41)
-                                        .addComponent(jLabel3))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(nombreBusquedaTextField)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(11, 11, 11)))))))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreBusquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modificarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jPanel3.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Nombre*");
 
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Nit*");
 
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Direccion*");
 
         jLabel15.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Descripcion*");
 
         jLabel16.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Correo electronico");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ingreso de proveedor");
 
         guardarButton1.setBackground(new java.awt.Color(255, 153, 0));
         guardarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        guardarButton1.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton1.setText("GUARDAR");
         guardarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         guardarButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -285,7 +135,6 @@ public class ProveedorJPanel extends javax.swing.JPanel {
 
         limpiarButton.setBackground(new java.awt.Color(0, 204, 204));
         limpiarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
         limpiarButton.setText("LIMPIAR");
         limpiarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -324,43 +173,181 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         descripcionTextField4.setForeground(new java.awt.Color(0, 0, 102));
         descripcionTextField4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel1.setText("Proveedores");
+
+        jPanel2.setBackground(new java.awt.Color(51, 119, 180));
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaProveedoresObs}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreDeProveedor}"));
+        columnBinding.setColumnName("Nombre De Proveedor");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
+        columnBinding.setColumnName("Descripcion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${direccion}"));
+        columnBinding.setColumnName("Direccion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nit}"));
+        columnBinding.setColumnName("Nit");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${correoElectronico}"));
+        columnBinding.setColumnName("Correo Electronico");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${proveedor}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel8.setText("Filtre su busqueda:");
+
+        tipoBusquedaProveedorComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        tipoBusquedaProveedorComboBox.setForeground(new java.awt.Color(0, 50, 102));
+        tipoBusquedaProveedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "todos", "nombre", "direccion", "descripcion" }));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel9.setText("Proveedores encontrados");
+
+        guardarButton2.setBackground(new java.awt.Color(255, 153, 0));
+        guardarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        guardarButton2.setText("Utilizar proveedor para registrar un bien");
+        guardarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        guardarButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("Busqueda de proveedores");
+
+        modificarButton1.setBackground(new java.awt.Color(0, 204, 204));
+        modificarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        modificarButton1.setText("Editar proveedor");
+        modificarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        modificarButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarButton1ActionPerformed(evt);
+            }
+        });
+
+        nombreBusquedaTextField.setBackground(new java.awt.Color(255, 255, 255));
+        nombreBusquedaTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        nombreBusquedaTextField.setForeground(new java.awt.Color(0, 0, 102));
+        nombreBusquedaTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        buscarButton2.setBackground(new java.awt.Color(0, 204, 204));
+        buscarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        buscarButton2.setText("Buscar");
+        buscarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buscarButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(210, 210, 210))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel9)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(43, 43, 43)
+                                        .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(nombreBusquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(modificarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreBusquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(guardarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modificarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(guardarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(248, 248, 248))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(direccionTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(descripcionTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(correoElectronicoTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(248, 248, 248))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direccionTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descripcionTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(correoElectronicoTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(guardarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(37, 37, 37))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
@@ -383,10 +370,12 @@ public class ProveedorJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(correoElectronicoTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -395,98 +384,64 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         panelValidacionLayout.setHorizontalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelValidacionLayout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 51, Short.MAX_VALUE))
         );
         panelValidacionLayout.setVerticalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelValidacionLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jScrollPane2.setViewportView(panelValidacion);
+        jScrollPane2.setBackground(new java.awt.Color(51, 119, 180));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(795, 795, 795))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jSeparator1)
+                .addGap(752, 752, 752))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelValidacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(43, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(64, 64, 64)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelValidacion, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
-        limpiarCampos();
-    }//GEN-LAST:event_limpiarButtonActionPerformed
-
-    private void guardarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton1ActionPerformed
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add(this.nombreTextField1.getText());
-        datos.add(this.nitTextField.getText());
-        datos.add(this.direccionTextField2.getText());
-        datos.add(this.descripcionTextField4.getText());
-        if (!controlador.verificarDatosProveedor(datos)) {
-            JOptionPane.showMessageDialog(this,
-                    "Faltan datos para poder crear un proveedor",
-                    "Datos incompletos",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            boolean seRegistro = controlador.registrar(new Proveedor(this.nombreTextField1.getText(), this.nitTextField.getText(), this.direccionTextField2.getText(), this.descripcionTextField4.getText(), this.correoElectronicoTextField3.getText()));
-            if (seRegistro) {
-                JOptionPane.showMessageDialog(this,
-                        "Proveedor ingresado");
-                limpiarCampos();
-                actualizarLista(controlador.buscarProveedores());
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "No se ha registrado el proveedor. Verifique los datos",
-                        "Error Interno",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
-
-    }//GEN-LAST:event_guardarButton1ActionPerformed
+    private void buscarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton2ActionPerformed
+        buscarProveedor();
+    }//GEN-LAST:event_buscarButton2ActionPerformed
 
     private void modificarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButton1ActionPerformed
         ModificarProveedorJDialog mod = new ModificarProveedorJDialog(null, true, proveedor, controlador);
@@ -502,9 +457,36 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_correoElectronicoTextField3ActionPerformed
 
-    private void buscarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton2ActionPerformed
-        buscarProveedor();
-    }//GEN-LAST:event_buscarButton2ActionPerformed
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_limpiarButtonActionPerformed
+
+    private void guardarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton1ActionPerformed
+        ArrayList<String> datos = new ArrayList<>();
+        datos.add(this.nombreTextField1.getText());
+        datos.add(this.nitTextField.getText());
+        datos.add(this.direccionTextField2.getText());
+        datos.add(this.descripcionTextField4.getText());
+        if (!controlador.verificarDatosProveedor(datos)) {
+            JOptionPane.showMessageDialog(this,
+                "Faltan datos para poder crear un proveedor",
+                "Datos incompletos",
+                JOptionPane.ERROR_MESSAGE);
+        } else {
+            boolean seRegistro = controlador.registrar(new Proveedor(this.nombreTextField1.getText(), this.nitTextField.getText(), this.direccionTextField2.getText(), this.descripcionTextField4.getText(), this.correoElectronicoTextField3.getText()));
+            if (seRegistro) {
+                JOptionPane.showMessageDialog(this,
+                    "Proveedor ingresado");
+                limpiarCampos();
+                actualizarLista(controlador.buscarProveedores());
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "No se ha registrado el proveedor. Verifique los datos",
+                    "Error Interno",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_guardarButton1ActionPerformed
 
     private void actualizarLista(List<Proveedor> listado) {
         listaProveedoresObs.clear();
@@ -589,6 +571,10 @@ public class ProveedorJPanel extends javax.swing.JPanel {
             actualizarLista(controlador.buscarProveedoresPorDescripcion(nombreBusquedaTextField.getText()));
         }
         setProveedor(null);
+    }
+
+    public Vista getVista() {
+        return vista;
     }
 
 }

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionEncargado;
 import pss1inventarioscunoc.backend.dao.interfaces.EncargadoDAO;
 import pss1inventarioscunoc.backend.pojos.Encargado;
-import pss1inventarioscunoc.frontend.vistas.ManejoEncargados;
+import pss1inventarioscunoc.frontend.encargados.ManejoEncargados;
 
 /**
  *

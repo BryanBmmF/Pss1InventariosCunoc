@@ -2,10 +2,11 @@
  * Ventana de registro de usuarios
  */
 
-package pss1inventarioscunoc.frontend.vistas;
+package pss1inventarioscunoc.frontend.sesion;
 
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.controladores.ControladorUser;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Usuario;
 
 /**
@@ -14,6 +15,8 @@ import pss1inventarioscunoc.backend.pojos.Usuario;
  */
 public class VentanaRegistro extends javax.swing.JFrame {
     //Objetos a utilizar
+    
+    private Vista vista = Vista.VENTANA_REGISTRO;
     private ControladorUser contrUser;
     
     /** Creates new form VentanaRegistro */
@@ -58,7 +61,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
         txtNombre.setBackground(new java.awt.Color(10, 40, 64));
         txtNombre.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setToolTipText("Usuario");
         txtNombre.setBorder(null);
         txtNombre.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -83,7 +85,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 354, -1, -1));
 
         btnRegistrar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/registrar-button-off.png"))); // NOI18N
         btnRegistrar.setBorder(null);
         btnRegistrar.setContentAreaFilled(false);
@@ -102,7 +103,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
         txtPass1.setBackground(new java.awt.Color(10, 40, 64));
         txtPass1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtPass1.setForeground(new java.awt.Color(255, 255, 255));
         txtPass1.setToolTipText("Contraseña");
         txtPass1.setBorder(null);
         txtPass1.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -122,7 +122,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
         txtCorreo.setBackground(new java.awt.Color(10, 40, 64));
         txtCorreo.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
         txtCorreo.setToolTipText("Usuario");
         txtCorreo.setBorder(null);
         txtCorreo.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -130,7 +129,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
         txtPass2.setBackground(new java.awt.Color(10, 40, 64));
         txtPass2.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtPass2.setForeground(new java.awt.Color(255, 255, 255));
         txtPass2.setToolTipText("Contraseña");
         txtPass2.setBorder(null);
         txtPass2.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -142,7 +140,6 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
         txtUser.setBackground(new java.awt.Color(10, 40, 64));
         txtUser.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtUser.setForeground(new java.awt.Color(255, 255, 255));
         txtUser.setToolTipText("Usuario");
         txtUser.setBorder(null);
         txtUser.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -217,9 +214,15 @@ public class VentanaRegistro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */
+
+    public Vista getVista() {
+        return vista;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;

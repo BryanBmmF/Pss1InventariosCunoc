@@ -3,7 +3,12 @@
  */
 package pss1inventarioscunoc.frontend.vistas;
 
+import javax.swing.JTabbedPane;
+import pss1inventarioscunoc.frontend.encargados.ManejoEncargados;
 import javax.swing.UIManager;
+import pss1inventarioscunoc.backend.controladores.ControladorVistas;
+import pss1inventarioscunoc.backend.enums.GrupoVista;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
 
@@ -13,6 +18,9 @@ import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
  */
 public class VentanaInicio extends javax.swing.JFrame {
 
+    
+    private Vista vista = Vista.INICIO;
+    private ControladorVistas controlador = null;
     /**
      * Creates new form VentanaInicio
      */
@@ -20,7 +28,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
-        ventanaPrincipal.add(new ManejoEncargados());
+        this.controlador = new ControladorVistas();
+        this.initDependencies();
     }
 
     @SuppressWarnings("unchecked")
@@ -136,6 +145,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         tarjetaRespButton.setFocusPainted(false);
         tarjetaRespButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
         tarjetaRespButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        tarjetaRespButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaRespButtonActionPerformed(evt);
+            }
+        });
         jPanel3.add(tarjetaRespButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 60));
 
         usuariosButton.setBackground(new java.awt.Color(0, 51, 153));
@@ -163,6 +177,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         encargadosButton.setFocusPainted(false);
         encargadosButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
         encargadosButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        encargadosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encargadosButtonActionPerformed(evt);
+            }
+        });
         jPanel3.add(encargadosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 250, 60));
 
         bienesButton.setBackground(new java.awt.Color(0, 51, 153));
@@ -272,19 +291,37 @@ public class VentanaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bienesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bienesButtonActionPerformed
-        //bienesPanel
-        //facturasPanel
-        //proveedorPanel
+        controlador.bienesButtonVentanaInicio(this);
     }//GEN-LAST:event_bienesButtonActionPerformed
 
     private void reportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesButtonActionPerformed
-        //reporteBienes
+        controlador.reportesButtonVentanaInicio(this);
     }//GEN-LAST:event_reportesButtonActionPerformed
 
     private void usuariosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosButtonActionPerformed
         //
     }//GEN-LAST:event_usuariosButtonActionPerformed
 
+    private void encargadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encargadosButtonActionPerformed
+        controlador.encargadosButtonVentanaInicio(this);
+    }//GEN-LAST:event_encargadosButtonActionPerformed
+
+    private void tarjetaRespButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaRespButtonActionPerformed
+        
+    }//GEN-LAST:event_tarjetaRespButtonActionPerformed
+
+    public Vista getVista() {
+        return vista;
+    }
+
+    public JTabbedPane getVentanaPrincipal() {
+        return ventanaPrincipal;
+    }
+    
+    public void initDependencies(){
+        this.controlador.insertIntoInicioDefaultGrupoVista(this);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bienesButton;
