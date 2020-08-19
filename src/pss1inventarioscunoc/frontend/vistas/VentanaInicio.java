@@ -18,7 +18,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
-        ventanaPrincipal.add(new ProveedorJPanel());
+        ventanaPrincipal.add(new ManejoEncargados());
     }
 
     @SuppressWarnings("unchecked")
@@ -38,11 +38,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
+        reportesButton = new javax.swing.JButton();
+        tarjetaRespButton = new javax.swing.JButton();
+        usuariosButton = new javax.swing.JButton();
+        encargadosButton = new javax.swing.JButton();
+        bienesButton = new javax.swing.JButton();
         ventana = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         ventanaPrincipal = new javax.swing.JTabbedPane();
@@ -59,7 +59,6 @@ public class VentanaInicio extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
 
         jButton9.setBackground(new java.awt.Color(0, 51, 153));
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
         jButton9.setBorder(null);
         jButton9.setBorderPainted(false);
@@ -82,27 +81,22 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 45, 45));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("TARJETA RESP.");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("REPORTES");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("BIENES");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ENCARGADOS");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("USUARIOS");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
@@ -115,65 +109,75 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/icons8-grupo-de-primer-plano-seleccionado-45.png"))); // NOI18N
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 45, 45));
 
-        jButton6.setBackground(new java.awt.Color(0, 51, 153));
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
-        jButton6.setBorder(null);
-        jButton6.setBorderPainted(false);
-        jButton6.setContentAreaFilled(false);
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton6.setFocusPainted(false);
-        jButton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jButton6.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 60));
+        reportesButton.setBackground(new java.awt.Color(0, 51, 153));
+        reportesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        reportesButton.setBorder(null);
+        reportesButton.setBorderPainted(false);
+        reportesButton.setContentAreaFilled(false);
+        reportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        reportesButton.setFocusPainted(false);
+        reportesButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        reportesButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        reportesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportesButtonActionPerformed(evt);
+            }
+        });
+        jPanel3.add(reportesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 60));
 
-        jButton7.setBackground(new java.awt.Color(0, 51, 153));
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
-        jButton7.setBorder(null);
-        jButton7.setBorderPainted(false);
-        jButton7.setContentAreaFilled(false);
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton7.setFocusPainted(false);
-        jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jButton7.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 60));
+        tarjetaRespButton.setBackground(new java.awt.Color(0, 51, 153));
+        tarjetaRespButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        tarjetaRespButton.setBorder(null);
+        tarjetaRespButton.setBorderPainted(false);
+        tarjetaRespButton.setContentAreaFilled(false);
+        tarjetaRespButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tarjetaRespButton.setFocusPainted(false);
+        tarjetaRespButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        tarjetaRespButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        jPanel3.add(tarjetaRespButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 60));
 
-        jButton8.setBackground(new java.awt.Color(0, 51, 153));
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
-        jButton8.setBorder(null);
-        jButton8.setBorderPainted(false);
-        jButton8.setContentAreaFilled(false);
-        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton8.setFocusPainted(false);
-        jButton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jButton8.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jPanel3.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 250, 60));
+        usuariosButton.setBackground(new java.awt.Color(0, 51, 153));
+        usuariosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        usuariosButton.setBorder(null);
+        usuariosButton.setBorderPainted(false);
+        usuariosButton.setContentAreaFilled(false);
+        usuariosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        usuariosButton.setFocusPainted(false);
+        usuariosButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        usuariosButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        usuariosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuariosButtonActionPerformed(evt);
+            }
+        });
+        jPanel3.add(usuariosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 250, 60));
 
-        jButton10.setBackground(new java.awt.Color(0, 51, 153));
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
-        jButton10.setBorder(null);
-        jButton10.setBorderPainted(false);
-        jButton10.setContentAreaFilled(false);
-        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton10.setFocusPainted(false);
-        jButton10.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jButton10.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jPanel3.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 250, 60));
+        encargadosButton.setBackground(new java.awt.Color(0, 51, 153));
+        encargadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        encargadosButton.setBorder(null);
+        encargadosButton.setBorderPainted(false);
+        encargadosButton.setContentAreaFilled(false);
+        encargadosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        encargadosButton.setFocusPainted(false);
+        encargadosButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        encargadosButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        jPanel3.add(encargadosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 250, 60));
 
-        jButton15.setBackground(new java.awt.Color(0, 51, 153));
-        jButton15.setForeground(new java.awt.Color(255, 255, 255));
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
-        jButton15.setBorder(null);
-        jButton15.setBorderPainted(false);
-        jButton15.setContentAreaFilled(false);
-        jButton15.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton15.setFocusPainted(false);
-        jButton15.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jButton15.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        jPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 250, 60));
+        bienesButton.setBackground(new java.awt.Color(0, 51, 153));
+        bienesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        bienesButton.setBorder(null);
+        bienesButton.setBorderPainted(false);
+        bienesButton.setContentAreaFilled(false);
+        bienesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bienesButton.setFocusPainted(false);
+        bienesButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        bienesButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        bienesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bienesButtonActionPerformed(evt);
+            }
+        });
+        jPanel3.add(bienesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 250, 60));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,10 +216,6 @@ public class VentanaInicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
-        jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
-
-        jMenu1.setForeground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("Archivo");
 
         jMenuItem1.setText("jMenuItem1");
@@ -229,7 +229,6 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setForeground(new java.awt.Color(255, 255, 255));
         jMenu2.setText("Edición");
 
         jMenuItem4.setText("jMenuItem4");
@@ -240,7 +239,6 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setForeground(new java.awt.Color(255, 255, 255));
         jMenu3.setText("Acerca");
 
         jMenuItem6.setText("jMenuItem6");
@@ -271,13 +269,24 @@ public class VentanaInicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bienesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bienesButtonActionPerformed
+        //bienesPanel
+        //facturasPanel
+        //proveedorPanel
+    }//GEN-LAST:event_bienesButtonActionPerformed
+
+    private void reportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesButtonActionPerformed
+        //reporteBienes
+    }//GEN-LAST:event_reportesButtonActionPerformed
+
+    private void usuariosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosButtonActionPerformed
+        //
+    }//GEN-LAST:event_usuariosButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton bienesButton;
+    private javax.swing.JButton encargadosButton;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -303,6 +312,9 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton reportesButton;
+    private javax.swing.JButton tarjetaRespButton;
+    private javax.swing.JButton usuariosButton;
     private javax.swing.JPanel ventana;
     private javax.swing.JTabbedPane ventanaPrincipal;
     // End of variables declaration//GEN-END:variables

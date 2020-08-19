@@ -59,15 +59,72 @@ public class ImplementacionEncargado implements EncargadoDAO{
         }
         return encargados;
     }
-
+    
+    
+    
     @Override
     public boolean actualizar(Encargado model, String temp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(ACTUALIZAR_ENCARGADO);
+            prepStatement.setString(1, model.getNombre());
+            prepStatement.setString(2, model.getApellido());
+            prepStatement.setString(3, model.getCargo());
+            prepStatement.setString(4, model.getDivision());
+            prepStatement.setLong(5, model.getId());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean eliminar(Encargado model) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * 
+     * @param model
+     * @param temp
+     * @return 
+     */
+    @Override
+    public List<String> recuperarListaCargos() {
+        List<String> cargos = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_CARGOS);
+            result=prepStatement.executeQuery();
+            while(result.next()){
+                cargos.add(result.getString(1));
+            }
+            result.close();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ImplementacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return cargos;
+        }
+        return cargos;
+    }
+
+    @Override
+    public List<String> recuperarListaDivisiones() {
+        List<String> cargos = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_DIVISIONES);
+            result=prepStatement.executeQuery();
+            while(result.next()){
+                cargos.add(result.getString(1));
+            }
+            result.close();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ImplementacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return cargos;
+        }
+        return cargos;
     }
     
 }
