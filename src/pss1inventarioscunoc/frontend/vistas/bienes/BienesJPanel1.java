@@ -23,6 +23,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorBien;
 import pss1inventarioscunoc.backend.controladores.ControladorEncargado;
 import pss1inventarioscunoc.backend.enums.TipoDeBien;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Bien;
 import pss1inventarioscunoc.backend.pojos.Encargado;
 import pss1inventarioscunoc.backend.pojos.Factura;
@@ -36,6 +37,7 @@ import pss1inventarioscunoc.frontend.vistas.proveedores.ListadoDeProveedoresJDia
  */
 public class BienesJPanel1 extends javax.swing.JPanel {
 
+    private Vista vista = Vista.BIENES_JPANEL1;
     private Encargado encargado = null;
     private ControladorBien controlador = null;
     public List<Encargado> listaEncargados = null;
@@ -52,7 +54,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
      */
     public BienesJPanel1() {
         initComponents();
-        this.setName("Proveedores");
+        this.setName("Bienes");
         this.controlador = new ControladorBien();
         this.listaEncargados = new LinkedList<>();
         this.listaEncargadosObsr = ObservableCollections.observableList(listaEncargados);
@@ -708,6 +710,10 @@ public class BienesJPanel1 extends javax.swing.JPanel {
 
     public void setFacturaTextField10(JTextField facturaTextField10) {
         this.facturaTextField10 = facturaTextField10;
+    }
+
+    public Vista getVista() {
+        return vista;
     }
 
 }
