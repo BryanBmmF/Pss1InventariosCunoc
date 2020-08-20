@@ -42,6 +42,8 @@ public class ConsultaBienes extends javax.swing.JPanel {
         this.setName("Bienes por Compra");
         this.estado ='1'; //estado por defecto
         this.tempCUR="";
+        bloquearCamposDonacion();
+        bloquearCamposTraslado();
     }
 
     //recibe una lista empleados
@@ -67,9 +69,10 @@ public class ConsultaBienes extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
         panelValidacion = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        cargoComboBox = new javax.swing.JComboBox<>();
+        comboTipo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaBienes = new javax.swing.JTable();
@@ -81,7 +84,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         txtValor = new javax.swing.JFormattedTextField();
         cargoComboBox1 = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
+        lbFecha = new javax.swing.JLabel();
         comboDivision = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -94,6 +97,20 @@ public class ConsultaBienes extends javax.swing.JPanel {
         txtDivision = new javax.swing.JTextField();
         txtCur = new javax.swing.JTextField();
         txtBuscador = new javax.swing.JTextField();
+        lbCorrelativo = new javax.swing.JLabel();
+        txtPunto = new javax.swing.JTextField();
+        lbPunto = new javax.swing.JLabel();
+        lbActa = new javax.swing.JLabel();
+        txtFecha = new com.toedter.calendar.JDateChooser();
+        jLabel19 = new javax.swing.JLabel();
+        txtAutorizacion = new javax.swing.JTextField();
+        lbAutorizacion = new javax.swing.JLabel();
+        txtSeccion = new javax.swing.JTextField();
+        lbSeccion = new javax.swing.JLabel();
+        txtEncargado = new javax.swing.JTextField();
+        lbEncargado = new javax.swing.JLabel();
+        txtActa = new javax.swing.JTextField();
+        txtCorrelativo = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(51, 119, 180));
 
@@ -101,7 +118,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Consulta de Bienes por Compra");
+        jLabel1.setText("Consulta de Bienes");
 
         panelValidacion.setBackground(new java.awt.Color(51, 119, 180));
 
@@ -109,9 +126,14 @@ public class ConsultaBienes extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Buscar por:");
 
-        cargoComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        cargoComboBox.setForeground(new java.awt.Color(0, 50, 102));
-        cargoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Compra", "Donación", "Traslado" }));
+        comboTipo.setBackground(new java.awt.Color(255, 255, 255));
+        comboTipo.setForeground(new java.awt.Color(0, 50, 102));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "compra", "donación", "traslado", "todos *" }));
+        comboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,6 +165,27 @@ public class ConsultaBienes extends javax.swing.JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${division}"));
         columnBinding.setColumnName("Division");
         columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${correlativo}"));
+        columnBinding.setColumnName("Correlativo");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${punto}"));
+        columnBinding.setColumnName("Punto");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numeroActa}"));
+        columnBinding.setColumnName("Numero Acta");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fecha}"));
+        columnBinding.setColumnName("Fecha");
+        columnBinding.setColumnClass(java.sql.Timestamp.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${autorizacion}"));
+        columnBinding.setColumnName("Autorizacion");
+        columnBinding.setColumnClass(Character.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${seccion}"));
+        columnBinding.setColumnName("Seccion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${personaQueRecibio}"));
+        columnBinding.setColumnName("Persona Que Recibio");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado}"), tablaBienes, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -171,7 +214,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
         txtFactura.setBackground(new java.awt.Color(255, 255, 255));
         txtFactura.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         txtFactura.setForeground(new java.awt.Color(0, 0, 51));
-        txtFactura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#####"))));
+        txtFactura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.idFactura}"), txtFactura, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
@@ -196,9 +239,9 @@ public class ConsultaBienes extends javax.swing.JPanel {
         cargoComboBox1.setForeground(new java.awt.Color(0, 50, 102));
         cargoComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Proveedor", "Factura", "Procedencia", "Division" }));
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Division *");
+        lbFecha.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lbFecha.setForeground(new java.awt.Color(255, 255, 255));
+        lbFecha.setText("Fecha de Traslado *");
 
         comboDivision.setBackground(new java.awt.Color(255, 255, 255));
         comboDivision.setForeground(new java.awt.Color(0, 50, 102));
@@ -263,146 +306,269 @@ public class ConsultaBienes extends javax.swing.JPanel {
 
         txtBuscador.setBackground(new java.awt.Color(255, 255, 255));
 
+        lbCorrelativo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lbCorrelativo.setForeground(new java.awt.Color(255, 255, 255));
+        lbCorrelativo.setText("Correlativo *");
+
+        txtPunto.setBackground(new java.awt.Color(255, 255, 255));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.punto}"), txtPunto, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lbPunto.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lbPunto.setForeground(new java.awt.Color(255, 255, 255));
+        lbPunto.setText("Punto *");
+
+        lbActa.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lbActa.setForeground(new java.awt.Color(255, 255, 255));
+        lbActa.setText("No. Acta *");
+
+        jLabel19.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Division *");
+
+        txtAutorizacion.setBackground(new java.awt.Color(255, 255, 255));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.autorizacion}"), txtAutorizacion, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lbAutorizacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lbAutorizacion.setForeground(new java.awt.Color(255, 255, 255));
+        lbAutorizacion.setText("Autorizacion *");
+
+        txtSeccion.setBackground(new java.awt.Color(255, 255, 255));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.seccion}"), txtSeccion, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lbSeccion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lbSeccion.setForeground(new java.awt.Color(255, 255, 255));
+        lbSeccion.setText("Sección *");
+
+        txtEncargado.setBackground(new java.awt.Color(255, 255, 255));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.personaQueRecibio}"), txtEncargado, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lbEncargado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lbEncargado.setForeground(new java.awt.Color(255, 255, 255));
+        lbEncargado.setText("Encargado *");
+
+        txtActa.setBackground(new java.awt.Color(255, 255, 255));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.numeroActa}"), txtActa, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        txtCorrelativo.setBackground(new java.awt.Color(255, 255, 255));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.correlativo}"), txtCorrelativo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         javax.swing.GroupLayout panelValidacionLayout = new javax.swing.GroupLayout(panelValidacion);
         panelValidacion.setLayout(panelValidacionLayout);
         panelValidacionLayout.setHorizontalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelValidacionLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(panelValidacionLayout.createSequentialGroup()
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cargoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelValidacionLayout.createSequentialGroup()
                                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(txtCur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtBuscador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
-                                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(txtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(15, 15, 15))
-                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panelValidacionLayout.createSequentialGroup()
-                                        .addComponent(jLabel14)
+                                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cargoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(comboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                                .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(limpiarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))
                                     .addGroup(panelValidacionLayout.createSequentialGroup()
                                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                                .addComponent(jLabel10)
-                                                .addGap(182, 182, 182)
-                                                .addComponent(jLabel11))
-                                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                                .addComponent(txtProcedencia, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(6, 6, 6)
-                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel9)
+                                            .addComponent(txtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel12)
-                                            .addComponent(comboDivision, 0, 264, Short.MAX_VALUE)
-                                            .addComponent(jLabel13)
-                                            .addComponent(txtValor, javax.swing.GroupLayout.Alignment.TRAILING))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                            .addComponent(txtValor)))))
+                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cargoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel14)
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panelValidacionLayout.createSequentialGroup()
+                                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtProcedencia, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel10))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel19))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel13)
+                                        .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                                        .addComponent(lbAutorizacion)
+                                        .addGap(0, 60, Short.MAX_VALUE))
+                                    .addComponent(txtAutorizacion))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                                        .addComponent(lbSeccion)
+                                        .addGap(72, 72, 72))
+                                    .addComponent(txtSeccion, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)))
+                            .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtEncargado, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbFecha)
+                                    .addComponent(lbActa)
+                                    .addComponent(lbEncargado))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtActa, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbCorrelativo)
+                                    .addComponent(txtCorrelativo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPunto)
+                                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                                        .addComponent(lbPunto)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                .addGap(20, 20, 20))
         );
         panelValidacionLayout.setVerticalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cargoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(cargoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(lbCorrelativo)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
+                        .addComponent(lbPunto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorrelativo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCur, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtActa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelValidacionLayout.createSequentialGroup()
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(37, 37, 37))
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCur, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtProcedencia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                            .addComponent(jLabel8)
+                            .addComponent(lbActa))
+                        .addGap(37, 37, 37)))
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel15)
-                        .addComponent(cargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelValidacionLayout.createSequentialGroup()
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel19))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtProcedencia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lbFecha)
+                                .addComponent(jLabel13))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAutorizacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
+                                .addComponent(lbAutorizacion)
+                                .addGap(37, 37, 37))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
+                                .addComponent(lbSeccion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbEncargado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
+
+        jScrollPane3.setViewportView(panelValidacion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addComponent(panelValidacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1)
+                        .addGap(0, 927, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1183, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,8 +577,12 @@ public class ConsultaBienes extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelValidacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(546, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGap(84, 84, 84)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -454,6 +624,71 @@ public class ConsultaBienes extends javax.swing.JPanel {
         
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
+    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
+        // TODO add your handling code here:
+        
+        String bien = this.comboTipo.getSelectedItem().toString();
+        if (bien.equalsIgnoreCase("compra")) {
+            bloquearCamposDonacion();
+            bloquearCamposTraslado(); 
+            //actualizar tabla de bienes por compra
+            actualizarListadoObservable(controlador.consultarBienCompra());
+        } else if (bien.equalsIgnoreCase("donación")) {
+            habilitarCamposDonacion();
+            bloquearCamposTraslado();
+            //actualizar tabla de bienes por donacion
+            actualizarListadoObservable(controlador.consultarBienDonacion());
+        } else if (bien.equalsIgnoreCase("traslado")) {//Traslado
+            habilitarCamposTraslado();
+            bloquearCamposDonacion();
+            //actualizar tabla de bienes por traslado
+            actualizarListadoObservable(controlador.consultarBienTraslado());
+        } else {
+            habilitarCamposDonacion();
+            habilitarCamposTraslado();
+            //actualizar tabla de bienes
+            actualizarListadoObservable(controlador.consultarBienes());
+        }
+    }//GEN-LAST:event_comboTipoActionPerformed
+    public void bloquearCamposDonacion(){
+        this.lbCorrelativo.setVisible(false);
+            this.txtCorrelativo.setVisible(false);
+            this.lbPunto.setVisible(false);
+            this.txtPunto.setVisible(false);
+            this.lbActa.setVisible(false);
+            this.txtActa.setVisible(false);
+    }
+    
+    public void habilitarCamposDonacion(){
+        this.lbCorrelativo.setVisible(true);
+            this.txtCorrelativo.setVisible(true);
+            this.lbPunto.setVisible(true);
+            this.txtPunto.setVisible(true);
+            this.lbActa.setVisible(true);
+            this.txtActa.setVisible(true);
+    }
+    
+    public void bloquearCamposTraslado(){
+        this.lbAutorizacion.setVisible(false);
+            this.txtAutorizacion.setVisible(false);
+            this.lbFecha.setVisible(false);
+            this.txtFecha.setVisible(false);
+            this.lbSeccion.setVisible(false);
+            this.txtSeccion.setVisible(false);
+            this.lbEncargado.setVisible(false);
+            this.txtEncargado.setVisible(false);
+    }
+    public void habilitarCamposTraslado(){
+        this.lbAutorizacion.setVisible(true);
+            this.txtAutorizacion.setVisible(true);
+            this.lbFecha.setVisible(true);
+            this.txtFecha.setVisible(true);
+            this.lbSeccion.setVisible(true);
+            this.txtSeccion.setVisible(true);
+            this.lbEncargado.setVisible(true);
+            this.txtEncargado.setVisible(true);
+    }
+    
     public Bien getBienSeleccionado() {
         return bienSeleccionado;
     }
@@ -461,7 +696,13 @@ public class ConsultaBienes extends javax.swing.JPanel {
     public void setBienSeleccionado(Bien bienSeleccionado) {
         Bien anterior = this.bienSeleccionado;
 		if (bienSeleccionado != null) { //si el bien seleccionado n0 es nulo
-			this.bienSeleccionado = bienSeleccionado.cloneCompra();//se clona el bien en bienSeleccionado al momento de seleccionarlo 
+                        if (bienSeleccionado.getTipo()==TipoDeBien.COMPRA) {
+                            this.bienSeleccionado = bienSeleccionado.cloneCompra();//se clona el bien en bienSeleccionado al momento de seleccionarlo 
+                        } else if (bienSeleccionado.getTipo()==TipoDeBien.DONACION) {
+                            this.bienSeleccionado = bienSeleccionado.cloneDonacion();//se clona el bien en bienSeleccionado al momento de seleccionarlo 
+                        } else if (bienSeleccionado.getTipo()==TipoDeBien.TRASLADO) {
+                            this.bienSeleccionado = bienSeleccionado.cloneTraslado();//se clona el bien en bienSeleccionado al momento de seleccionarlo 
+                        }
 			tempCUR = this.bienSeleccionado.getCur(); //se guarda el cui seleccionado en una variable temporal
 			//.setEnabled(true);  //se habilita el boton al momento de ser seleccionado un empleado
 		}
@@ -472,16 +713,16 @@ public class ConsultaBienes extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarButton;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JComboBox<String> cargoComboBox;
     private javax.swing.JComboBox<String> cargoComboBox1;
     private javax.swing.JComboBox<String> comboDivision;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
@@ -489,16 +730,31 @@ public class ConsultaBienes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbActa;
+    private javax.swing.JLabel lbAutorizacion;
+    private javax.swing.JLabel lbCorrelativo;
+    private javax.swing.JLabel lbEncargado;
+    private javax.swing.JLabel lbFecha;
+    private javax.swing.JLabel lbPunto;
+    private javax.swing.JLabel lbSeccion;
     private javax.swing.JButton limpiarButton;
     private javax.swing.JPanel panelValidacion;
     private javax.swing.JTable tablaBienes;
+    private javax.swing.JTextField txtActa;
+    private javax.swing.JTextField txtAutorizacion;
     private javax.swing.JTextField txtBuscador;
+    private javax.swing.JTextField txtCorrelativo;
     private javax.swing.JTextField txtCur;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtDivision;
+    private javax.swing.JTextField txtEncargado;
     private javax.swing.JFormattedTextField txtFactura;
+    private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtProcedencia;
+    private javax.swing.JTextField txtPunto;
+    private javax.swing.JTextField txtSeccion;
     private javax.swing.JFormattedTextField txtValor;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

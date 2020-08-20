@@ -27,8 +27,8 @@ public interface BienDAO extends CRUD<Bien> {
     public static final String CONSULTAR_BIEN_POR_TRASLADO = "SELECT * FROM BIEN AS t1 INNER JOIN TRASLADO AS t2 ON t1.cur=t2.cur_bien";
     public static final String CONSULTAR_BIEN_POR_COMPRA = "SELECT * FROM BIEN WHERE tipo='compra'";
     public static final String CONSULTAR_TODOS_LOS_BIENES = "SELECT * FROM BIEN";
-    public static final String CONSULTAR_BIEN_DONACION_POR_CUR = "SELECT correlativo,punto,numero_acta FROM DONACION WHERE cur_bien=?";
-    public static final String CONSULTAR_BIEN_TRASLADO_POR_CUR = "SELECT fecha,autorizacion,seccion,persona_que_recibio FROM TRASLADO WHERE cur_bien=?";
+    public static final String CONSULTAR_BIEN_DONACION_POR_CUR = "SELECT correlativo,punto,numero_acta FROM DONACION WHERE cur_bien=? LIMIT 1";
+    public static final String CONSULTAR_BIEN_TRASLADO_POR_CUR = "SELECT fecha,autorizacion,seccion,persona_que_recibio FROM TRASLADO WHERE cur_bien=? LIMIT 1";
     public static final String TRASLADAR_BIEN = "INSERT INTO TRASLADO(cur_bien,fecha,autorizacion,seccion,persona_que_recibio) VALUES(?,?,?,?,?)";
     public static final String DESACTIVAR_TRASLADO = "UPDATE TRASLADO SET autorizacion =0 WHERE cur_bien =?";
     //CRUD

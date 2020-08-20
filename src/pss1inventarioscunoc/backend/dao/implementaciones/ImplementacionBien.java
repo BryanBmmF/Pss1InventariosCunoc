@@ -243,7 +243,7 @@ public class ImplementacionBien implements BienDAO {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_COMPRA);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.TRASLADO, result.getDouble(7), result.getString(8)));
+                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.COMPRA, result.getDouble(7), result.getString(8)));
             }
             prepStatement.close();
             result.close();
