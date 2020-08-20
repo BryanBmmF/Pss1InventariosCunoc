@@ -403,7 +403,7 @@ public class ProveedorJPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jSeparator1)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addGap(752, 752, 752))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -416,12 +416,12 @@ public class ProveedorJPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(572, Short.MAX_VALUE))
             .addComponent(jScrollPane2)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelValidacion, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelValidacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -429,50 +429,45 @@ public class ProveedorJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton2ActionPerformed
+    private void buscarButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
         buscarProveedor();
-    }//GEN-LAST:event_buscarButton2ActionPerformed
+    }                                             
 
-    private void modificarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButton1ActionPerformed
+    private void modificarButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         ModificarProveedorJDialog mod = new ModificarProveedorJDialog(null, true, proveedor, controlador);
         mod.setVisible(true);
         buscarProveedor();
-    }//GEN-LAST:event_modificarButton1ActionPerformed
+         
+        //2 nuevas lineas
+        actualizarLista(controlador.buscarProveedores());
+        buscarProveedor();
+    }                                                
 
-    private void guardarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton2ActionPerformed
+    private void guardarButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
-    }//GEN-LAST:event_guardarButton2ActionPerformed
+    }                                              
 
-    private void correoElectronicoTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoElectronicoTextField3ActionPerformed
+    private void correoElectronicoTextField3ActionPerformed(java.awt.event.ActionEvent evt) {                                                            
         // TODO add your handling code here:
-    }//GEN-LAST:event_correoElectronicoTextField3ActionPerformed
+    }                                                           
 
     private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
     private void guardarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton1ActionPerformed
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add(this.nombreTextField1.getText());
-        datos.add(this.nitTextField.getText());
-        datos.add(this.direccionTextField2.getText());
-        datos.add(this.descripcionTextField4.getText());
-        if (!controlador.verificarDatosProveedor(datos)) {
-            JOptionPane.showMessageDialog(this,
-                "Faltan datos para poder crear un proveedor",
-                "Datos incompletos",
-                JOptionPane.ERROR_MESSAGE);
-        } else {
+
+        if (controlador.verificarDatosProveedor(nombreTextField1.getText(), nitTextField.getText(), direccionTextField2.getText(), descripcionTextField4.getText(), correoElectronicoTextField3.getText())) {
             boolean seRegistro = controlador.registrar(new Proveedor(this.nombreTextField1.getText(), this.nitTextField.getText(), this.direccionTextField2.getText(), this.descripcionTextField4.getText(), this.correoElectronicoTextField3.getText()));
             if (seRegistro) {
                 JOptionPane.showMessageDialog(this,

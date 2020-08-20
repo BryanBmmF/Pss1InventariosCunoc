@@ -11,6 +11,7 @@ import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
+import pss1inventarioscunoc.frontend.vistas.proveedores.ProveedorJPanel;
 
 /**
  *

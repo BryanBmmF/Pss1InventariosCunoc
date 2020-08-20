@@ -6,6 +6,7 @@
 package pss1inventarioscunoc.frontend.vistas.facturas;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -74,6 +75,10 @@ public class FacturasJPanel extends javax.swing.JPanel {
         jLabel24 = new javax.swing.JLabel();
         buscarButton1 = new javax.swing.JButton();
         modificarButton2 = new javax.swing.JButton();
+        fecha1jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        fecha2jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        proveedorTextField11 = new javax.swing.JTextField();
+        opcionBusquedajComboBox1 = new javax.swing.JComboBox<>();
         guardarButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 119, 180));
@@ -192,6 +197,13 @@ public class FacturasJPanel extends javax.swing.JPanel {
             }
         });
 
+        proveedorTextField11.setBackground(new java.awt.Color(255, 255, 255));
+        proveedorTextField11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        proveedorTextField11.setForeground(new java.awt.Color(0, 0, 102));
+        proveedorTextField11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        opcionBusquedajComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "proveedor", "fecha" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -199,18 +211,27 @@ public class FacturasJPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(341, 341, 341)
-                        .addComponent(jLabel24))
+                        .addContainerGap()
+                        .addComponent(fecha1jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fecha2jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(proveedorTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(opcionBusquedajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(341, 341, 341)
+                                .addComponent(jLabel24))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(288, 288, 288)
+                                .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,11 +239,20 @@ public class FacturasJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel24)
                 .addGap(22, 22, 22)
-                .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fecha1jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(opcionBusquedajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(proveedorTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fecha2jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         guardarButton2.setBackground(new java.awt.Color(255, 153, 0));
@@ -264,7 +294,9 @@ public class FacturasJPanel extends javax.swing.JPanel {
                 .addGap(292, 292, 292)
                 .addComponent(jLabel21)
                 .addContainerGap(365, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +345,10 @@ public class FacturasJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -325,7 +360,23 @@ public class FacturasJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_asignarProveedorButton1ActionPerformed
 
     private void buscarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton1ActionPerformed
-
+        String opcion = this.opcionBusquedajComboBox1.getSelectedItem().toString();
+        if (opcion.equalsIgnoreCase("proveedor")) {
+            if (!this.proveedorTextField11.getText().isEmpty()) {
+                actualizarLista(controlador.buscarFacturas(this.proveedorTextField11.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese el nombre de un proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            Timestamp fecha1 = new Timestamp(this.fecha1jDateChooser1.getDate().getTime());
+            Timestamp fecha2 = new Timestamp(this.fecha2jDateChooser2.getDate().getTime());
+            System.out.println();
+            if (fecha1 != null && fecha2 != null) {
+                actualizarLista(controlador.buscarFacturas(fecha1, fecha2));
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese fecha incio y final", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
     }//GEN-LAST:event_buscarButton1ActionPerformed
 
@@ -338,27 +389,33 @@ public class FacturasJPanel extends javax.swing.JPanel {
         if (proveedor != null) {
             idProveedor = proveedor.getIdProveedor();
         }
-        Factura factura = controlador.validarDatosDeIngreso(
-                this.numeroDeFacturaTextField6.getText(),
-                new Date(this.fechajDateChooser1.getDate().getTime()),
-                this.descripcionTextField10.getText(),
-                this.valorTextField9.getText(),
-                proveedor);
-        if (proveedor != null) {//Insercion factura con proveedor
-            if (controlador.registrarFacturaConProveedor(factura)) {
-                JOptionPane.showMessageDialog(this, "Se ingreso la factura");
-                limpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(this, "No se pudo ingresar la factura", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {//Insercion sin proveedor
-            if (controlador.registrarFacturaSinProveedor(factura)) {
-                JOptionPane.showMessageDialog(this, "Se ingreso la factura");
-                limpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(this, "No se pudo ingresar la factura", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        if (this.fechajDateChooser1.getDate() != null) {
+            Factura factura = controlador.validarDatosDeIngreso(
+                    this.numeroDeFacturaTextField6.getText(),
+                    new Date(this.fechajDateChooser1.getDate().getTime()),
+                    this.descripcionTextField10.getText(),
+                    this.valorTextField9.getText(),
+                    proveedor);
+            if (factura!=null && proveedor != null) {//Insercion factura con proveedor
+                if (controlador.registrarFacturaConProveedor(factura)) {
+                    JOptionPane.showMessageDialog(this, "Se ingreso la factura");
+                    limpiarCampos();
+                    actualizarLista(controlador.buscarFacturas());
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo ingresar la factura", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if(factura!=null){//Insercion sin proveedor
+                if (controlador.registrarFacturaSinProveedor(factura)) {
+                    JOptionPane.showMessageDialog(this, "Se ingreso la factura");
+                    limpiarCampos();
+                    actualizarLista(controlador.buscarFacturas());
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo ingresar la factura", "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Faltan datos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_guardarButton2ActionPerformed
 
@@ -370,7 +427,9 @@ public class FacturasJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_numeroDeFacturaTextField6KeyTyped
 
     private void modificarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButton2ActionPerformed
-        // TODO add your handling code here:
+        ModificarFacturasDialog mod = new ModificarFacturasDialog(null, true, this.factura);
+        mod.setVisible(true);
+        actualizarLista(controlador.buscarFacturas());
     }//GEN-LAST:event_modificarButton2ActionPerformed
 
     private void actualizarLista(List<Factura> listado) {
@@ -405,6 +464,8 @@ public class FacturasJPanel extends javax.swing.JPanel {
     private javax.swing.JButton asignarProveedorButton1;
     private javax.swing.JButton buscarButton1;
     private javax.swing.JTextField descripcionTextField10;
+    private com.toedter.calendar.JDateChooser fecha1jDateChooser1;
+    private com.toedter.calendar.JDateChooser fecha2jDateChooser2;
     private com.toedter.calendar.JDateChooser fechajDateChooser1;
     private javax.swing.JButton guardarButton2;
     private javax.swing.JLabel jLabel18;
@@ -420,6 +481,8 @@ public class FacturasJPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton modificarButton2;
     private javax.swing.JTextField numeroDeFacturaTextField6;
+    private javax.swing.JComboBox<String> opcionBusquedajComboBox1;
+    private javax.swing.JTextField proveedorTextField11;
     private javax.swing.JTextField proveedorTextField5;
     private javax.swing.JTextField valorTextField9;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

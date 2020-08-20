@@ -113,6 +113,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         puntoTextField13 = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         numeroActaTextField14 = new javax.swing.JTextField();
+        tarjetaDeResponsabilidadButton = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -493,6 +494,17 @@ public class BienesJPanel1 extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(panelValidacion);
 
+        tarjetaDeResponsabilidadButton.setBackground(new java.awt.Color(0, 204, 204));
+        tarjetaDeResponsabilidadButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        tarjetaDeResponsabilidadButton.setForeground(new java.awt.Color(255, 255, 255));
+        tarjetaDeResponsabilidadButton.setText("IR A TARJETA DE RESPONSABILIDAD");
+        tarjetaDeResponsabilidadButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tarjetaDeResponsabilidadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaDeResponsabilidadButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -500,8 +512,14 @@ public class BienesJPanel1 extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 722, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(tarjetaDeResponsabilidadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -510,8 +528,13 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tarjetaDeResponsabilidadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -523,9 +546,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,12 +558,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         //Validadndo valor
         String tipoDeBien = this.tipoBienComboBox.getSelectedItem().toString();
         int numeroFactura = ControladorBien.ID_FACTURA_INEXISTENTE;
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add(curTextField6.getText());
-        datos.add(procedenciaTextField5.getText());
-        datos.add(descripcionTextField7.getText());
-        datos.add(divisionTextField9.getText());
-        boolean verValores = controlador.verificarDatosGeneralesBien(datos, valorTextField10.getText());
+        boolean verValores = controlador.verificarValoresGenerales(curTextField6.getText(),procedenciaTextField5.getText(),descripcionTextField7.getText(),divisionTextField9.getText(),valorTextField10.getText());
         if (verValores) {
             if (factura != null) {
                 numeroFactura = factura.getIdFactura();
@@ -591,6 +607,10 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         listado.setVisible(true);
     }//GEN-LAST:event_asignarFacturaButton2ActionPerformed
 
+    private void tarjetaDeResponsabilidadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaDeResponsabilidadButtonActionPerformed
+
+    }//GEN-LAST:event_tarjetaDeResponsabilidadButtonActionPerformed
+
     private void actualizarLista() {
 //        this.controlador.actualizarEncargadosValidacionEncargados(this);
     }
@@ -636,6 +656,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
     private javax.swing.JTextField puntoTextField13;
     private javax.swing.JTextField receptorTextField16;
     private javax.swing.JTextField seccionTextField17;
+    private javax.swing.JButton tarjetaDeResponsabilidadButton;
     private javax.swing.JComboBox<String> tipoBienComboBox;
     private javax.swing.JPanel trasladoPanel;
     private javax.swing.JTextField valorTextField10;

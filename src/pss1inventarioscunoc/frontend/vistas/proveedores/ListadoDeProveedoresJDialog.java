@@ -16,6 +16,7 @@ import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
+import pss1inventarioscunoc.frontend.vistas.facturas.ModificarFacturasDialog;
 
 /**
  *
@@ -29,6 +30,7 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
     public ObservableList<Proveedor> listaProveedoresObs = null;
     private Proveedor proveedor;
     private FacturasJPanel panelFacturas;
+    private ModificarFacturasDialog modiFacturasDialog;
 
     /**
      * Creates new form listadoDeProveedoresJDialog
@@ -41,6 +43,18 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
         this.actualizarLista(controlador.buscarProveedores());
         this.proveedor = new Proveedor();
         this.panelFacturas = facturasPanel;
+        initComponents();
+    }
+    
+    
+        public ListadoDeProveedoresJDialog(java.awt.Frame parent, boolean modal, ModificarFacturasDialog modiFacturasDialog) {
+        super(parent, modal);
+        this.controlador = new ControladorProveedor();
+        this.listaProveedores = new LinkedList<>();
+        this.listaProveedoresObs = ObservableCollections.observableList(listaProveedores);
+        this.actualizarLista(controlador.buscarProveedores());
+        this.proveedor = new Proveedor();
+        this.modiFacturasDialog = modiFacturasDialog;
         initComponents();
     }
 
@@ -59,8 +73,13 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
         seleccionarProveedorjButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        tipoBusquedaProveedorComboBox = new javax.swing.JComboBox<>();
+        nombreBusquedaTextField = new javax.swing.JTextField();
+        buscarButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel1.setText("Seleccione su proveedor");
 
@@ -71,40 +90,53 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaProveedoresObs}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable2);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreDeProveedor}"));
-        columnBinding.setColumnName("Nombre De Proveedor");
+        columnBinding.setColumnName("Nombre");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${correoElectronico}"));
-        columnBinding.setColumnName("Correo Electronico");
+        columnBinding.setColumnName("correo");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
-        columnBinding.setColumnName("Descripcion");
+        columnBinding.setColumnName("descripcion");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${direccion}"));
-        columnBinding.setColumnName("Direccion");
+        columnBinding.setColumnName("direccion");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nit}"));
         columnBinding.setColumnName("Nit");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${proveedor}"), jTable2, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         jScrollPane2.setViewportView(jTable2);
+
+        tipoBusquedaProveedorComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        tipoBusquedaProveedorComboBox.setForeground(new java.awt.Color(0, 50, 102));
+        tipoBusquedaProveedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "todos", "nombre", "direccion", "descripcion" }));
+
+        nombreBusquedaTextField.setBackground(new java.awt.Color(255, 255, 255));
+        nombreBusquedaTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        nombreBusquedaTextField.setForeground(new java.awt.Color(0, 0, 102));
+        nombreBusquedaTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        buscarButton2.setBackground(new java.awt.Color(0, 204, 204));
+        buscarButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        buscarButton2.setForeground(new java.awt.Color(255, 255, 255));
+        buscarButton2.setText("Buscar");
+        buscarButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buscarButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,42 +145,50 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 905, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(485, 485, 485)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(511, 511, 511)
-                        .addComponent(seleccionarProveedorjButton1)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                        .addComponent(seleccionarProveedorjButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nombreBusquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(362, 362, 362))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 905, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipoBusquedaProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreBusquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(seleccionarProveedorjButton1)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         bindingGroup.bind();
@@ -161,10 +201,17 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
             this.panelFacturas.setProveedor(this.proveedor);
             this.panelFacturas.getProveedorTextField5().setText(this.proveedor.getNombreDeProveedor());
 
+        }else if(modiFacturasDialog!=null){
+            this.modiFacturasDialog.setProveedor(proveedor);
+            this.modiFacturasDialog.getProveedorTextField5().setText(this.proveedor.getNombreDeProveedor());
         }
         JOptionPane.showMessageDialog(this, "Proveedor seleccionado:" + this.proveedor.getNombreDeProveedor());
         this.dispose();
     }//GEN-LAST:event_seleccionarProveedorjButton1ActionPerformed
+
+    private void buscarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton2ActionPerformed
+        buscarProveedor();
+    }//GEN-LAST:event_buscarButton2ActionPerformed
 
     private void actualizarLista(List<Proveedor> listado) {
         listaProveedoresObs.clear();
@@ -197,12 +244,29 @@ public class ListadoDeProveedoresJDialog extends javax.swing.JDialog {
         return vista;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buscarButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTextField nombreBusquedaTextField;
     private javax.swing.JButton seleccionarProveedorjButton1;
+    private javax.swing.JComboBox<String> tipoBusquedaProveedorComboBox;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    
+    
+    private void buscarProveedor() {
+        if (this.tipoBusquedaProveedorComboBox.getSelectedItem().equals("todos")) {
+            actualizarLista(controlador.buscarProveedores());//Todo
+        } else if (this.tipoBusquedaProveedorComboBox.getSelectedItem().equals("nombre")) {
+            actualizarLista(controlador.buscarProveedoresPorNombre(nombreBusquedaTextField.getText()));
+        } else if (this.tipoBusquedaProveedorComboBox.getSelectedItem().equals("direccion")) {
+            actualizarLista(controlador.buscarProveedoresPorDireccion(nombreBusquedaTextField.getText()));
+        } else {//Descripcion
+            actualizarLista(controlador.buscarProveedoresPorDescripcion(nombreBusquedaTextField.getText()));
+        }
+        setProveedor(null);
+    }
 
 }
