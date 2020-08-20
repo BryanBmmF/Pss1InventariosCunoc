@@ -61,11 +61,13 @@ public class ImplementacionInventario implements InventarioDAO {
         }
         return inventarioEncontrado;
     }
-/**
- * Permite asociar un bien con su inventario
- * @param bien
- * @return 
- */
+
+    /**
+     * Permite asociar un bien con su inventario
+     *
+     * @param bien
+     * @return
+     */
     @Override
     public boolean insertarRegistroBienInventario(Bien bien) {
         try {
@@ -79,6 +81,50 @@ public class ImplementacionInventario implements InventarioDAO {
             return false;
         }
         return true;
-        
+
+    }
+
+    /**
+     * Se consulta el total de inventario activo, -1 si existiera error
+     *
+     * @param inventario
+     * @return
+     */
+    @Override
+    public double consultarTotalDeInventarioActivo(Inventario inventario) {
+        double valorTotal = -1;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_REGISTRO_BIEN_INVENTARIO);
+            prepStatement.setString(1, "1");
+            prepStatement.setInt(2, inventario.getNumero());
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                valorTotal = result.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return valorTotal;
+    }
+/**
+ * Se consulta el total de inventario de baja, -1 si existiera error
+ * @param inventario
+ * @return 
+ */
+    @Override
+    public double consultarTotalDeInventarioDeBaja(Inventario inventario) {
+        double valorTotal = -1;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_REGISTRO_BIEN_INVENTARIO);
+            prepStatement.setString(1, "0");
+            prepStatement.setInt(2, inventario.getNumero());
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                valorTotal = result.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return valorTotal;
     }
 }
