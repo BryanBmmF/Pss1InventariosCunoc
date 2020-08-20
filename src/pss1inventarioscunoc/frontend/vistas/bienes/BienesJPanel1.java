@@ -52,7 +52,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
      */
     public BienesJPanel1() {
         initComponents();
-        this.setName("Proveedores");
+        this.setName("Bienes");
         this.controlador = new ControladorBien();
         this.listaEncargados = new LinkedList<>();
         this.listaEncargadosObsr = ObservableCollections.observableList(listaEncargados);

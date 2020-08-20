@@ -22,7 +22,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
-        ventanaPrincipal.add(new ReporteDeBiens());
+        ventanaPrincipal.add(new BienesJPanel1());
     }
 
     @SuppressWarnings("unchecked")
