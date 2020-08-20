@@ -5,6 +5,7 @@ package pss1inventarioscunoc.frontend.vistas;
 
 import javax.swing.UIManager;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
+import pss1inventarioscunoc.frontend.vistas.bienes.ReporteDeBiens;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
 import pss1inventarioscunoc.frontend.vistas.proveedores.ProveedorJPanel;
 
@@ -21,7 +22,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
-        ventanaPrincipal.add(new BienesJPanel1());
+        ventanaPrincipal.add(new ReporteDeBiens());
     }
 
     @SuppressWarnings("unchecked")
@@ -140,6 +141,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         jButton7.setFocusPainted(false);
         jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
         jButton7.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 60));
 
         jButton8.setBackground(new java.awt.Color(0, 51, 153));
@@ -273,6 +279,9 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

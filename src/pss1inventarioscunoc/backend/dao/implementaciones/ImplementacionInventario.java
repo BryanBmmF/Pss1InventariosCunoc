@@ -74,6 +74,7 @@ public class ImplementacionInventario implements InventarioDAO {
             prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_REGISTRO_BIEN_INVENTARIO);
             prepStatement.setInt(1, ControladorInventario.INVENTARIO_CONTABILIDAD.getNumero());
             prepStatement.setString(2, bien.getCur());
+            System.out.println(prepStatement.toString() );
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -94,9 +95,10 @@ public class ImplementacionInventario implements InventarioDAO {
     public double consultarTotalDeInventarioActivo(Inventario inventario) {
         double valorTotal = -1;
         try {
-            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_REGISTRO_BIEN_INVENTARIO);
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TOTAL_DE_INVENTARIO);
             prepStatement.setString(1, "1");
             prepStatement.setInt(2, inventario.getNumero());
+            System.out.println(prepStatement.toString());
             result = prepStatement.executeQuery();
             while (result.next()) {
                 valorTotal = result.getDouble(1);
@@ -115,7 +117,7 @@ public class ImplementacionInventario implements InventarioDAO {
     public double consultarTotalDeInventarioDeBaja(Inventario inventario) {
         double valorTotal = -1;
         try {
-            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_REGISTRO_BIEN_INVENTARIO);
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TOTAL_DE_INVENTARIO);
             prepStatement.setString(1, "0");
             prepStatement.setInt(2, inventario.getNumero());
             result = prepStatement.executeQuery();
