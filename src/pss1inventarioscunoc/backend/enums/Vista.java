@@ -21,6 +21,8 @@ public enum Vista {
     MODIFICAR_PROVEEDOR_JDIALOG("Panel de Modificar Proveedor",GrupoVista.BIENES,8),
     PROVEEDOR_JPANEL("Panel de Proveedor",GrupoVista.BIENES,9),
     MANEJO_ENCARGADOS("Manejo de Encargados",GrupoVista.ENCARGADOS,10),
+    ASIGNACION_ENCARGADOS("Asignacion de Encargados",GrupoVista.ENCARGADOS,11),
+    REPORTE_TARJETAS_RESPONSABILIDAD("Reporte de Tarjetas de Responsabilidad", GrupoVista.TARJETAS_RESPONSABILIDAD,12),
     ;
     
     private String nombre;

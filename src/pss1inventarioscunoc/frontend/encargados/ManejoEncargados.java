@@ -107,7 +107,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
 
         cargoComboBox.setBackground(new java.awt.Color(255, 255, 255));
         cargoComboBox.setForeground(new java.awt.Color(0, 50, 102));
-        cargoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cargoComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cargoComboBoxItemStateChanged(evt);
@@ -140,7 +139,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
 
         divisionComboBox.setBackground(new java.awt.Color(255, 255, 255));
         divisionComboBox.setForeground(new java.awt.Color(0, 50, 102));
-        divisionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         divisionComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 divisionComboBoxItemStateChanged(evt);
@@ -397,14 +395,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
         this.controlador.actualizarEncargadosValidacionEncargados(this);
     }
     
-    private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
-        this.controlador.agregarButtonValidacionEncargados(this);
-    }//GEN-LAST:event_agregarButtonActionPerformed
-
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
-        this.controlador.limpiarButtonValidacionEncargados(this);
-    }//GEN-LAST:event_limpiarButtonActionPerformed
-
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
         this.controlador.actualizarButtonValidacionEncargados(this);
     }//GEN-LAST:event_actualizarButtonActionPerformed
@@ -417,38 +407,53 @@ public class ManejoEncargados extends javax.swing.JPanel {
         this.controlador.tablaEncargadosMouseClickedValidacionEncargados(this);
     }//GEN-LAST:event_tablaEncargadosMouseClicked
 
+    private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
+        this.controlador.agregarButtonValidacionEncargados(this);
+    }//GEN-LAST:event_agregarButtonActionPerformed
+
+    private void divisionComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_divisionComboBoxItemStateChanged
+        this.setTextDivisionTextField((String) this.getDivisionComboBox().getSelectedItem());
+    }//GEN-LAST:event_divisionComboBoxItemStateChanged
+
     private void dpiTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dpiTextFieldInputMethodTextChanged
+
     }//GEN-LAST:event_dpiTextFieldInputMethodTextChanged
+
+    private void dpiTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dpiTextFieldFocusLost
+
+    }//GEN-LAST:event_dpiTextFieldFocusLost
 
     private void dpiTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dpiTextFieldFocusGained
         this.controlador.dpiTextFieldFocusGainedValidacionEncargados(this);
     }//GEN-LAST:event_dpiTextFieldFocusGained
 
     private void dpiTextFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_dpiTextFieldCaretUpdate
+
     }//GEN-LAST:event_dpiTextFieldCaretUpdate
 
-    private void dpiTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dpiTextFieldFocusLost
-    }//GEN-LAST:event_dpiTextFieldFocusLost
-
     private void cargoComboBoxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseEntered
+
     }//GEN-LAST:event_cargoComboBoxMouseEntered
 
-    private void cargoComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cargoComboBoxFocusLost
-    }//GEN-LAST:event_cargoComboBoxFocusLost
+    private void cargoComboBoxMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseExited
+
+    }//GEN-LAST:event_cargoComboBoxMouseExited
 
     private void cargoComboBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseClicked
+
     }//GEN-LAST:event_cargoComboBoxMouseClicked
 
-    private void cargoComboBoxMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseExited
-    }//GEN-LAST:event_cargoComboBoxMouseExited
+    private void cargoComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cargoComboBoxFocusLost
+
+    }//GEN-LAST:event_cargoComboBoxFocusLost
 
     private void cargoComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cargoComboBoxItemStateChanged
         this.setTextCargoTextField((String) this.getCargoComboBox().getSelectedItem());
     }//GEN-LAST:event_cargoComboBoxItemStateChanged
 
-    private void divisionComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_divisionComboBoxItemStateChanged
-        this.setTextDivisionTextField((String) this.getDivisionComboBox().getSelectedItem());
-    }//GEN-LAST:event_divisionComboBoxItemStateChanged
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+        this.controlador.limpiarButtonValidacionEncargados(this);
+    }//GEN-LAST:event_limpiarButtonActionPerformed
 
     public JButton getAgregarButton() {
         return agregarButton;
