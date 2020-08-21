@@ -110,6 +110,31 @@ public class ImplementacionFactura implements FacturaDAO {
         }
         return facturas;
     }
+    
+    /**
+     * Busca una factura por su propio id
+     * @param id
+     * @return 
+     */
+    @Override
+    public Factura buscarFacturaPorId(int idFactura){
+        Factura factura = null;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA_POR_ID);
+            prepStatement.setInt(1, idFactura);
+            result = prepStatement.executeQuery();
+            while(result.next()){
+                factura = new Factura(result.getInt(2), result.getInt(3), 
+                        result.getTimestamp(4), result.getString(5), result.getDouble(6));
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return factura;
+    }
 
     /**
      * Devuelve las facturas que esten en el rango de fechas especificadas, null

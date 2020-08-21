@@ -90,6 +90,10 @@ public class ControladorFactura {
         return (ArrayList<Factura>) facturaDao.buscarFacturaPorFecha(fechaInicial, fechaFinal);
     }
 
+    public Factura buscarFactura(int idFactura){
+        return facturaDao.buscarFacturaPorId(idFactura);
+    }
+    
     /**
      * Se validadan los campos de ingreso de facturas
      *

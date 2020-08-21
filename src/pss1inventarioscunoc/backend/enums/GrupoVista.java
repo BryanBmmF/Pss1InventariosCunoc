@@ -15,7 +15,8 @@ public enum GrupoVista {
     SESION("Sesion"),
     BIENES("Bienes"),
     REPORTES("Reportes"),
-    ENCARGADOS("Encargados")
+    ENCARGADOS("Encargados"),
+    TARJETAS_RESPONSABILIDAD("Tarjetas")
     ;
     
     private String nombre;

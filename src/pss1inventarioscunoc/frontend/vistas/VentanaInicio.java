@@ -17,7 +17,6 @@ import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
  * @author fabricio
  */
 public class VentanaInicio extends javax.swing.JFrame {
-
     
     private Vista vista = Vista.INICIO;
     private ControladorVistas controlador = null;
@@ -299,7 +298,6 @@ public class VentanaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_reportesButtonActionPerformed
 
     private void usuariosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosButtonActionPerformed
-        //
     }//GEN-LAST:event_usuariosButtonActionPerformed
 
     private void encargadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encargadosButtonActionPerformed
@@ -307,7 +305,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_encargadosButtonActionPerformed
 
     private void tarjetaRespButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaRespButtonActionPerformed
-        
+        controlador.tarjetasRespButtonVentanaInicio(this);
     }//GEN-LAST:event_tarjetaRespButtonActionPerformed
 
     public Vista getVista() {
