@@ -210,30 +210,19 @@ public class ModificarProveedorJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton1ActionPerformed
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add(this.nombreTextField1.getText());
-        datos.add(this.nitTextField.getText());
-        datos.add(this.direccionTextField2.getText());
-        datos.add(this.descripcionTextField4.getText());
-        if (!controlador.verificarDatosProveedor(datos)) {
-            JOptionPane.showMessageDialog(this,
-                    "Faltan datos para poder crear un proveedor",
-                    "Datos incompletos",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            boolean seRegistro = controlador.modificarProveedor(new Proveedor(proveedor.getIdProveedor(),this.nombreTextField1.getText(), this.nitTextField.getText(), this.direccionTextField2.getText(), this.descripcionTextField4.getText(), this.correoElectronicoTextField3.getText()));
+        if (controlador.verificarDatosProveedor(nombreTextField1.getText(), nitTextField.getText(), direccionTextField2.getText(), descripcionTextField4.getText(), correoElectronicoTextField3.getText())) {
+            boolean seRegistro = controlador.modificarProveedor(new Proveedor(this.nombreTextField1.getText(), this.nitTextField.getText(), this.direccionTextField2.getText(), this.descripcionTextField4.getText(), this.correoElectronicoTextField3.getText(),this.proveedor.getIdProveedor()));
             if (seRegistro) {
                 JOptionPane.showMessageDialog(this,
-                        "Proveedor Actualizado");
+                        "Proveedor actualizado");
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "No se ha podido actualizar el proveedor",
+                        "No se ha actualizado el proveedor. Verifique los datos",
                         "Error Interno",
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_guardarButton1ActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
