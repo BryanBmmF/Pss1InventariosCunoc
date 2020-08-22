@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorFactura;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Factura;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 
@@ -21,6 +22,7 @@ import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
  */
 public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
 
+    private Vista vista = Vista.LISTADO_DE_FACTURAS_JDIALOG;
     private ControladorFactura controlador;
     public List<Factura> listaFacturas;
     public ObservableList<Factura> listaObservableFacturas;
@@ -237,6 +239,10 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
         }
     }
 
+    public Vista getVista() {
+        return vista;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarButton1;

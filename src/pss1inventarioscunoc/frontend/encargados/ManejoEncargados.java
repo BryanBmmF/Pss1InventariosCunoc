@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pss1inventarioscunoc.frontend.vistas;
+package pss1inventarioscunoc.frontend.encargados;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
@@ -13,20 +13,24 @@ import javax.swing.JTextField;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorEncargado;
+import pss1inventarioscunoc.backend.enums.GrupoVista;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Encargado;
 
 /**
  *
  * @author fabricio
  */
-public class ValidacionEncargados extends javax.swing.JPanel {
+public class ManejoEncargados extends javax.swing.JPanel {
 
-    private Encargado encargado = null;
-    private ControladorEncargado controlador = null;
+    private Vista vista = Vista.MANEJO_ENCARGADOS;
     public List<Encargado> listaEncargados = null;
     public ObservableList<Encargado> listaEncargadosObsr = null;
-    
-    private String nombre;
+    private Encargado selectedEncargado = null;
+    private String selectedCargo = null;
+    private String selectedDivision = null;
+    private ControladorEncargado controlador = null;
+    private boolean tableSelected = false;
 
     public static final String PROP_NOMBRE = "nombre";
 
@@ -34,12 +38,12 @@ public class ValidacionEncargados extends javax.swing.JPanel {
     /**
      * Creates new form ValidacionEncargado
      */
-    public ValidacionEncargados() {
-        initComponents();
-        this.setName("Validacion");
+    public ManejoEncargados() {
         this.controlador = new ControladorEncargado();
         this.listaEncargados = new LinkedList<>();
         this.listaEncargadosObsr = ObservableCollections.observableList(listaEncargados);
+        initComponents();
+        this.setName("Validacion");
         this.actualizarLista();
     }
 
@@ -51,8 +55,8 @@ public class ValidacionEncargados extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-    	bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -69,31 +73,28 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         agregarButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEncargados = new javax.swing.JTable();
-        guardarButton = new javax.swing.JButton();
+        actualizarButton = new javax.swing.JButton();
         eliminarButton = new javax.swing.JButton();
         limpiarButton = new javax.swing.JButton();
         apellidoTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         dpiTextField = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaEncargados = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(51, 119, 180));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Validación de Encargados");
 
         panelValidacion.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Agregar Encargado");
 
         nombreTextField.setBackground(new java.awt.Color(255, 255, 255));
@@ -102,12 +103,31 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         nombreTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Apellido");
 
         cargoComboBox.setBackground(new java.awt.Color(255, 255, 255));
         cargoComboBox.setForeground(new java.awt.Color(0, 50, 102));
-        cargoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cargoComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cargoComboBoxItemStateChanged(evt);
+            }
+        });
+        cargoComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cargoComboBoxFocusLost(evt);
+            }
+        });
+        cargoComboBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cargoComboBoxMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cargoComboBoxMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cargoComboBoxMouseEntered(evt);
+            }
+        });
 
         cargoTextField.setBackground(new java.awt.Color(255, 255, 255));
         cargoTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -115,12 +135,15 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         cargoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Cargo");
 
         divisionComboBox.setBackground(new java.awt.Color(255, 255, 255));
         divisionComboBox.setForeground(new java.awt.Color(0, 50, 102));
-        divisionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        divisionComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                divisionComboBoxItemStateChanged(evt);
+            }
+        });
 
         divisionTextField.setBackground(new java.awt.Color(255, 255, 255));
         divisionTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -128,12 +151,10 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         divisionTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("División");
 
         agregarButton.setBackground(new java.awt.Color(51, 204, 0));
         agregarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        agregarButton.setForeground(new java.awt.Color(255, 255, 255));
         agregarButton.setText("AGREGAR");
         agregarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         agregarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -143,63 +164,24 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Tabla de Encargados");
 
-        /*org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaEncargadosObsr}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(
-        	org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tablaEncargados);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(
-        	org.jdesktop.beansbinding.ELProperty.create("${id}"));
-        columnBinding.setColumnName("DPI");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
-        columnBinding.setColumnName("Nombre");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${apellido}"));
-        columnBinding.setColumnName("Apellido");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cargo}"));
-        columnBinding.setColumnName("Cargo");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${division}"));
-        columnBinding.setColumnName("Division");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();*/
-
-
-        /*tablaEncargados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));*/
-        jScrollPane1.setViewportView(tablaEncargados);
-
-        guardarButton.setBackground(new java.awt.Color(255, 153, 0));
-        guardarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        guardarButton.setForeground(new java.awt.Color(255, 255, 255));
-        guardarButton.setText("GUARDAR");
-        guardarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        guardarButton.addActionListener(new java.awt.event.ActionListener() {
+        actualizarButton.setBackground(new java.awt.Color(255, 153, 0));
+        actualizarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        actualizarButton.setText("ACTUALIZAR");
+        actualizarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        actualizarButton.setEnabled(false);
+        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarButtonActionPerformed(evt);
+                actualizarButtonActionPerformed(evt);
             }
         });
 
         eliminarButton.setBackground(new java.awt.Color(204, 0, 0));
         eliminarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
         eliminarButton.setText("ELIMINAR");
         eliminarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        eliminarButton.setEnabled(false);
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarButtonActionPerformed(evt);
@@ -208,7 +190,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
 
         limpiarButton.setBackground(new java.awt.Color(0, 204, 204));
         limpiarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
         limpiarButton.setText("LIMPIAR");
         limpiarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +204,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         apellidoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("DPI");
 
         dpiTextField.setBackground(new java.awt.Color(255, 255, 255));
@@ -234,6 +214,54 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        dpiTextField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                dpiTextFieldCaretUpdate(evt);
+            }
+        });
+        dpiTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dpiTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dpiTextFieldFocusLost(evt);
+            }
+        });
+        dpiTextField.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                dpiTextFieldInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaEncargadosObsr}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tablaEncargados);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
+        columnBinding.setColumnName("DPI");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${apellido}"));
+        columnBinding.setColumnName("Apellido");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cargo}"));
+        columnBinding.setColumnName("Cargo");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${division}"));
+        columnBinding.setColumnName("Division");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedEncargado}"), tablaEncargados, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        tablaEncargados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaEncargadosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaEncargados);
 
         javax.swing.GroupLayout panelValidacionLayout = new javax.swing.GroupLayout(panelValidacion);
         panelValidacion.setLayout(panelValidacionLayout);
@@ -242,47 +270,43 @@ public class ValidacionEncargados extends javax.swing.JPanel {
             .addGroup(panelValidacionLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelValidacionLayout.createSequentialGroup()
+                            .addComponent(divisionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(divisionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelValidacionLayout.createSequentialGroup()
+                            .addComponent(cargoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(cargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel6)
+                        .addGroup(panelValidacionLayout.createSequentialGroup()
+                            .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelValidacionLayout.createSequentialGroup()
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(apellidoTextField))))
+                    .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(43, 43, 43)
+                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(panelValidacionLayout.createSequentialGroup()
-                                    .addComponent(divisionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(divisionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelValidacionLayout.createSequentialGroup()
-                                    .addComponent(cargoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(cargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel6)
-                                .addGroup(panelValidacionLayout.createSequentialGroup()
-                                    .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelValidacionLayout.createSequentialGroup()
-                                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(apellidoTextField))))
-                            .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                                .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18))))
+                        .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         panelValidacionLayout.setVerticalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,12 +317,9 @@ public class ValidacionEncargados extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
+                .addGap(9, 9, 9)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
                         .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -319,12 +340,13 @@ public class ValidacionEncargados extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(divisionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(divisionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(divisionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
@@ -365,27 +387,73 @@ public class ValidacionEncargados extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void actualizarLista(){
         this.controlador.actualizarEncargadosValidacionEncargados(this);
     }
     
-    private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
-        this.controlador.agregarButtonValidacionEncargados(this);
-    }//GEN-LAST:event_agregarButtonActionPerformed
-
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
-        this.controlador.limpiarButtonValidacionEncargados(this);
-    }//GEN-LAST:event_limpiarButtonActionPerformed
-
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
-        this.controlador.guardarButtonValidacionEncargados(this);
-    }//GEN-LAST:event_guardarButtonActionPerformed
+    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
+        this.controlador.actualizarButtonValidacionEncargados(this);
+    }//GEN-LAST:event_actualizarButtonActionPerformed
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
         this.controlador.eliminarButtonValidacionEncargados(this);
     }//GEN-LAST:event_eliminarButtonActionPerformed
+
+    private void tablaEncargadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEncargadosMouseClicked
+        this.controlador.tablaEncargadosMouseClickedValidacionEncargados(this);
+    }//GEN-LAST:event_tablaEncargadosMouseClicked
+
+    private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
+        this.controlador.agregarButtonValidacionEncargados(this);
+    }//GEN-LAST:event_agregarButtonActionPerformed
+
+    private void divisionComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_divisionComboBoxItemStateChanged
+        this.setTextDivisionTextField((String) this.getDivisionComboBox().getSelectedItem());
+    }//GEN-LAST:event_divisionComboBoxItemStateChanged
+
+    private void dpiTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dpiTextFieldInputMethodTextChanged
+
+    }//GEN-LAST:event_dpiTextFieldInputMethodTextChanged
+
+    private void dpiTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dpiTextFieldFocusLost
+
+    }//GEN-LAST:event_dpiTextFieldFocusLost
+
+    private void dpiTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dpiTextFieldFocusGained
+        this.controlador.dpiTextFieldFocusGainedValidacionEncargados(this);
+    }//GEN-LAST:event_dpiTextFieldFocusGained
+
+    private void dpiTextFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_dpiTextFieldCaretUpdate
+
+    }//GEN-LAST:event_dpiTextFieldCaretUpdate
+
+    private void cargoComboBoxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseEntered
+
+    }//GEN-LAST:event_cargoComboBoxMouseEntered
+
+    private void cargoComboBoxMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseExited
+
+    }//GEN-LAST:event_cargoComboBoxMouseExited
+
+    private void cargoComboBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargoComboBoxMouseClicked
+
+    }//GEN-LAST:event_cargoComboBoxMouseClicked
+
+    private void cargoComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cargoComboBoxFocusLost
+
+    }//GEN-LAST:event_cargoComboBoxFocusLost
+
+    private void cargoComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cargoComboBoxItemStateChanged
+        this.setTextCargoTextField((String) this.getCargoComboBox().getSelectedItem());
+    }//GEN-LAST:event_cargoComboBoxItemStateChanged
+
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+        this.controlador.limpiarButtonValidacionEncargados(this);
+    }//GEN-LAST:event_limpiarButtonActionPerformed
 
     public JButton getAgregarButton() {
         return agregarButton;
@@ -393,6 +461,14 @@ public class ValidacionEncargados extends javax.swing.JPanel {
 
     public JTextField getApellidoTextField() {
         return apellidoTextField;
+    }
+
+    public boolean isTableSelected() {
+        return tableSelected;
+    }
+
+    public void setTableSelected(boolean tableSelected) {
+        this.tableSelected = tableSelected;
     }
 
     public JComboBox<String> getCargoComboBox() {
@@ -419,8 +495,8 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         return eliminarButton;
     }
 
-    public JButton getGuardarButton() {
-        return guardarButton;
+    public JButton getActualizarButton() {
+        return actualizarButton;
     }
 
     public JButton getLimpiarButton() {
@@ -429,14 +505,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
 
     public JTextField getNombreTextField() {
         return nombreTextField;
-    }
-
-    public Encargado getEncargado() {
-        return encargado;
-    }
-
-    public void setEncargado(Encargado encargado) {
-        this.encargado = encargado;
     }
 
     public List<Encargado> getListaEncargados() {
@@ -455,7 +523,76 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         this.listaEncargadosObsr = listaEncargadosObsr;
     }
 
+    public Encargado getSelectedEncargado() {
+        return selectedEncargado;
+    }
+
+    public void setSelectedEncargado(Encargado selectedEncargado) {
+        this.selectedEncargado = selectedEncargado;
+    }
+
+    public String getSelectedCargo() {
+        return selectedCargo;
+    }
+
+    public void setSelectedCargo(String selectedCargo) {
+        this.selectedCargo = selectedCargo;
+    }
+
+    public String getSelectedDivision() {
+        return selectedDivision;
+    }
+
+    public void setSelectedDivision(String selectedDivision) {
+        this.selectedDivision = selectedDivision;
+    }
+    
+    public void setTextCargoTextField(String text){
+        this.cargoTextField.setText(text);
+    }
+    
+    public void setTextDivisionTextField(String text){
+        this.divisionTextField.setText(text);
+    }
+    
+    public void setTextDpiTextField(String text){
+        this.dpiTextField.setText(text);
+    }
+    
+    public void setTextNombreTextField(String text){
+        this.nombreTextField.setText(text);
+    }
+    
+    public void setTextApellidoTextField(String text){
+        this.apellidoTextField.setText(text);
+    }
+    
+    public String getTextDpiTextField(){
+        return this.dpiTextField.getText();
+    }
+    
+    public String getTextNombreTextField(){
+        return this.nombreTextField.getText();
+    }
+    
+    public String getTextApellidoTextField(){
+        return this.apellidoTextField.getText();
+    }
+    
+    public String getTextCargoTextField(){
+        return this.cargoTextField.getText();
+    }
+    
+    public String getTextDivisionTextField(){
+        return this.divisionTextField.getText();
+    }
+    
+    public Vista getVista(){
+        return this.vista;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton actualizarButton;
     private javax.swing.JButton agregarButton;
     private javax.swing.JTextField apellidoTextField;
     private javax.swing.JComboBox<String> cargoComboBox;
@@ -464,7 +601,6 @@ public class ValidacionEncargados extends javax.swing.JPanel {
     private javax.swing.JTextField divisionTextField;
     private javax.swing.JFormattedTextField dpiTextField;
     private javax.swing.JButton eliminarButton;
-    private javax.swing.JButton guardarButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

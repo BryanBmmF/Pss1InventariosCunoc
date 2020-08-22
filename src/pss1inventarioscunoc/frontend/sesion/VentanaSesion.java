@@ -1,15 +1,17 @@
 /*
  * Frame de ventana de inicio de sesion
  */
-package pss1inventarioscunoc.frontend.vistas;
+package pss1inventarioscunoc.frontend.sesion;
 
 import java.sql.Timestamp;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import pss1inventarioscunoc.backend.controladores.ControladorLogIngreso;
 import pss1inventarioscunoc.backend.controladores.ControladorUser;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
 import pss1inventarioscunoc.backend.pojos.Usuario;
+import pss1inventarioscunoc.frontend.vistas.VentanaInicio;
 
 /**
  *
@@ -18,6 +20,7 @@ import pss1inventarioscunoc.backend.pojos.Usuario;
 public class VentanaSesion extends javax.swing.JFrame {
     
     /*Objetos a utilizar*/
+    private Vista vista = Vista.VENTANA_SESION;
     private ControladorUser contrUser;
     private ControladorLogIngreso controladorLog;
     private Usuario usuarioLogueado;
@@ -55,7 +58,6 @@ public class VentanaSesion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(800, 550));
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,7 +66,6 @@ public class VentanaSesion extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 550));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         btnIniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/boton-iniciar-off.png"))); // NOI18N
         btnIniciar.setBorder(null);
@@ -237,6 +238,11 @@ public class VentanaSesion extends javax.swing.JFrame {
             this.dispose();
             ventanaInicio.setVisible(true);
     }
+
+    public Vista getVista() {
+        return vista;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;

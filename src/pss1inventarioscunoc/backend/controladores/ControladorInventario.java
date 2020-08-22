@@ -20,7 +20,26 @@ public class ControladorInventario {
         inventarioDAO = new ImplementacionInventario();
     }
     
+    /**
+     * Busca el inventario de contabilidad
+     * @return 
+     */
     public Inventario buscarInventario(){
         return INVENTARIO_CONTABILIDAD=inventarioDAO.buscarInventario();
+    }
+    /**
+     * Consulta el total activo, del inventario de contabilidad
+     * @return 
+     */
+    public double buscarTotalDeInventariuoDeAlta(){
+        return inventarioDAO.consultarTotalDeInventarioActivo(INVENTARIO_CONTABILIDAD);
+    }
+    
+    /**
+     * Consulta el total dado de baja, del inventario de contabilidad
+     * @return 
+     */
+    public double buscarTotalDeInventarioDeBaja(){
+        return inventarioDAO.consultarTotalDeInventarioDeBaja(INVENTARIO_CONTABILIDAD);
     }
 }
