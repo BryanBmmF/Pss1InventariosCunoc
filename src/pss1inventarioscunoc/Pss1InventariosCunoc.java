@@ -15,6 +15,7 @@ import pss1inventarioscunoc.backend.controladores.ControladorUser;
 import pss1inventarioscunoc.backend.enums.TipoDeBien;
 import pss1inventarioscunoc.backend.pojos.Bien;
 import pss1inventarioscunoc.backend.pojos.Factura;
+import pss1inventarioscunoc.backend.pojos.Inventario;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
 import pss1inventarioscunoc.backend.pojos.Usuario;
@@ -31,11 +32,13 @@ public class Pss1InventariosCunoc {
     /**
      * @param args the command line arguments
      */
+    public static Inventario inventario;
     public static void main(String[] args) {
+        /*IMPORTANTE, ACTUALIZAR LA BD: campos num de tablas DONACION Y TRASLADO  a autoincrement*/
 
         //NO ELIMINAR-> ES EL INVENTARIO
         ControladorInventario con = new ControladorInventario();
-        con.buscarInventario();
+        inventario = con.buscarInventario();
         VentanaSesion ventanaLogin = new VentanaSesion();
         ventanaLogin.setVisible(true);
 //
@@ -137,5 +140,15 @@ public class Pss1InventariosCunoc {
         //Trasladando un bien ya existente
         //     crBien.trasladarBien("curpk3", new Timestamp(System.currentTimeMillis()), "1", "Seccion jsjsjs", "Otra persona");
     }
+
+    public static Inventario getInventario() {
+        return inventario;
+    }
+
+    public static void setInventario(Inventario inventario) {
+        Pss1InventariosCunoc.inventario = inventario;
+    }
+    
+    
 
 }

@@ -23,6 +23,8 @@ public enum Vista {
     MANEJO_ENCARGADOS("Manejo de Encargados",GrupoVista.ENCARGADOS,10),
     ASIGNACION_ENCARGADOS("Asignacion de Encargados",GrupoVista.ENCARGADOS,11),
     REPORTE_TARJETAS_RESPONSABILIDAD("Reporte de Tarjetas de Responsabilidad", GrupoVista.TARJETAS_RESPONSABILIDAD,12),
+    CONSULTA_BIENES("Consulta de Bienes",GrupoVista.BIENES,13),
+    REPORTE_BIENS_1("Reporte de Bienes en Inventario",GrupoVista.BIENES,14),
     ;
     
     private String nombre;

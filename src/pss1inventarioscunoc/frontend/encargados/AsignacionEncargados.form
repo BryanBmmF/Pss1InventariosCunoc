@@ -315,19 +315,15 @@
                   <BindingProperties>
                     <BindingProperty name="elements" source="Form" sourcePath="${listaEncargadosObsr}" target="tablaEncargados" targetPath="elements" updateStrategy="0" immediately="true">
                       <Subbinding sourcePath="${id}">
-                        <BindingParameter name="NAME" value="DPI"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${nombre}">
-                        <BindingParameter name="NAME" value="Nombre"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${cargo}">
-                        <BindingParameter name="NAME" value="Cargo"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${division}">
-                        <BindingParameter name="NAME" value="Division"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                     </BindingProperty>
@@ -420,11 +416,6 @@
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="fechaAperturaDateChooser">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>

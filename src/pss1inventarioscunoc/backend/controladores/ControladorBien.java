@@ -38,6 +38,16 @@ public class ControladorBien {
         InventarioDAO inv = new ImplementacionInventario();
         return inv.insertarRegistroBienInventario(bien);
     }
+    /**
+     * Actualizar un bien, ya se de compra,de traslado o de donacion devuelve
+     * false si no lo ha insertado
+     *
+     * @param bien
+     * @return
+     */
+    public boolean actualizarBien(Bien bien, String tempCur) {
+        return bienDao.actualizar(bien, tempCur);
+    }
 
     /**
      * Regresa todos los bienes del sistema

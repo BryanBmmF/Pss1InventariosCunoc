@@ -33,6 +33,8 @@ public class ControladorVistas {
     private VentanaRegistro ventanaRegistro = null;
     private VentanaSesion ventanaSesion = null;
     private BienesJPanel1 bienesJPanel1 = null;
+    private ConsultaBienes consultaBienes = null;
+    private ReporteDeBiens reporteBienes = null;
     private FacturasJPanel facturasJPanel = null;
     private ListadoDeFacturasJDialog listadoDeFacturasJDialog = null;
     private ListadoDeProveedoresJDialog listadoDeProveedoresJDialog = null;
@@ -43,6 +45,8 @@ public class ControladorVistas {
     public ControladorVistas() {
         this.manejoEncargados = new ManejoEncargados();
         this.bienesJPanel1 = new BienesJPanel1();
+        this.consultaBienes = new ConsultaBienes();
+        this.reporteBienes = new ReporteDeBiens();
         this.facturasJPanel = new FacturasJPanel();
         this.proveedorJPanel = new ProveedorJPanel();
         this.asignacionEncargados = new AsignacionEncargados();
@@ -72,6 +76,12 @@ public class ControladorVistas {
         }
         if (0 == repoTarjetasResponsabilidad.getVista().getGrupo().compareTo(gv)){
             vi.getVentanaPrincipal().add(repoTarjetasResponsabilidad);
+        }
+        if (0 == consultaBienes.getVista().getGrupo().compareTo(gv)){
+            vi.getVentanaPrincipal().add(consultaBienes);
+        }
+        if (0 == reporteBienes.getVista().getGrupo().compareTo(gv)){
+            vi.getVentanaPrincipal().add(reporteBienes);
         }
     }
     

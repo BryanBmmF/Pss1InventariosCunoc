@@ -21,8 +21,8 @@ public class Conexion {
         driver = "com.mysql.jdbc.Driver";
         dataBase = "inventario";
         url = "jdbc:mysql://localhost:3306/" + dataBase + "?autoReconnect=true&useSSL=false";
-        /*user = "root";*/ user = "root2";
-        password = "Password123#@!";
+        /*user = "root";*/ user = "admindb";
+        password = "admindb";
 
         try {
             Class.forName(driver);
