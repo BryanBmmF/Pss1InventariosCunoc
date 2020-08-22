@@ -515,23 +515,18 @@
                   <BindingProperties>
                     <BindingProperty name="elements" source="Form" sourcePath="${listaEncargadosObsr}" target="tablaEncargados" targetPath="elements" updateStrategy="0" immediately="true">
                       <Subbinding sourcePath="${id}">
-                        <BindingParameter name="NAME" value="DPI"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${nombre}">
-                        <BindingParameter name="NAME" value="Nombre"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${apellido}">
-                        <BindingParameter name="NAME" value="Apellido"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${cargo}">
-                        <BindingParameter name="NAME" value="Cargo"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${division}">
-                        <BindingParameter name="NAME" value="Division"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                     </BindingProperty>

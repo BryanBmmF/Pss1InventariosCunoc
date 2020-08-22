@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pss1inventarioscunoc.Pss1InventariosCunoc;
 import pss1inventarioscunoc.backend.bd.Conexion;
 import pss1inventarioscunoc.backend.controladores.ControladorBien;
 import pss1inventarioscunoc.backend.dao.interfaces.BienDAO;
@@ -179,10 +180,74 @@ public class ImplementacionBien implements BienDAO {
         
         return bienes;
     }
-
+     /**
+     * Se actualiza un bien
+     *
+     * @param model, tempCur
+     * @return boolean
+     */
     @Override
-    public boolean actualizar(Bien model, String temp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(Bien model, String tempCur) {
+        try {
+            
+            if (model.getTipo() == TipoDeBien.TRASLADO) {
+                prepStatement = Conexion.getConexion().prepareStatement(ACTUALIZAR_BIEN_TRASLADO);
+                prepStatement.setString(1, tempCur);
+                prepStatement.setString(2, model.getCur());
+                prepStatement.setInt(3, model.getIdFactura());
+                prepStatement.setString(4, model.getProcedencia());
+                prepStatement.setString(5, String.valueOf(model.getEstado()));
+                prepStatement.setString(6, model.getDescripcion());
+                prepStatement.setString(7, model.getTipo().toString());
+                prepStatement.setDouble(8, model.getValor());
+                prepStatement.setString(9, model.getDivision());
+                prepStatement.setTimestamp(10, model.getFecha());
+                prepStatement.setString(11, String.valueOf(model.getAutorizacion()));
+                prepStatement.setString(12, model.getSeccion());
+                prepStatement.setString(13, model.getPersonaQueRecibio());
+                prepStatement.setInt(14, Pss1InventariosCunoc.getInventario().getNumero());
+                System.out.println(prepStatement.toString());
+                prepStatement.executeUpdate();
+                prepStatement.close();
+            } else if (model.getTipo() == TipoDeBien.DONACION) {
+                prepStatement = Conexion.getConexion().prepareStatement(ACTUALIZAR_BIEN_DONACION);
+                prepStatement.setString(1, tempCur);
+                prepStatement.setString(2, model.getCur());
+                prepStatement.setInt(3, model.getIdFactura());
+                prepStatement.setString(4, model.getProcedencia());
+                prepStatement.setString(5, String.valueOf(model.getEstado()));
+                prepStatement.setString(6, model.getDescripcion());
+                prepStatement.setString(7, model.getTipo().toString());
+                prepStatement.setDouble(8, model.getValor());
+                prepStatement.setString(9, model.getDivision());
+                prepStatement.setInt(10, model.getCorrelativo());
+                prepStatement.setString(11, model.getPunto());
+                prepStatement.setInt(12, model.getNumeroActa());
+                prepStatement.setInt(13, Pss1InventariosCunoc.getInventario().getNumero());
+                System.out.println(prepStatement.toString());
+                prepStatement.executeUpdate();
+                prepStatement.close();
+            } else if (model.getTipo() == TipoDeBien.COMPRA) {
+                    prepStatement = Conexion.getConexion().prepareStatement(ACTUALIZAR_BIEN);
+                    prepStatement.setString(1, tempCur);
+                    prepStatement.setString(2, model.getCur());
+                    prepStatement.setInt(3, model.getIdFactura());
+                    prepStatement.setString(4, model.getProcedencia());
+                    prepStatement.setString(5, String.valueOf(model.getEstado()));
+                    prepStatement.setString(6, model.getDescripcion());
+                    prepStatement.setString(7, model.getTipo().toString());
+                    prepStatement.setDouble(8, model.getValor());
+                    prepStatement.setString(9, model.getDivision());
+                    prepStatement.setInt(10, Pss1InventariosCunoc.getInventario().getNumero());
+                    //System.out.println(prepStatement.toString());
+                    prepStatement.executeUpdate();
+                    prepStatement.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override

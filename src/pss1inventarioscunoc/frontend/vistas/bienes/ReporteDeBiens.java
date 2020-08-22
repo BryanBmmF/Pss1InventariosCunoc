@@ -7,6 +7,7 @@ package pss1inventarioscunoc.frontend.vistas.bienes;
 
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.controladores.ControladorInventario;
+import pss1inventarioscunoc.backend.enums.Vista;
 
 /**
  *
@@ -15,11 +16,13 @@ import pss1inventarioscunoc.backend.controladores.ControladorInventario;
 public class ReporteDeBiens extends javax.swing.JPanel {
 
     private ControladorInventario controlador;
+    private Vista vista = Vista.REPORTE_BIENS_1;
 
     /**
      * Creates new form ReporteDeBiens
      */
     public ReporteDeBiens() {
+        this.setName("Total en Inventario");
         this.controlador = new ControladorInventario();
         initComponents();
     }
@@ -148,12 +151,20 @@ public class ReporteDeBiens extends javax.swing.JPanel {
 //Activos, DeBaja
 
     }//GEN-LAST:event_buscarTotalButtonActionPerformed
-
+    
     private void totalTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalTextField1ActionPerformed
 
+    public Vista getVista() {
+        return vista;
+    }
 
+    public void setVista(Vista vista) {
+        this.vista = vista;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarTotalButton;
     private javax.swing.JLabel jLabel12;

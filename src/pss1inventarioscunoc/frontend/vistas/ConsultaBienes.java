@@ -5,13 +5,17 @@
  */
 package pss1inventarioscunoc.frontend.vistas;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorBien;
 import pss1inventarioscunoc.backend.enums.TipoDeBien;
+import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Bien;
 
 /**
@@ -26,6 +30,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
     private Bien bienSeleccionado;
     private String tempCUR;
     private char estado;
+    private Vista vista = Vista.CONSULTA_BIENES;
 
     /**
      * Creates new form ConsultaBienes
@@ -39,8 +44,8 @@ public class ConsultaBienes extends javax.swing.JPanel {
         /*Actualizar tabla una vez entrando a la ventana*/
         actualizarListadoObservable(controlador.consultarBienCompra());
         initComponents();
-        this.setName("Bienes por Compra");
-        this.estado ='1'; //estado por defecto
+        this.setName("Consulta de Bienes");
+        this.estado ='1'; //estado por defecto sino es por baja
         this.tempCUR="";
         bloquearCamposDonacion();
         bloquearCamposTraslado();
@@ -90,7 +95,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         agregarButton = new javax.swing.JButton();
-        limpiarButton = new javax.swing.JButton();
+        actualizarButton = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtProcedencia = new javax.swing.JTextField();
@@ -214,7 +219,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
         txtFactura.setBackground(new java.awt.Color(255, 255, 255));
         txtFactura.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         txtFactura.setForeground(new java.awt.Color(0, 0, 51));
-        txtFactura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        txtFactura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.idFactura}"), txtFactura, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
@@ -246,6 +251,16 @@ public class ConsultaBienes extends javax.swing.JPanel {
         comboDivision.setBackground(new java.awt.Color(255, 255, 255));
         comboDivision.setForeground(new java.awt.Color(0, 50, 102));
         comboDivision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ciencias de la Ingenieria", "Ciencias Economicas", "Ciencias Medicas", "Humanidades", "Ciencia y Tecnologia", "Calusac", "Sin Definir" }));
+        comboDivision.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboDivisionItemStateChanged(evt);
+            }
+        });
+        comboDivision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDivisionActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -270,14 +285,14 @@ public class ConsultaBienes extends javax.swing.JPanel {
             }
         });
 
-        limpiarButton.setBackground(new java.awt.Color(0, 204, 204));
-        limpiarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
-        limpiarButton.setText("ACTUALIZAR");
-        limpiarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        limpiarButton.addActionListener(new java.awt.event.ActionListener() {
+        actualizarButton.setBackground(new java.awt.Color(0, 204, 204));
+        actualizarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        actualizarButton.setForeground(new java.awt.Color(255, 255, 255));
+        actualizarButton.setText("ACTUALIZAR");
+        actualizarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                limpiarButtonActionPerformed(evt);
+                actualizarButtonActionPerformed(evt);
             }
         });
 
@@ -392,7 +407,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
                                             .addGroup(panelValidacionLayout.createSequentialGroup()
                                                 .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(limpiarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))
+                                                .addComponent(actualizarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))
                                     .addGroup(panelValidacionLayout.createSequentialGroup()
                                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel9)
@@ -479,7 +494,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
                                 .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
                         .addComponent(lbPunto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -604,25 +619,35 @@ public class ConsultaBienes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
-        /*Agregar nuevo bien por compra*/
-        if (txtCur.getText().isEmpty() || txtFactura.getText().isEmpty() || txtValor.getText().isEmpty()) {
-            /*Error campos obligatorios*/
-            JOptionPane.showMessageDialog(this, "Los campos marcados con (*) son obligatorios", "Error de Registro", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Bien bien = new Bien(txtCur.getText(), Integer.parseInt(txtFactura.getText()), txtProcedencia.getText(), estado, txtDescripcion.getText(),
-                    TipoDeBien.COMPRA, Double.parseDouble(txtValor.getText()), String.valueOf(comboDivision.getSelectedItem()));
-            controlador.registrarBien(bien);
-            
-            JOptionPane.showMessageDialog(this, "Bien con CUR: " + bien.getCur() + "creado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
-            
-            actualizarListadoObservable(controlador.consultarBienCompra()); /*no es lo mas optimo*/
+        String bien = this.comboTipo.getSelectedItem().toString();
+        if (bien.equalsIgnoreCase("compra")) {
+            gestionarBienCompra("registro");
+        } else if (bien.equalsIgnoreCase("donación")) {
+            gestionarBienDonacion("registro");
+        } else if (bien.equalsIgnoreCase("traslado")) {//Traslado
+           gestionarBienTraslado("registro");
         }
         
     }//GEN-LAST:event_agregarButtonActionPerformed
 
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
+        /*Actualizacion de un bien*/
+        switch (bienSeleccionado.getTipo()) {
+            case COMPRA:
+                gestionarBienCompra("actualizar");
+                break;
+            case TRASLADO:
+                gestionarBienTraslado("actualizar");
+                break;
+            case DONACION:
+                gestionarBienDonacion("actualizar");
+                break;
+            default:
+                throw new AssertionError();
+        }
         
-    }//GEN-LAST:event_limpiarButtonActionPerformed
+       
+    }//GEN-LAST:event_actualizarButtonActionPerformed
 
     private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
         // TODO add your handling code here:
@@ -650,6 +675,16 @@ public class ConsultaBienes extends javax.swing.JPanel {
             actualizarListadoObservable(controlador.consultarBienes());
         }
     }//GEN-LAST:event_comboTipoActionPerformed
+
+    private void comboDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDivisionActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_comboDivisionActionPerformed
+
+    private void comboDivisionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDivisionItemStateChanged
+        // TODO add your handling code here:
+        txtDivision.setText(String.valueOf(comboDivision.getSelectedItem()));
+    }//GEN-LAST:event_comboDivisionItemStateChanged
     public void bloquearCamposDonacion(){
         this.lbCorrelativo.setVisible(false);
             this.txtCorrelativo.setVisible(false);
@@ -702,15 +737,92 @@ public class ConsultaBienes extends javax.swing.JPanel {
                             this.bienSeleccionado = bienSeleccionado.cloneDonacion();//se clona el bien en bienSeleccionado al momento de seleccionarlo 
                         } else if (bienSeleccionado.getTipo()==TipoDeBien.TRASLADO) {
                             this.bienSeleccionado = bienSeleccionado.cloneTraslado();//se clona el bien en bienSeleccionado al momento de seleccionarlo 
+                            //Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(bienSeleccionado.getFecha());
+                            txtFecha.setDate(bienSeleccionado.getFecha());
+                            //txtFecha.setDateFormatString(String.valueOf(bienSeleccionado.getFecha()));
                         }
+                        
 			tempCUR = this.bienSeleccionado.getCur(); //se guarda el cui seleccionado en una variable temporal
 			//.setEnabled(true);  //se habilita el boton al momento de ser seleccionado un empleado
 		}
 		firePropertyChange("bienSeleccionado", anterior, this.bienSeleccionado);
     }
+    
+    public void gestionarBienCompra(String tipo){
+        if (txtCur.getText().isEmpty() || txtFactura.getText().isEmpty() || txtValor.getText().isEmpty() || txtProcedencia.getText().isEmpty() || txtDivision.getText().isEmpty()) {
+            /*Error campos obligatorios*/
+            JOptionPane.showMessageDialog(this, "Los campos marcados con (*) son obligatorios", "Error de Gestionamiento", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Bien bien = new Bien(txtCur.getText(), Integer.parseInt(txtFactura.getText()), txtProcedencia.getText(), '1', txtDescripcion.getText(),
+                    TipoDeBien.COMPRA, Double.parseDouble(txtValor.getText()), txtDivision.getText());
+            if (tipo.equalsIgnoreCase("registro")) {
+                if (controlador.registrarBien(bien)) {
+                    JOptionPane.showMessageDialog(this, "Bien por compra con CUR: " + bien.getCur() + " registrado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                 if ( controlador.actualizarBien(bien, tempCUR)) {
+                    JOptionPane.showMessageDialog(this, "Bien por compra con CUR: " + bien.getCur() + " actualizado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+             actualizarListadoObservable(controlador.consultarBienCompra()); /*no es lo mas optimo*/  
+        }
+    }
+    
+    public void gestionarBienDonacion(String tipo){
+        if (txtCur.getText().isEmpty() || txtFactura.getText().isEmpty() || txtValor.getText().isEmpty() || txtProcedencia.getText().isEmpty() || txtDivision.getText().isEmpty()
+                || txtCorrelativo.getText().isEmpty() || txtPunto.getText().isEmpty() || txtActa.getText().isEmpty()) {
+            /*Error campos obligatorios*/
+            JOptionPane.showMessageDialog(this, "Los campos marcados con (*) son obligatorios", "Error de Gestionamiento", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Bien bien = new Bien(txtCur.getText(), Integer.parseInt(txtFactura.getText()), txtProcedencia.getText(), '1', txtDescripcion.getText(),
+                TipoDeBien.DONACION, Double.parseDouble(txtValor.getText()), txtDivision.getText(), Integer.parseInt(txtCorrelativo.getText()),txtPunto.getText(),Integer.parseInt(txtActa.getText()));
+            if (tipo.equalsIgnoreCase("registro")) {
+                if (controlador.registrarBien(bien)) {
+                    JOptionPane.showMessageDialog(this, "Bien por donacion con CUR: " + bien.getCur() + " registrado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                if (controlador.actualizarBien(bien, tempCUR)) {
+                    JOptionPane.showMessageDialog(this, "Bien por donación con CUR: " + bien.getCur() + " actualizado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            actualizarListadoObservable(controlador.consultarBienDonacion()); /*no es lo mas optimo*/   
+        }
+    }
+    
+    public void gestionarBienTraslado(String tipo){
+        if (txtCur.getText().isEmpty() || txtFactura.getText().isEmpty() || txtValor.getText().isEmpty() || txtProcedencia.getText().isEmpty() || txtDivision.getText().isEmpty()
+                || txtEncargado.getText().isEmpty() || txtAutorizacion.getText().isEmpty() || txtSeccion.getText().isEmpty()) {
+            /*Error campos obligatorios*/
+            JOptionPane.showMessageDialog(this, "Los campos marcados con (*) son obligatorios", "Error de Gestionamiento", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Timestamp fecha1 = new Timestamp(this.txtFecha.getDate().getTime());
+            Bien bien = new Bien(txtCur.getText(), Integer.parseInt(txtFactura.getText()), txtProcedencia.getText(), '1', txtDescripcion.getText(),
+                TipoDeBien.TRASLADO, Double.parseDouble(txtValor.getText()), txtDivision.getText(), fecha1,'1', txtSeccion.getText(), txtEncargado.getText());
+            if (tipo.equalsIgnoreCase("registro")) {
+                if (controlador.registrarBien(bien)) {
+                    JOptionPane.showMessageDialog(this, "Bien por traslado con CUR: " + bien.getCur() + " registrado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                if (controlador.actualizarBien(bien, tempCUR)) {
+                    JOptionPane.showMessageDialog(this, "Bien por traslado con CUR: " + bien.getCur() + " actualizado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            actualizarListadoObservable(controlador.consultarBienTraslado()); /*no es lo mas optimo*/
+        }
+    }
+
+    public Vista getVista() {
+        return vista;
+    }
+
+    public void setVista(Vista vista) {
+        this.vista = vista;
+    }
+    
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton actualizarButton;
     private javax.swing.JButton agregarButton;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cargoComboBox1;
@@ -739,7 +851,6 @@ public class ConsultaBienes extends javax.swing.JPanel {
     private javax.swing.JLabel lbFecha;
     private javax.swing.JLabel lbPunto;
     private javax.swing.JLabel lbSeccion;
-    private javax.swing.JButton limpiarButton;
     private javax.swing.JPanel panelValidacion;
     private javax.swing.JTable tablaBienes;
     private javax.swing.JTextField txtActa;
