@@ -14,7 +14,7 @@ public interface EncargadoDAO extends CRUD<Encargado>{
     
     public List<String> recuperarListaCargos();
     public List<String> recuperarListaDivisiones();
-    public static final String INSERTAR_ENCARGADO="INSERT INTO ENCARGADO VALUES(?,?,?,?,?)";
+    public static final String INSERTAR_ENCARGADO="INSERT INTO ENCARGADO (id_encargado,nombre,apellido,cargo,division) VALUES(?,?,?,?,?)";
     public static final String CONSULTAR_ENCARGADOS="SELECT * FROM ENCARGADO";
     public static final String ACTUALIZAR_ENCARGADO="UPDATE ENCARGADO SET nombre = ?, "
             + "apellido = ?, cargo = ?, division = ? WHERE id_encargado = ?";
