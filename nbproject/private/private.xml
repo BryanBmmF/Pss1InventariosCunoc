@@ -6,14 +6,20 @@
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/bienes/BienesJPanel1.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/bienes/ReporteDeBiens.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorBien.java</file>
+            <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/sesion/VentanaSesion.java</file>
+            <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/bd/Conexion.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/ConsultaBienes.java</file>
+            <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/enums/GrupoVista.java</file>
+            <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/CRUD.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorEncargado.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/implementaciones/ImplementacionBien.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/VentanaInicio.java</file>
+            <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/encargados/ManejoEncargados.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/enums/Vista.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorVistas.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/pojos/Bien.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/Pss1InventariosCunoc.java</file>
+            <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/encargados/AsignacionEncargados.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/facturas/FacturasJPanel.java</file>
             <file>file:/home/bryan/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/BienDAO.java</file>
         </group>
