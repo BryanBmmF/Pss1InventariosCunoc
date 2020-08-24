@@ -18,6 +18,7 @@ import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.reporteTarjetasResp
 import pss1inventarioscunoc.frontend.vistas.*;
 import pss1inventarioscunoc.frontend.vistas.bienes.*;
 import pss1inventarioscunoc.frontend.vistas.facturas.*;
+import pss1inventarioscunoc.frontend.vistas.inventarios.InventarioPanel;
 import pss1inventarioscunoc.frontend.vistas.proveedores.*;
 
 /**
@@ -25,7 +26,7 @@ import pss1inventarioscunoc.frontend.vistas.proveedores.*;
  * @author fabricio
  */
 public class ControladorVistas {
-    
+
     public static GrupoVista defaultGroup = GrupoVista.ENCARGADOS;
     private ManejoEncargados manejoEncargados = null;
     private ModificarProveedorJDialog modificarProveedorJDialog = null;
@@ -41,6 +42,7 @@ public class ControladorVistas {
     private ProveedorJPanel proveedorJPanel = null;
     private AsignacionEncargados asignacionEncargados = null;
     private reporteTarjetasResponsabilidad repoTarjetasResponsabilidad = null;
+    private InventarioPanel inventarioPanel = null;
 
     public ControladorVistas() {
         this.manejoEncargados = new ManejoEncargados();
@@ -51,70 +53,89 @@ public class ControladorVistas {
         this.proveedorJPanel = new ProveedorJPanel();
         this.asignacionEncargados = new AsignacionEncargados();
         this.repoTarjetasResponsabilidad = new reporteTarjetasResponsabilidad();
+        this.inventarioPanel = new InventarioPanel();
     }
-    
-    public void insertIntoInicioDefaultGrupoVista(VentanaInicio vi){
+
+    public void insertIntoInicioDefaultGrupoVista(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, defaultGroup);
     }
-    
-    public void setPaneToTabbedPaneVentanaInicio(VentanaInicio vi, GrupoVista gv){
+
+    public void setPaneToTabbedPaneVentanaInicio(VentanaInicio vi, GrupoVista gv) {
         vi.getVentanaPrincipal().removeAll();
-        if(0 == manejoEncargados.getVista().getGrupo().compareTo(gv)){
+        if (0 == manejoEncargados.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(manejoEncargados);
         }
-        if (0 == bienesJPanel1.getVista().getGrupo().compareTo(gv)){
+        if (0 == bienesJPanel1.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(bienesJPanel1);
         }
-        if (0 == facturasJPanel.getVista().getGrupo().compareTo(gv)){
+        if (0 == facturasJPanel.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(facturasJPanel);
         }
-        if (0 == proveedorJPanel.getVista().getGrupo().compareTo(gv)){
+        if (0 == proveedorJPanel.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(proveedorJPanel);
         }
-        if (0 == asignacionEncargados.getVista().getGrupo().compareTo(gv)){
+        if (0 == asignacionEncargados.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(asignacionEncargados);
         }
-        if (0 == repoTarjetasResponsabilidad.getVista().getGrupo().compareTo(gv)){
+        if (0 == repoTarjetasResponsabilidad.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(repoTarjetasResponsabilidad);
         }
-        if (0 == consultaBienes.getVista().getGrupo().compareTo(gv)){
+        if (0 == consultaBienes.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(consultaBienes);
         }
-        if (0 == reporteBienes.getVista().getGrupo().compareTo(gv)){
+        if (0 == inventarioPanel.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(inventarioPanel);
+        }
+        if (0 == reporteBienes.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienes);
         }
+
     }
-    
+
     /**
      * Coloca en el Tabbed pane las clases relacionadas a encargados
-     * @param vi 
+     *
+     * @param vi
      */
-    public void encargadosButtonVentanaInicio(VentanaInicio vi){
+    public void encargadosButtonVentanaInicio(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.ENCARGADOS);
     }
-    
+
     /**
      * Coloca en el Tabbed pane las clases relacionadas a reportes
-     * @param vi 
+     *
+     * @param vi
      */
-    public void reportesButtonVentanaInicio(VentanaInicio vi){
+    public void reportesButtonVentanaInicio(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.REPORTES);
     }
-    
+
     /**
      * Coloca en el Tabbed pane las clases relacionadas a bienes
-     * @param vi 
+     *
+     * @param vi
      */
-    public void bienesButtonVentanaInicio(VentanaInicio vi){
+    public void bienesButtonVentanaInicio(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.BIENES);
     }
-    
+
     /**
-     * Coloca en el Tabbed pane las clases relacionadas a tarjetas de responsabilidad
-     * @param vi 
+     * Coloca en el Tabbed pane las clases relacionadas a tarjetas de
+     * responsabilidad
+     *
+     * @param vi
      */
-    public void tarjetasRespButtonVentanaInicio(VentanaInicio vi){
+    public void tarjetasRespButtonVentanaInicio(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.TARJETAS_RESPONSABILIDAD);
     }
-    
+
+    /**
+     * Coloca en el Tabbed pan las clases relacionadas a Inventario
+     *
+     * @param vi
+     */
+    public void inventarioButtonVentanaInicio(VentanaInicio vi) {
+        this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.INVENTARIOS);
+    }
+
 }
