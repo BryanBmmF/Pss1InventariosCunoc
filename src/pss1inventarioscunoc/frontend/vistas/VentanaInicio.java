@@ -12,6 +12,7 @@ import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.bienes.ReporteDeBiens;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
+import pss1inventarioscunoc.frontend.vistas.inventarios.InventarioPanel;
 import pss1inventarioscunoc.frontend.vistas.proveedores.ProveedorJPanel;
 
 /**
@@ -30,6 +31,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
         this.controlador = new ControladorVistas();
+        this.ventanaPrincipal.add(new InventarioPanel());
         this.initDependencies();
     }
 
@@ -50,11 +52,13 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        reportesButton = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
         tarjetaRespButton = new javax.swing.JButton();
         usuariosButton = new javax.swing.JButton();
         encargadosButton = new javax.swing.JButton();
         bienesButton = new javax.swing.JButton();
+        inventariosButton1 = new javax.swing.JButton();
+        reportesButton2 = new javax.swing.JButton();
         ventana = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         ventanaPrincipal = new javax.swing.JTabbedPane();
@@ -99,8 +103,8 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("REPORTES");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        jLabel2.setText("INVENTARIOS");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,7 +114,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ENCARGADOS");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, 20));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,21 +130,10 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/icons8-grupo-de-primer-plano-seleccionado-45.png"))); // NOI18N
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 45, 45));
 
-        reportesButton.setBackground(new java.awt.Color(0, 51, 153));
-        reportesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
-        reportesButton.setBorder(null);
-        reportesButton.setBorderPainted(false);
-        reportesButton.setContentAreaFilled(false);
-        reportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        reportesButton.setFocusPainted(false);
-        reportesButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        reportesButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        reportesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportesButtonActionPerformed(evt);
-            }
-        });
-        jPanel3.add(reportesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 60));
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("REPORTES");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         tarjetaRespButton.setBackground(new java.awt.Color(0, 51, 153));
         tarjetaRespButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
@@ -205,6 +198,38 @@ public class VentanaInicio extends javax.swing.JFrame {
             }
         });
         jPanel3.add(bienesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 250, 60));
+
+        inventariosButton1.setBackground(new java.awt.Color(0, 51, 153));
+        inventariosButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        inventariosButton1.setBorder(null);
+        inventariosButton1.setBorderPainted(false);
+        inventariosButton1.setContentAreaFilled(false);
+        inventariosButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        inventariosButton1.setFocusPainted(false);
+        inventariosButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        inventariosButton1.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        inventariosButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventariosButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(inventariosButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 250, 60));
+
+        reportesButton2.setBackground(new java.awt.Color(0, 51, 153));
+        reportesButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        reportesButton2.setBorder(null);
+        reportesButton2.setBorderPainted(false);
+        reportesButton2.setContentAreaFilled(false);
+        reportesButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        reportesButton2.setFocusPainted(false);
+        reportesButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        reportesButton2.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        reportesButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportesButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(reportesButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 60));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -300,10 +325,6 @@ public class VentanaInicio extends javax.swing.JFrame {
         controlador.bienesButtonVentanaInicio(this);
     }//GEN-LAST:event_bienesButtonActionPerformed
 
-    private void reportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesButtonActionPerformed
-        controlador.reportesButtonVentanaInicio(this);
-    }//GEN-LAST:event_reportesButtonActionPerformed
-
     private void usuariosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosButtonActionPerformed
     }//GEN-LAST:event_usuariosButtonActionPerformed
 
@@ -314,6 +335,14 @@ public class VentanaInicio extends javax.swing.JFrame {
     private void tarjetaRespButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaRespButtonActionPerformed
         controlador.tarjetasRespButtonVentanaInicio(this);
     }//GEN-LAST:event_tarjetaRespButtonActionPerformed
+
+    private void inventariosButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventariosButton1ActionPerformed
+        controlador.inventarioButtonVentanaInicio(this);
+    }//GEN-LAST:event_inventariosButton1ActionPerformed
+
+    private void reportesButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportesButton2ActionPerformed
 
     public Vista getVista() {
         return vista;
@@ -330,9 +359,11 @@ public class VentanaInicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bienesButton;
     private javax.swing.JButton encargadosButton;
+    private javax.swing.JButton inventariosButton1;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -355,7 +386,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton reportesButton;
+    private javax.swing.JButton reportesButton2;
     private javax.swing.JButton tarjetaRespButton;
     private javax.swing.JButton usuariosButton;
     private javax.swing.JPanel ventana;
