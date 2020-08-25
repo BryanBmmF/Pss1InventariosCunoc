@@ -3,6 +3,10 @@
  */
 package pss1inventarioscunoc.backend.controladores;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionInventario;
 import pss1inventarioscunoc.backend.dao.interfaces.InventarioDAO;
 import pss1inventarioscunoc.backend.pojos.Inventario;
@@ -12,34 +16,87 @@ import pss1inventarioscunoc.backend.pojos.Inventario;
  * @author bryan
  */
 public class ControladorInventario {
-    
-    public static Inventario INVENTARIO_CONTABILIDAD;
+
+    public static Inventario INVENTARIO_ACTUAL;
     private InventarioDAO inventarioDAO;
-    
-    public ControladorInventario(){
+
+    public ControladorInventario() {
         inventarioDAO = new ImplementacionInventario();
+    }
+
+    /**
+     * Permite la creacion de inventarios
+     *
+     * @param inventario
+     * @return
+     */
+    public boolean registrarInventarioi(Inventario inventario) {
+        return inventarioDAO.registrar(inventario);
+    }
+
+    /**
+     * Se buscan todos los inventarios del sistema
+     * @return 
+     */
+    public LinkedList<Inventario> recuperarInventarios(){
+        return (LinkedList<Inventario>)inventarioDAO.recuperarLista();
     }
     
     /**
      * Busca el inventario de contabilidad
-     * @return 
+     *
+     * @return
      */
-    public Inventario buscarInventario(){
-        return INVENTARIO_CONTABILIDAD=inventarioDAO.buscarInventario();
+    public Inventario buscarInventario() {
+        return INVENTARIO_ACTUAL = inventarioDAO.buscarInventario();
     }
+
     /**
      * Consulta el total activo, del inventario de contabilidad
-     * @return 
+     *
+     * @return
      */
-    public double buscarTotalDeInventariuoDeAlta(){
-        return inventarioDAO.consultarTotalDeInventarioActivo(INVENTARIO_CONTABILIDAD);
+    public double buscarTotalDeInventariuoDeAlta() {
+        return inventarioDAO.consultarTotalDeInventarioActivo(INVENTARIO_ACTUAL);
     }
-    
+
     /**
      * Consulta el total dado de baja, del inventario de contabilidad
+     *
+     * @return
+     */
+    public double buscarTotalDeInventarioDeBaja() {
+        return inventarioDAO.consultarTotalDeInventarioDeBaja(INVENTARIO_ACTUAL);
+    }
+
+    /***
+     * Valida los datos para crear un nuevo inventario
+     * Devuelve null si son incorrectos
+     * @param fechaInicio
+     * @param descripcion
+     * @param unidadAcademica
+     * @param fechaFinalizacion
      * @return 
      */
-    public double buscarTotalDeInventarioDeBaja(){
-        return inventarioDAO.consultarTotalDeInventarioDeBaja(INVENTARIO_CONTABILIDAD);
+    public Inventario validarDatosDeInventario(Date fechaInicio, String descripcion, String unidadAcademica, Date fechaFinalizacion) {
+        if (fechaInicio == null || fechaFinalizacion == null || descripcion.isEmpty() || unidadAcademica.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Faltan campos obligatorios", "Atencion", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        if (descripcion.length() >= 60) {
+            JOptionPane.showMessageDialog(null, "Descripcion solo puede tener 60 caracteres", "Atencion", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        
+        if (unidadAcademica.length() >= 60) {
+            JOptionPane.showMessageDialog(null, "Unidad academica solo puede tener 45 caracteres", "Atencion", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        return new Inventario(0, new Timestamp(fechaInicio.getTime()), descripcion, unidadAcademica, new Timestamp(fechaFinalizacion.getTime()));
+    }
+
+    
+    public boolean actualizarInventario(Inventario inventarios){
+        return inventarioDAO.actualizar(inventarios, null);
     }
 }
