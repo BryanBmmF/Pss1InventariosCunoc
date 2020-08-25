@@ -25,8 +25,6 @@ public class ImplementacionInventario implements InventarioDAO {
     private PreparedStatement prepStatement;
     private ResultSet result;
 
-    
-    
     @Override
     public boolean registrar(Inventario model) {
         try {
@@ -43,18 +41,19 @@ public class ImplementacionInventario implements InventarioDAO {
         }
         return true;
     }
-    
+
     /**
      * SE RECUPERAN TODOS LOS INVENTARIOS CREADOS
-     * @return 
+     *
+     * @return
      */
     @Override
     public List<Inventario> recuperarLista() {
-        LinkedList<Inventario> lista= new LinkedList<>();
+        LinkedList<Inventario> lista = new LinkedList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(RECUPERAR_INVENTARIOS);
-            result=prepStatement.executeQuery();
-            while(result.next()){
+            result = prepStatement.executeQuery();
+            while (result.next()) {
                 lista.add(new Inventario(result.getInt(1), result.getTimestamp(2), result.getString(3), result.getString(4), result.getTimestamp(5)));
             }
             prepStatement.close();
@@ -65,9 +64,29 @@ public class ImplementacionInventario implements InventarioDAO {
         return lista;
     }
 
+    /**
+     * Permite actualizar los elementos de un inventario
+     *
+     * @param model
+     * @param temp
+     * @return
+     */
     @Override
     public boolean actualizar(Inventario model, String temp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(MODIFICAR_INVENTARIO);
+            prepStatement.setTimestamp(1, model.getFechaInicio());
+            prepStatement.setString(2, model.getDescripcion());
+            prepStatement.setString(3, model.getUnidadAcademica());
+            prepStatement.setTimestamp(4, model.getFechaFinalizacion());
+            prepStatement.setInt(5, model.getNumero());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return true;
     }
 
     @Override
@@ -103,9 +122,9 @@ public class ImplementacionInventario implements InventarioDAO {
     public boolean insertarRegistroBienInventario(Bien bien) {
         try {
             prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_REGISTRO_BIEN_INVENTARIO);
-            prepStatement.setInt(1, ControladorInventario.INVENTARIO_CONTABILIDAD.getNumero());
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
             prepStatement.setString(2, bien.getCur());
-            System.out.println(prepStatement.toString() );
+            System.out.println(prepStatement.toString());
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -139,11 +158,13 @@ public class ImplementacionInventario implements InventarioDAO {
         }
         return valorTotal;
     }
-/**
- * Se consulta el total de inventario de baja, -1 si existiera error
- * @param inventario
- * @return 
- */
+
+    /**
+     * Se consulta el total de inventario de baja, -1 si existiera error
+     *
+     * @param inventario
+     * @return
+     */
     @Override
     public double consultarTotalDeInventarioDeBaja(Inventario inventario) {
         double valorTotal = -1;

@@ -27,6 +27,7 @@ public interface InventarioDAO extends CRUD<Inventario> {
     //Otras consultas
     //CRUD
     public static String RECUPERAR_INVENTARIOS="SELECT * FROM INVENTARIO";
+    public static String MODIFICAR_INVENTARIO="UPDATE INVENTARIO SET fecha_inicio=?,descripcion=?,unidad_academica=?,fecha_finalizacion=? WHERE no=?";
     public static String CONSULTAR_INVENTARIO = "SELECT * FROM INVENTARIO WHERE no=?";
     public static String CONSULTAR_TOTAL_DE_INVENTARIO = "SELECT SUM(valor) AS Total FROM BIEN AS t1 \n"
             + "INNER JOIN REGISTRO_BIEN_INVENTARIO AS t2\n"

@@ -246,8 +246,9 @@ public class InventarioPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_guardarButton2ActionPerformed
 
     private void modificarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButton2ActionPerformed
-        ModificacionInventarioJDialog mod = new ModificacionInventarioJDialog(null, true);
+        ModificacionInventarioJDialog mod = new ModificacionInventarioJDialog(null, true,inventarioSeleccionado);
         mod.setVisible(true);
+        actualizarLista(controlador.recuperarInventarios());
     }//GEN-LAST:event_modificarButton2ActionPerformed
 
     private void actualizarLista(List<Inventario> listado) {

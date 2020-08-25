@@ -5,18 +5,28 @@
  */
 package pss1inventarioscunoc.frontend.vistas.inventarios;
 
+import javax.swing.JOptionPane;
+import pss1inventarioscunoc.backend.controladores.ControladorInventario;
+import pss1inventarioscunoc.backend.pojos.Inventario;
+
 /**
  *
  * @author jesfrin
  */
 public class ModificacionInventarioJDialog extends javax.swing.JDialog {
 
+    private Inventario inventario;
+    private ControladorInventario controladorInventario;
+
     /**
      * Creates new form ModificacionInventarioJDialog
      */
-    public ModificacionInventarioJDialog(java.awt.Frame parent, boolean modal) {
+    public ModificacionInventarioJDialog(java.awt.Frame parent, boolean modal,Inventario inventario) {
         super(parent, modal);
+        this.inventario = inventario;
         initComponents();
+        colocarValoresDeInventario();
+        controladorInventario = new ControladorInventario();
     }
 
     /**
@@ -30,13 +40,13 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        fechajDateChooser1 = new com.toedter.calendar.JDateChooser();
+        fechaIniciojDateChooser1 = new com.toedter.calendar.JDateChooser();
         descripcionTextField10 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        fechajDateChooser2 = new com.toedter.calendar.JDateChooser();
+        fechaFinaljDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        descripcionTextField11 = new javax.swing.JTextField();
+        unidadAcademiacaTextField11 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         modificarButton2 = new javax.swing.JButton();
 
@@ -62,10 +72,10 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
         jLabel24.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel24.setText("unidad academica*:");
 
-        descripcionTextField11.setBackground(new java.awt.Color(255, 255, 255));
-        descripcionTextField11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        descripcionTextField11.setForeground(new java.awt.Color(0, 0, 102));
-        descripcionTextField11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        unidadAcademiacaTextField11.setBackground(new java.awt.Color(255, 255, 255));
+        unidadAcademiacaTextField11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        unidadAcademiacaTextField11.setForeground(new java.awt.Color(0, 0, 102));
+        unidadAcademiacaTextField11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel25.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel25.setText("Modificacion de Inventarios");
@@ -93,9 +103,9 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
                     .addComponent(jLabel24))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(descripcionTextField11)
-                    .addComponent(fechajDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                    .addComponent(fechajDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(unidadAcademiacaTextField11)
+                    .addComponent(fechaFinaljDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(fechaIniciojDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(descripcionTextField10))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -117,9 +127,9 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel20)
-                            .addComponent(fechajDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fechaIniciojDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(fechajDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fechaFinaljDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel23))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -128,7 +138,7 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(descripcionTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(unidadAcademiacaTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(modificarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -151,56 +161,23 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void modificarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButton2ActionPerformed
-
+        Inventario inv = controladorInventario.validarDatosDeInventario(this.fechaIniciojDateChooser1.getDate(), this.descripcionTextField10.getText(), this.unidadAcademiacaTextField11.getText(), this.fechaFinaljDateChooser2.getDate());
+        if(inv!=null){
+            inv.setNumero(inventario.getNumero());
+            if(controladorInventario.actualizarInventario(inv)){
+                JOptionPane.showMessageDialog(this, "Se ha actualizado el Inventario");
+                this.dispose();;
+            }else{
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el inventario", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_modificarButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModificacionInventarioJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModificacionInventarioJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModificacionInventarioJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModificacionInventarioJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ModificacionInventarioJDialog dialog = new ModificacionInventarioJDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField descripcionTextField10;
-    private javax.swing.JTextField descripcionTextField11;
-    private com.toedter.calendar.JDateChooser fechajDateChooser1;
-    private com.toedter.calendar.JDateChooser fechajDateChooser2;
+    private com.toedter.calendar.JDateChooser fechaFinaljDateChooser2;
+    private com.toedter.calendar.JDateChooser fechaIniciojDateChooser1;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -208,5 +185,14 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton modificarButton2;
+    private javax.swing.JTextField unidadAcademiacaTextField11;
     // End of variables declaration//GEN-END:variables
+
+    public void colocarValoresDeInventario() {
+        this.fechaIniciojDateChooser1.setDate(this.inventario.getFechaInicio());
+        this.fechaFinaljDateChooser2.setDate(this.inventario.getFechaFinalizacion());
+        this.descripcionTextField10.setText(this.inventario.getDescripcion());
+        this.unidadAcademiacaTextField11.setText(this.inventario.getUnidadAcademica());
+    }
+
 }

@@ -17,7 +17,7 @@ import pss1inventarioscunoc.backend.pojos.Inventario;
  */
 public class ControladorInventario {
 
-    public static Inventario INVENTARIO_CONTABILIDAD;
+    public static Inventario INVENTARIO_ACTUAL;
     private InventarioDAO inventarioDAO;
 
     public ControladorInventario() {
@@ -48,7 +48,7 @@ public class ControladorInventario {
      * @return
      */
     public Inventario buscarInventario() {
-        return INVENTARIO_CONTABILIDAD = inventarioDAO.buscarInventario();
+        return INVENTARIO_ACTUAL = inventarioDAO.buscarInventario();
     }
 
     /**
@@ -57,7 +57,7 @@ public class ControladorInventario {
      * @return
      */
     public double buscarTotalDeInventariuoDeAlta() {
-        return inventarioDAO.consultarTotalDeInventarioActivo(INVENTARIO_CONTABILIDAD);
+        return inventarioDAO.consultarTotalDeInventarioActivo(INVENTARIO_ACTUAL);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ControladorInventario {
      * @return
      */
     public double buscarTotalDeInventarioDeBaja() {
-        return inventarioDAO.consultarTotalDeInventarioDeBaja(INVENTARIO_CONTABILIDAD);
+        return inventarioDAO.consultarTotalDeInventarioDeBaja(INVENTARIO_ACTUAL);
     }
 
     /***
@@ -95,4 +95,8 @@ public class ControladorInventario {
         return new Inventario(0, new Timestamp(fechaInicio.getTime()), descripcion, unidadAcademica, new Timestamp(fechaFinalizacion.getTime()));
     }
 
+    
+    public boolean actualizarInventario(Inventario inventarios){
+        return inventarioDAO.actualizar(inventarios, null);
+    }
 }
