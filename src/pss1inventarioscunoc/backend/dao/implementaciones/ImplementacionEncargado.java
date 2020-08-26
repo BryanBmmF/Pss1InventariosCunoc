@@ -42,7 +42,7 @@ public class ImplementacionEncargado implements EncargadoDAO{
     }
 
     @Override
-    public List<Encargado> recuperarLista() {
+    public List<Encargado> recuperarLista(char estado) {
         List<Encargado> encargados = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_ENCARGADOS);

@@ -37,7 +37,7 @@ public class ControladorProveedor {
      * @return
      */
     public ArrayList<Proveedor> buscarProveedores() {
-        return (ArrayList<Proveedor>) proveedorDAO.recuperarLista();
+        return (ArrayList<Proveedor>) proveedorDAO.recuperarLista('e');
     }
 
     /**

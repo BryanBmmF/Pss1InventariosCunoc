@@ -44,7 +44,7 @@ public class ImplementacionTarjetaResponsabilidad implements TarjetaResponsabili
     }
 
     @Override
-    public List<TarjetaResponsabilidad> recuperarLista() {
+    public List<TarjetaResponsabilidad> recuperarLista(char estado) {
         List<TarjetaResponsabilidad> tarjetas = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TARJETAS);

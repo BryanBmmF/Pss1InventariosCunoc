@@ -43,6 +43,7 @@ public class ControladorBien {
      * false si no lo ha insertado
      *
      * @param bien
+     * @param tempCur
      * @return
      */
     public boolean actualizarBien(Bien bien, String tempCur) {
@@ -52,41 +53,49 @@ public class ControladorBien {
     /**
      * Regresa todos los bienes del sistema
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienes() {
-        return (ArrayList<Bien>) bienDao.recuperarLista();
+    public ArrayList<Bien> consultarBienes(char estado) {
+        return (ArrayList<Bien>) bienDao.recuperarLista(estado);
     }
+    
 
     /**
      * Regresa todos los bienes por DONACION del sistema, null si existiera un
      * error
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienDonacion() {
-        return (ArrayList<Bien>) bienDao.consultarBienDonacion();
+    public ArrayList<Bien> consultarBienDonacion(char estado) {
+        return (ArrayList<Bien>) bienDao.consultarBienDonacion(estado);
     }
+    
 
     /**
      * Regresa todos los bienes por TRASLADO del sistema, null si existiera un
      * error
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienTraslado() {
-        return (ArrayList<Bien>) bienDao.consultarBienTraslado();
+    public ArrayList<Bien> consultarBienTraslado(char estado) {
+        return (ArrayList<Bien>) bienDao.consultarBienTraslado(estado);
     }
+    
 
     /**
      * Regresa todos los bienes por COMPRA del sistema, null si existiera un
      * error
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienCompra() {
-        return (ArrayList<Bien>) bienDao.consultarBienCompra();
+    public ArrayList<Bien> consultarBienCompra(char estado) {
+        return (ArrayList<Bien>) bienDao.consultarBienCompra(estado);
     }
+    
 
     /**
      * Se traslada un bien ya existente

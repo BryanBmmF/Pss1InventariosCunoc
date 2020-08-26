@@ -54,7 +54,7 @@ public class ControladorUser {
      * @return 
      */
     public List<Usuario> busquedaUsuarios(){
-        return usuarioDao.recuperarLista();
+        return usuarioDao.recuperarLista('e');
     }
     
     /**

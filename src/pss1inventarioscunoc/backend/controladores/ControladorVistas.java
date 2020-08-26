@@ -35,6 +35,7 @@ public class ControladorVistas {
     private VentanaSesion ventanaSesion = null;
     private BienesJPanel1 bienesJPanel1 = null;
     private ConsultaBienes consultaBienes = null;
+    private PanelBajaBienes bajaBienes = null;
     private ReporteDeBiens reporteBienes = null;
     private FacturasJPanel facturasJPanel = null;
     private ListadoDeFacturasJDialog listadoDeFacturasJDialog = null;
@@ -48,6 +49,7 @@ public class ControladorVistas {
         this.manejoEncargados = new ManejoEncargados();
         this.bienesJPanel1 = new BienesJPanel1();
         this.consultaBienes = new ConsultaBienes();
+        this.bajaBienes = new PanelBajaBienes();
         this.reporteBienes = new ReporteDeBiens();
         this.facturasJPanel = new FacturasJPanel();
         this.proveedorJPanel = new ProveedorJPanel();
@@ -65,23 +67,26 @@ public class ControladorVistas {
         if (0 == manejoEncargados.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(manejoEncargados);
         }
-        if (0 == bienesJPanel1.getVista().getGrupo().compareTo(gv)) {
-            vi.getVentanaPrincipal().add(bienesJPanel1);
+        if (0 == consultaBienes.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(consultaBienes);
+        }
+        if (0 == proveedorJPanel.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(proveedorJPanel);
         }
         if (0 == facturasJPanel.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(facturasJPanel);
         }
-        if (0 == proveedorJPanel.getVista().getGrupo().compareTo(gv)) {
-            vi.getVentanaPrincipal().add(proveedorJPanel);
+        if (0 == bienesJPanel1.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(bienesJPanel1);
+        }
+        if (0 == bajaBienes.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(bajaBienes);
         }
         if (0 == asignacionEncargados.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(asignacionEncargados);
         }
         if (0 == repoTarjetasResponsabilidad.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(repoTarjetasResponsabilidad);
-        }
-        if (0 == consultaBienes.getVista().getGrupo().compareTo(gv)) {
-            vi.getVentanaPrincipal().add(consultaBienes);
         }
         if (0 == inventarioPanel.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(inventarioPanel);

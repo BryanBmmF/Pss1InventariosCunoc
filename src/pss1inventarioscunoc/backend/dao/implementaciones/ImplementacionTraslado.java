@@ -19,7 +19,7 @@ public class ImplementacionTraslado implements TrasladoDAO{
     }
 
     @Override
-    public List<Traslado> recuperarLista() {
+    public List<Traslado> recuperarLista(char estado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

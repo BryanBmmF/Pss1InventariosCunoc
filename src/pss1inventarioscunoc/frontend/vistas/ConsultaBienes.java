@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorBien;
@@ -34,7 +35,8 @@ public class ConsultaBienes extends javax.swing.JPanel {
     private ControladorBien controlador;
     private Bien bienSeleccionado;
     private String tempCUR;
-    private char estado;
+    private char estadoActivo;
+     private char estadoInactivo;
     private Vista vista = Vista.CONSULTA_BIENES;
     private Factura factura;
 
@@ -47,15 +49,18 @@ public class ConsultaBienes extends javax.swing.JPanel {
         /*instanciando controlador de bienes para recuperar la lista*/
         this.controlador = new ControladorBien();
         this.bienSeleccionado = new Bien();
-
+        this.estadoActivo = '1'; //estado por defecto sino es por baja
+        this.estadoInactivo = '0'; //estado por defecto sino es por baja
         /*Actualizar tabla una vez entrando a la ventana*/
-        actualizarListadoObservable(controlador.consultarBienCompra());
+        actualizarListadoObservable(controlador.consultarBienCompra(this.estadoActivo));
         initComponents();
         this.setName("Consulta de Bienes");
-        this.estado = '1'; //estado por defecto sino es por baja
+        
         this.tempCUR = "";
         bloquearCamposDonacion();
         bloquearCamposTraslado();
+        actualizarButton.setEnabled(false);
+        darBajaButton.setEnabled(false);
         this.inventarioTextField.setText(ControladorInventario.INVENTARIO_ACTUAL.getDescripcion());
     }
 
@@ -89,10 +94,8 @@ public class ConsultaBienes extends javax.swing.JPanel {
         tablaBienes = new javax.swing.JTable();
         inventarioButton = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        facturaTextField10 = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        valorTextField10 = new javax.swing.JFormattedTextField();
         lbFecha = new javax.swing.JLabel();
         comboDivision = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
@@ -120,6 +123,9 @@ public class ConsultaBienes extends javax.swing.JPanel {
         numeroActaTextField14 = new javax.swing.JTextField();
         correlativoTextField12 = new javax.swing.JTextField();
         facturaButton = new javax.swing.JButton();
+        valorTextField10 = new javax.swing.JTextField();
+        facturaTextField10 = new javax.swing.JTextField();
+        darBajaButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(51, 119, 180));
 
@@ -212,14 +218,6 @@ public class ConsultaBienes extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("CUR *");
 
-        facturaTextField10.setBackground(new java.awt.Color(255, 255, 255));
-        facturaTextField10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        facturaTextField10.setForeground(new java.awt.Color(0, 0, 51));
-        facturaTextField10.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.idFactura}"), facturaTextField10, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
-
         jLabel10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Procedencia *");
@@ -227,14 +225,6 @@ public class ConsultaBienes extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Valor *");
-
-        valorTextField10.setBackground(new java.awt.Color(255, 255, 255));
-        valorTextField10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        valorTextField10.setForeground(new java.awt.Color(0, 0, 51));
-        valorTextField10.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.valor}"), valorTextField10, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
 
         lbFecha.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lbFecha.setForeground(new java.awt.Color(255, 255, 255));
@@ -307,6 +297,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.cur}"), curTextField6, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        inventarioTextField.setEditable(false);
         inventarioTextField.setBackground(new java.awt.Color(255, 255, 255));
 
         lbCorrelativo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -335,6 +326,12 @@ public class ConsultaBienes extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.autorizacion}"), txtAutorizacion, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        txtAutorizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAutorizacionActionPerformed(evt);
+            }
+        });
+
         lbAutorizacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lbAutorizacion.setForeground(new java.awt.Color(255, 255, 255));
         lbAutorizacion.setText("Autorizacion *");
@@ -362,6 +359,12 @@ public class ConsultaBienes extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.numeroActa}"), numeroActaTextField14, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        numeroActaTextField14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroActaTextField14ActionPerformed(evt);
+            }
+        });
+
         correlativoTextField12.setBackground(new java.awt.Color(255, 255, 255));
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.correlativo}"), correlativoTextField12, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -378,100 +381,108 @@ public class ConsultaBienes extends javax.swing.JPanel {
             }
         });
 
+        valorTextField10.setBackground(new java.awt.Color(255, 255, 255));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${bienSeleccionado.valor}"), valorTextField10, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        facturaTextField10.setEditable(false);
+        facturaTextField10.setBackground(new java.awt.Color(255, 255, 255));
+
+        darBajaButton.setBackground(new java.awt.Color(204, 0, 0));
+        darBajaButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        darBajaButton.setText("Dar de Baja");
+        darBajaButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        darBajaButton.setEnabled(false);
+        darBajaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                darBajaButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelValidacionLayout = new javax.swing.GroupLayout(panelValidacion);
         panelValidacion.setLayout(panelValidacionLayout);
         panelValidacionLayout.setHorizontalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelValidacionLayout.createSequentialGroup()
-                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1))
+                .addContainerGap()
+                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelValidacionLayout.createSequentialGroup()
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel3))
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel14)
-                                .addGap(26, 26, 26)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addGap(320, 320, 320)
                                 .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
+                                .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(darBajaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
                                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelValidacionLayout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(curTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(inventarioButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(facturaButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(inventarioTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                        .addComponent(facturaTextField10))
-                                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(valorTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
                                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                                                        .addComponent(jLabel8)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(curTextField6))
+                                                    .addComponent(inventarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(facturaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                                                        .addComponent(jLabel12)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(valorTextField10))
+                                                    .addComponent(inventarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(facturaTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jLabel14))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel15)
                                             .addComponent(jLabel10)
-                                            .addComponent(jLabel15))
-                                        .addGap(24, 24, 24)
-                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel19))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboDivision, 0, 229, Short.MAX_VALUE)
                                             .addComponent(procedenciaTextField5)
-                                            .addComponent(tipoBienComboBox, 0, 184, Short.MAX_VALUE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(divisionTextField9))))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(tipoBienComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(divisionTextField9))))
+                                .addGap(9, 9, 9)))
+                        .addGap(3, 3, 3)
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbCorrelativo)
+                                    .addComponent(lbPunto)
+                                    .addComponent(lbActa))
                                 .addGap(12, 12, 12)
                                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbActa)
-                                    .addComponent(lbCorrelativo)
-                                    .addComponent(lbPunto))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(puntoTextField13)
+                                    .addComponent(puntoTextField13, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(numeroActaTextField14)
                                     .addComponent(correlativoTextField12)))
                             .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addComponent(lbFecha)
+                                .addGap(3, 3, 3)
+                                .addComponent(fechajDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                            .addGroup(panelValidacionLayout.createSequentialGroup()
                                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                                .addComponent(lbFecha)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(fechajDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lbAutorizacion)
-                                                    .addComponent(lbSeccion))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(seccionTextField17, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                                                    .addComponent(txtAutorizacion)))))
-                                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                                        .addComponent(lbEncargado)
-                                        .addGap(37, 37, 37)
-                                        .addComponent(receptorTextField16)))
-                                .addGap(2, 2, 2)))))
-                .addGap(20, 20, 20))
+                                    .addComponent(lbEncargado)
+                                    .addComponent(lbSeccion)
+                                    .addComponent(lbAutorizacion))
+                                .addGap(9, 9, 9)
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAutorizacion, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(seccionTextField17)
+                                    .addComponent(receptorTextField16))))
+                        .addGap(24, 24, 24))
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addGap(23, 23, 23))))
         );
         panelValidacionLayout.setVerticalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,21 +498,12 @@ public class ConsultaBienes extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(facturaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(facturaTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(procedenciaTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(puntoTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbPunto))
+                    .addComponent(lbPunto)
+                    .addComponent(facturaTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(divisionTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbFecha))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelValidacionLayout.createSequentialGroup()
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelValidacionLayout.createSequentialGroup()
@@ -510,45 +512,50 @@ public class ConsultaBienes extends javax.swing.JPanel {
                                     .addComponent(curTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel12)
-                                    .addComponent(valorTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19)))
+                                    .addComponent(jLabel19)
+                                    .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(valorTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelValidacionLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(numeroActaTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbActa))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fechajDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(12, 12, 12))
-                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtAutorizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbAutorizacion)))
-                        .addGap(24, 24, 24)))
-                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(seccionTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbSeccion))
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel14))
                     .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(divisionTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbFecha))
+                            .addComponent(fechajDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbEncargado)
-                                    .addComponent(receptorTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(8, 8, 8))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelValidacionLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(8, 8, 8)))
-                        .addComponent(jLabel3)))
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                                    .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(darBajaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3))
+                            .addGroup(panelValidacionLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtAutorizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbAutorizacion))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(seccionTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbSeccion))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(receptorTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbEncargado))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addGap(126, 126, 126))
         );
 
         jScrollPane3.setViewportView(panelValidacion);
@@ -624,16 +631,19 @@ public class ConsultaBienes extends javax.swing.JPanel {
                 if (verificacionTraslado) {
                     Bien bien = new Bien(this.curTextField6.getText(), numeroFactura, this.procedenciaTextField5.getText(), '1', this.descripcionTextField7.getText(), TipoDeBien.TRASLADO, Double.valueOf(valorTextField10.getText()), divisionTextField9.getText(), new Timestamp(this.fechajDateChooser1.getDate().getTime()), '1', this.seccionTextField17.getText(), this.receptorTextField16.getText());
                     registrarBien(bien);
+                    actualizarListadoObservable(controlador.consultarBienTraslado(this.estadoActivo));//
                 }
-            } else if (tipoDeBien.equalsIgnoreCase("donacion")) {
+            } else if (tipoDeBien.equalsIgnoreCase("donación")) {
                 boolean verificacionDonacion = controlador.verificarDatosDonacion(this.correlativoTextField12.getText(), this.puntoTextField13.getText(), this.numeroActaTextField14.getText());
                 if (verificacionDonacion) {
                     Bien bien = new Bien(this.curTextField6.getText(), numeroFactura, this.procedenciaTextField5.getText(), '1', this.descripcionTextField7.getText(), TipoDeBien.DONACION, Double.valueOf(this.valorTextField10.getText()), this.divisionTextField9.getText(), Integer.valueOf(this.correlativoTextField12.getText()), this.puntoTextField13.getText(), Integer.valueOf(this.numeroActaTextField14.getText()));
                     registrarBien(bien);
+                    actualizarListadoObservable(controlador.consultarBienDonacion(this.estadoActivo));//
                 }
             } else if (tipoDeBien.equalsIgnoreCase("compra")) {
                 Bien bien = new Bien(this.curTextField6.getText(), numeroFactura, this.procedenciaTextField5.getText(), '1', this.descripcionTextField7.getText(), TipoDeBien.COMPRA, Double.valueOf(this.valorTextField10.getText()), this.divisionTextField9.getText());
                 registrarBien(bien);
+                actualizarListadoObservable(controlador.consultarBienCompra(this.estadoActivo));//
             } else {
                 JOptionPane.showMessageDialog(this, "No ha seleccionado un tipo de bien", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
@@ -642,22 +652,33 @@ public class ConsultaBienes extends javax.swing.JPanel {
     }//GEN-LAST:event_agregarButtonActionPerformed
 
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
-        /*Actualizacion de un bien*/
-        switch (bienSeleccionado.getTipo()) {
-            case COMPRA:
-                gestionarBienCompra("actualizar");
-                break;
-            case TRASLADO:
-                gestionarBienTraslado("actualizar");
-                break;
-            case DONACION:
-                gestionarBienDonacion("actualizar");
-                break;
-            default:
-                throw new AssertionError();
+        int numeroFactura = bienSeleccionado.getIdFactura();
+        if (factura != null) {
+                numeroFactura = factura.getIdFactura();
         }
-
-
+        
+        if (!this.tipoBienComboBox.getSelectedItem().toString().equalsIgnoreCase("todos *")) {
+            /*Actualizacion de un bien*/
+            switch (bienSeleccionado.getTipo()) {
+                case COMPRA:
+                    actualizarBienCompra(numeroFactura, this.estadoActivo);
+                    break;
+                case TRASLADO:
+                    actualizarBienTraslado(numeroFactura, this.estadoActivo);
+                    break;
+                case DONACION:
+                    actualizarBienDonacion(numeroFactura, this.estadoActivo);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "No ha seleccionado ningun bien, porfavor seleccione uno del listado", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+            
+        } else{
+            JOptionPane.showMessageDialog(this, "Se debe seleccionar un tipo de bien para realizar una operación", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        actualizarButton.setEnabled(false);
+        darBajaButton.setEnabled(false);
     }//GEN-LAST:event_actualizarButtonActionPerformed
 
     private void tipoBienComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoBienComboBoxActionPerformed
@@ -668,23 +689,26 @@ public class ConsultaBienes extends javax.swing.JPanel {
             bloquearCamposDonacion();
             bloquearCamposTraslado();
             //actualizar tabla de bienes por compra
-            actualizarListadoObservable(controlador.consultarBienCompra());
+            actualizarListadoObservable(controlador.consultarBienCompra(this.estadoActivo));
         } else if (bien.equalsIgnoreCase("donación")) {
             habilitarCamposDonacion();
             bloquearCamposTraslado();
             //actualizar tabla de bienes por donacion
-            actualizarListadoObservable(controlador.consultarBienDonacion());
+            actualizarListadoObservable(controlador.consultarBienDonacion(this.estadoActivo));
         } else if (bien.equalsIgnoreCase("traslado")) {//Traslado
             habilitarCamposTraslado();
             bloquearCamposDonacion();
             //actualizar tabla de bienes por traslado
-            actualizarListadoObservable(controlador.consultarBienTraslado());
+            actualizarListadoObservable(controlador.consultarBienTraslado(this.estadoActivo));
         } else {
             habilitarCamposDonacion();
             habilitarCamposTraslado();
             //actualizar tabla de bienes
-            actualizarListadoObservable(controlador.consultarBienes());
+            actualizarListadoObservable(controlador.consultarBienes(this.estadoActivo));
         }
+        
+        actualizarButton.setEnabled(false);
+        darBajaButton.setEnabled(false);
     }//GEN-LAST:event_tipoBienComboBoxActionPerformed
 
     private void comboDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDivisionActionPerformed
@@ -701,6 +725,51 @@ public class ConsultaBienes extends javax.swing.JPanel {
         ListadoDeFacturasJDialog listado = new ListadoDeFacturasJDialog(null, true, this);
         listado.setVisible(true);
     }//GEN-LAST:event_facturaButtonActionPerformed
+
+    private void txtAutorizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAutorizacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAutorizacionActionPerformed
+
+    private void numeroActaTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroActaTextField14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroActaTextField14ActionPerformed
+
+    private void darBajaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darBajaButtonActionPerformed
+        int numeroFactura = bienSeleccionado.getIdFactura();
+        if (factura != null) {
+                numeroFactura = factura.getIdFactura();
+        }
+        
+        
+        if (!this.tipoBienComboBox.getSelectedItem().toString().equalsIgnoreCase("todos *")) {
+            int input = JOptionPane.showConfirmDialog(null, "¿Esta seguro de dar de baja este Bien?");
+            // 0=yes, 1=no, 2=cancel
+            if (input==0) {
+                /*Actualizacion de un bien*/
+                switch (bienSeleccionado.getTipo()) {
+                    case COMPRA:
+                        actualizarBienCompra(numeroFactura, this.estadoInactivo);
+                    break;
+                    case TRASLADO:
+                        actualizarBienTraslado(numeroFactura, this.estadoInactivo);
+                    break;
+                    case DONACION:
+                        actualizarBienDonacion(numeroFactura, this.estadoInactivo);
+                    break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "No ha seleccionado ningun bien, porfavor seleccione uno del listado", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }   
+            } else {
+                limpiarCampos();
+            }
+            
+            
+        } else{
+            JOptionPane.showMessageDialog(this, "Se debe seleccionar un tipo de bien para darlo de baja y no modificar ninguno de sus campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        actualizarButton.setEnabled(false);
+        darBajaButton.setEnabled(false);
+    }//GEN-LAST:event_darBajaButtonActionPerformed
     public void bloquearCamposDonacion() {
         this.lbCorrelativo.setVisible(false);
         this.correlativoTextField12.setVisible(false);
@@ -760,75 +829,49 @@ public class ConsultaBienes extends javax.swing.JPanel {
             }
 
             tempCUR = this.bienSeleccionado.getCur(); //se guarda el cui seleccionado en una variable temporal
-            //.setEnabled(true);  //se habilita el boton al momento de ser seleccionado un empleado
+            actualizarButton.setEnabled(true);  //se habilita el boton al momento de ser seleccionado un empleado
+            darBajaButton.setEnabled(true);
         }
         firePropertyChange("bienSeleccionado", anterior, this.bienSeleccionado);
     }
 
-    public void gestionarBienCompra(String tipo) {
-        if (curTextField6.getText().isEmpty() || facturaTextField10.getText().isEmpty() || valorTextField10.getText().isEmpty() || procedenciaTextField5.getText().isEmpty() || divisionTextField9.getText().isEmpty()) {
-            /*Error campos obligatorios*/
-            JOptionPane.showMessageDialog(this, "Los campos marcados con (*) son obligatorios", "Error de Gestionamiento", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Bien bien = new Bien(curTextField6.getText(), Integer.parseInt(facturaTextField10.getText()), procedenciaTextField5.getText(), '1', descripcionTextField7.getText(),
+    public void actualizarBienCompra(int numeroFactura, char estado) {
+        if (controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText())) {
+            Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),
                     TipoDeBien.COMPRA, Double.parseDouble(valorTextField10.getText()), divisionTextField9.getText());
-            if (tipo.equalsIgnoreCase("registro")) {
-                if (controlador.registrarBien(bien)) {
-                    JOptionPane.showMessageDialog(this, "Bien por compra con CUR: " + bien.getCur() + " registrado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } else {
-                if (controlador.actualizarBien(bien, tempCUR)) {
+            if (controlador.actualizarBien(bien, tempCUR)) {
                     JOptionPane.showMessageDialog(this, "Bien por compra con CUR: " + bien.getCur() + " actualizado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }
             }
-            actualizarListadoObservable(controlador.consultarBienCompra());
-            /*no es lo mas optimo*/
-        }
+            actualizarListadoObservable(controlador.consultarBienCompra(this.estadoActivo));
+            limpiarCampos();
+        } 
     }
 
-    public void gestionarBienDonacion(String tipo) {
-        if (curTextField6.getText().isEmpty() || facturaTextField10.getText().isEmpty() || valorTextField10.getText().isEmpty() || procedenciaTextField5.getText().isEmpty() || divisionTextField9.getText().isEmpty()
-                || correlativoTextField12.getText().isEmpty() || puntoTextField13.getText().isEmpty() || numeroActaTextField14.getText().isEmpty()) {
-            /*Error campos obligatorios*/
-            JOptionPane.showMessageDialog(this, "Los campos marcados con (*) son obligatorios", "Error de Gestionamiento", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Bien bien = new Bien(curTextField6.getText(), Integer.parseInt(facturaTextField10.getText()), procedenciaTextField5.getText(), '1', descripcionTextField7.getText(),
+    public void actualizarBienDonacion(int numeroFactura, char estado) {
+        if ((controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
+                    controlador.verificarDatosDonacion(this.correlativoTextField12.getText(), this.puntoTextField13.getText(), this.numeroActaTextField14.getText()))) {
+            Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),
                     TipoDeBien.DONACION, Double.parseDouble(valorTextField10.getText()), divisionTextField9.getText(), Integer.parseInt(correlativoTextField12.getText()), puntoTextField13.getText(), Integer.parseInt(numeroActaTextField14.getText()));
-            if (tipo.equalsIgnoreCase("registro")) {
-                if (controlador.registrarBien(bien)) {
-                    JOptionPane.showMessageDialog(this, "Bien por donacion con CUR: " + bien.getCur() + " registrado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } else {
-                if (controlador.actualizarBien(bien, tempCUR)) {
+            if (controlador.actualizarBien(bien, tempCUR)) {
                     JOptionPane.showMessageDialog(this, "Bien por donación con CUR: " + bien.getCur() + " actualizado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }
             }
-            actualizarListadoObservable(controlador.consultarBienDonacion());
-            /*no es lo mas optimo*/
-        }
+            actualizarListadoObservable(controlador.consultarBienDonacion(this.estadoActivo));/*no es lo mas optimo*/
+            limpiarCampos();
+        } 
     }
 
-    public void gestionarBienTraslado(String tipo) {
-        if (curTextField6.getText().isEmpty() || facturaTextField10.getText().isEmpty() || valorTextField10.getText().isEmpty() || procedenciaTextField5.getText().isEmpty() || divisionTextField9.getText().isEmpty()
-                || receptorTextField16.getText().isEmpty() || txtAutorizacion.getText().isEmpty() || seccionTextField17.getText().isEmpty()) {
-            /*Error campos obligatorios*/
-            JOptionPane.showMessageDialog(this, "Los campos marcados con (*) son obligatorios", "Error de Gestionamiento", JOptionPane.ERROR_MESSAGE);
-        } else {
+    public void actualizarBienTraslado(int numeroFactura, char estado) {
+        if ((controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
+                    controlador.verificarDatosTraslado(this.fechajDateChooser1.getDate(), seccionTextField17.getText(), receptorTextField16.getText()))) {
             Timestamp fecha1 = new Timestamp(this.fechajDateChooser1.getDate().getTime());
-            Bien bien = new Bien(curTextField6.getText(), Integer.parseInt(facturaTextField10.getText()), procedenciaTextField5.getText(), '1', descripcionTextField7.getText(),
+            Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),
                     TipoDeBien.TRASLADO, Double.parseDouble(valorTextField10.getText()), divisionTextField9.getText(), fecha1, '1', seccionTextField17.getText(), receptorTextField16.getText());
-            if (tipo.equalsIgnoreCase("registro")) {
-                if (controlador.registrarBien(bien)) {
-                    JOptionPane.showMessageDialog(this, "Bien por traslado con CUR: " + bien.getCur() + " registrado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } else {
-                if (controlador.actualizarBien(bien, tempCUR)) {
+            if (controlador.actualizarBien(bien, tempCUR)) {
                     JOptionPane.showMessageDialog(this, "Bien por traslado con CUR: " + bien.getCur() + " actualizado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }
             }
-            actualizarListadoObservable(controlador.consultarBienTraslado());
-            /*no es lo mas optimo*/
-        }
+            actualizarListadoObservable(controlador.consultarBienTraslado(this.estadoActivo));
+            limpiarCampos();
+        } 
     }
 
     public Vista getVista() {
@@ -846,10 +889,11 @@ public class ConsultaBienes extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboDivision;
     private javax.swing.JTextField correlativoTextField12;
     private javax.swing.JTextField curTextField6;
+    private javax.swing.JButton darBajaButton;
     private javax.swing.JTextArea descripcionTextField7;
     private javax.swing.JTextField divisionTextField9;
     private javax.swing.JButton facturaButton;
-    private javax.swing.JFormattedTextField facturaTextField10;
+    private javax.swing.JTextField facturaTextField10;
     private com.toedter.calendar.JDateChooser fechajDateChooser1;
     private javax.swing.JButton inventarioButton;
     private javax.swing.JTextField inventarioTextField;
@@ -882,13 +926,13 @@ public class ConsultaBienes extends javax.swing.JPanel {
     private javax.swing.JTable tablaBienes;
     private javax.swing.JComboBox<String> tipoBienComboBox;
     private javax.swing.JTextField txtAutorizacion;
-    private javax.swing.JFormattedTextField valorTextField10;
+    private javax.swing.JTextField valorTextField10;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     private void registrarBien(Bien bien) {
         if (controlador.registrarBien(bien)) {
-            JOptionPane.showMessageDialog(this, "Se registro el bien");
+            JOptionPane.showMessageDialog(this, "Bien con CUR: " + bien.getCur() + " resgistrado satisfactoriamente", "Info", JOptionPane.INFORMATION_MESSAGE);
             limpiarCampos();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo registrar el bien", "Error", JOptionPane.ERROR_MESSAGE);
@@ -918,12 +962,13 @@ public class ConsultaBienes extends javax.swing.JPanel {
         this.factura = factura;
     }
 
-    public JFormattedTextField getFacturaTextField() {
+    public JTextField getFacturaTextField10() {
         return facturaTextField10;
     }
 
-    public void setFacturaTextField(JFormattedTextField facturaTextField) {
-        this.facturaTextField10 = facturaTextField;
+    public void setFacturaTextField10(JTextField facturaTextField10) {
+        this.facturaTextField10 = facturaTextField10;
     }
 
+    
 }

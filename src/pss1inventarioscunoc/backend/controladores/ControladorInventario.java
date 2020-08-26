@@ -39,7 +39,7 @@ public class ControladorInventario {
      * @return 
      */
     public LinkedList<Inventario> recuperarInventarios(){
-        return (LinkedList<Inventario>)inventarioDAO.recuperarLista();
+        return (LinkedList<Inventario>)inventarioDAO.recuperarLista('e');
     }
     
     /**

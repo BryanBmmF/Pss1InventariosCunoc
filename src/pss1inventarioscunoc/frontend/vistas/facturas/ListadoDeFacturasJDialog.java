@@ -205,7 +205,7 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
             this.bienPanel.getFacturaTextField10().setText(this.factura.getDescripcion());
         }else{
             this.consultaBienes.setFactura(factura);
-            this.consultaBienes.getFacturaTextField().setText(this.factura.getDescripcion());
+            this.consultaBienes.getFacturaTextField10().setText(this.factura.getDescripcion());
         }
 
         JOptionPane.showMessageDialog(this, "Descripcion factura seleccionada:" + this.factura.getDescripcion());

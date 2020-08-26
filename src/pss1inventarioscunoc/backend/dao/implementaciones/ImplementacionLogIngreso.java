@@ -48,7 +48,7 @@ public class ImplementacionLogIngreso implements LogIngresoDAO {
     }
 
     @Override
-    public List<LogIngreso> recuperarLista() {
+    public List<LogIngreso> recuperarLista(char estado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

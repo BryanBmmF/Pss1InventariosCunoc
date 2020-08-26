@@ -47,7 +47,7 @@ public class ControladorTarjetaResponsabilidad {
     
     public void actualizarTarjetasResponsabilidadReporteTarjetasResponsabilidad(reporteTarjetasResponsabilidad rtr){
         rtr.getListaTarjetaResponsabilidadesObsr().clear();
-        rtr.getListaTarjetaResponsabilidadesObsr().addAll(tarjetaResponsabilidadDAO.recuperarLista());
+        rtr.getListaTarjetaResponsabilidadesObsr().addAll(tarjetaResponsabilidadDAO.recuperarLista('e'));
     }
     
 }

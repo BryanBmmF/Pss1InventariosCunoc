@@ -24,8 +24,9 @@ public enum Vista {
     ASIGNACION_ENCARGADOS("Asignacion de Encargados",GrupoVista.ENCARGADOS,11),
     REPORTE_TARJETAS_RESPONSABILIDAD("Reporte de Tarjetas de Responsabilidad", GrupoVista.TARJETAS_RESPONSABILIDAD,12),
     CONSULTA_BIENES("Consulta de Bienes",GrupoVista.BIENES,13),
-    REPORTE_BIENS_1("Reporte de Bienes en Inventario",GrupoVista.INVENTARIOS,14),
-    INVENTARIOS("Inventarios",GrupoVista.INVENTARIOS,15),
+    CONSULTA_BIENES_BAJA("Consulta de Bienes dados de Baja",GrupoVista.BIENES,14),
+    REPORTE_BIENS_1("Reporte de Bienes en Inventario",GrupoVista.INVENTARIOS,15),
+    INVENTARIOS("Inventarios",GrupoVista.INVENTARIOS,16),
     ;
     
     private String nombre;

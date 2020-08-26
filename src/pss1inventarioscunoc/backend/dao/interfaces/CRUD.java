@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface CRUD <Modelo>{
         public boolean registrar(Modelo model);
-        public List<Modelo> recuperarLista();
+        public List<Modelo> recuperarLista(char estado);
         public boolean actualizar(Modelo model,String temp);
         public boolean eliminar(Modelo model);
 }

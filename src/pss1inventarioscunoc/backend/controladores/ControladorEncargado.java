@@ -67,7 +67,7 @@ public class ControladorEncargado {
      * Retorna una Lista de objetos Encargado registrados en el sistema
      */
     public List<Encargado> obtenerEncargadosActuales() {
-        return encargadoDAO.recuperarLista();
+        return encargadoDAO.recuperarLista('e');
     }
 
     /**
@@ -305,7 +305,7 @@ public class ControladorEncargado {
      */
     public void actualizarBienesAsignacionEncargados(AsignacionEncargados ae) {
         ae.getListaBienesObsr().clear();
-        ae.getListaBienesObsr().addAll(controladorBien.consultarBienes());
+        ae.getListaBienesObsr().addAll(controladorBien.consultarBienes('1'));
     }
 
     public void asignarButtonAsignacionEncargados(AsignacionEncargados ae) {
