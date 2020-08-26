@@ -45,7 +45,7 @@ public class ImplementacionUsuario implements UsuarioDAO {
     }
 
     @Override
-    public List<Usuario> recuperarLista() {
+    public List<Usuario> recuperarLista(char estado) {
         List<Usuario> usuarios = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_USUARIOS);

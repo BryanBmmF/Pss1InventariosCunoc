@@ -48,7 +48,7 @@ public class ImplementacionInventario implements InventarioDAO {
      * @return
      */
     @Override
-    public List<Inventario> recuperarLista() {
+    public List<Inventario> recuperarLista(char estado) {
         LinkedList<Inventario> lista = new LinkedList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(RECUPERAR_INVENTARIOS);

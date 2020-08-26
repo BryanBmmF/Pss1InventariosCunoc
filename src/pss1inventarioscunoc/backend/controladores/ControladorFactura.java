@@ -63,7 +63,7 @@ public class ControladorFactura {
      * @return
      */
     public ArrayList<Factura> buscarFacturas() {
-        return (ArrayList<Factura>) facturaDao.recuperarLista();
+        return (ArrayList<Factura>) facturaDao.recuperarLista('e');
     }
 
     /**

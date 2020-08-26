@@ -17,16 +17,16 @@ public interface BienDAO extends CRUD<Bien> {
      * Operaciones especiales
      */
     
-    public ArrayList<Bien> consultarBienDonacion();
-    public ArrayList<Bien> consultarBienTraslado();
-    public ArrayList<Bien> consultarBienCompra();
+    public ArrayList<Bien> consultarBienDonacion(char estado);
+    public ArrayList<Bien> consultarBienTraslado(char estado);
+    public ArrayList<Bien> consultarBienCompra(char estado);
     public boolean trasladarBien(String cur,Timestamp fecha,String autorizacion,String seccion,String persona_que_recibio);
     
     /*Querys a utilizar*/
-    public static final String CONSULTAR_BIEN_POR_DONACION = "SELECT * FROM BIEN AS t1 INNER JOIN DONACION AS t2 ON t1.cur=t2.cur_bien";
-    public static final String CONSULTAR_BIEN_POR_TRASLADO = "SELECT * FROM BIEN AS t1 INNER JOIN TRASLADO AS t2 ON t1.cur=t2.cur_bien";
-    public static final String CONSULTAR_BIEN_POR_COMPRA = "SELECT * FROM BIEN WHERE tipo='compra'";
-    public static final String CONSULTAR_TODOS_LOS_BIENES = "SELECT * FROM BIEN";
+    public static final String CONSULTAR_BIEN_POR_DONACION = "SELECT * FROM BIEN AS t1 INNER JOIN DONACION AS t2 ON t1.cur=t2.cur_bien AND t1.estado=?";
+    public static final String CONSULTAR_BIEN_POR_TRASLADO = "SELECT * FROM BIEN AS t1 INNER JOIN TRASLADO AS t2 ON t1.cur=t2.cur_bien AND t1.estado=?";
+    public static final String CONSULTAR_BIEN_POR_COMPRA = "SELECT * FROM BIEN WHERE tipo='compra' AND estado=?";
+    public static final String CONSULTAR_TODOS_LOS_BIENES = "SELECT * FROM BIEN WHERE estado=?";
     public static final String CONSULTAR_BIEN_DONACION_POR_CUR = "SELECT correlativo,punto,numero_acta FROM DONACION WHERE cur_bien=? LIMIT 1";
     public static final String CONSULTAR_BIEN_TRASLADO_POR_CUR = "SELECT fecha,autorizacion,seccion,persona_que_recibio FROM TRASLADO WHERE cur_bien=? LIMIT 1";
     public static final String TRASLADAR_BIEN = "INSERT INTO TRASLADO(cur_bien,fecha,autorizacion,seccion,persona_que_recibio) VALUES(?,?,?,?,?)";

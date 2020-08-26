@@ -48,7 +48,7 @@ public class ImplementacionProveedor implements ProveedorDAO {
     }
 
     @Override
-    public List<Proveedor> recuperarLista() {
+    public List<Proveedor> recuperarLista(char estado) {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_PROVEEDORES);

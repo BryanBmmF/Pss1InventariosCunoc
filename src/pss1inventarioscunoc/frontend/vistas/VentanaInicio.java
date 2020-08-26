@@ -53,12 +53,14 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         tarjetaRespButton = new javax.swing.JButton();
         usuariosButton = new javax.swing.JButton();
         encargadosButton = new javax.swing.JButton();
         bienesButton = new javax.swing.JButton();
         inventariosButton1 = new javax.swing.JButton();
         reportesButton2 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         ventana = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         ventanaPrincipal = new javax.swing.JTabbedPane();
@@ -134,6 +136,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("REPORTES");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/icons8-caja-vacía-45.png"))); // NOI18N
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 360, 45, 45));
 
         tarjetaRespButton.setBackground(new java.awt.Color(0, 51, 153));
         tarjetaRespButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
@@ -231,6 +236,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         });
         jPanel3.add(reportesButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 60));
 
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/icons8-reporte-de-negocios-45.png"))); // NOI18N
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 45, 45));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -240,8 +248,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 257, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         ventana.setBackground(new java.awt.Color(0, 50, 102));
@@ -364,6 +372,8 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

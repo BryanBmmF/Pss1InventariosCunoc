@@ -57,7 +57,7 @@ public class ImplementacionFactura implements FacturaDAO {
      * @return
      */
     @Override
-    public List<Factura> recuperarLista() {
+    public List<Factura> recuperarLista(char estado) {
         ArrayList<Factura> facturas = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA);
