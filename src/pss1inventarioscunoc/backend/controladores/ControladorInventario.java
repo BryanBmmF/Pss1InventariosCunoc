@@ -17,7 +17,7 @@ import pss1inventarioscunoc.backend.pojos.Inventario;
  */
 public class ControladorInventario {
 
-    public static Inventario INVENTARIO_ACTUAL;
+    public static Inventario INVENTARIO_ACTUAL=new Inventario();
     private InventarioDAO inventarioDAO;
 
     public ControladorInventario() {
