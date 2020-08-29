@@ -36,9 +36,6 @@ public class Pss1InventariosCunoc {
     public static void main(String[] args) {
         /*IMPORTANTE, ACTUALIZAR LA BD: campos num de tablas DONACION Y TRASLADO  a autoincrement*/
 
-        //NO ELIMINAR-> ES EL INVENTARIO
-        ControladorInventario con = new ControladorInventario();
-        inventario = con.buscarInventario();
         VentanaSesion ventanaLogin = new VentanaSesion();
         ventanaLogin.setVisible(true);
        

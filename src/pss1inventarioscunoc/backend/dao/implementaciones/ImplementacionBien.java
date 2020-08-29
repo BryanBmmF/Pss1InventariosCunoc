@@ -130,12 +130,15 @@ public class ImplementacionBien implements BienDAO {
         */
         ArrayList<Bien> bienes = new ArrayList<>();
         ResultSet resAux;
+        
+        
         PreparedStatement prepAux;
         Bien bien;
         TipoDeBien tipo;
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TODOS_LOS_BIENES);
-            prepStatement.setString(1, String.valueOf(estado)); //enviando estado
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
             result = prepStatement.executeQuery();
             while (result.next()) {
                 //Busco el tipo de bien    
@@ -337,10 +340,12 @@ public class ImplementacionBien implements BienDAO {
         ArrayList<Bien> bienes = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_DONACION);
-            prepStatement.setString(1, String.valueOf(estado)); //enviando estado
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
+            System.out.println(prepStatement);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.DONACION, result.getDouble(7), result.getString(8), result.getInt(10), result.getString(11), result.getInt(12)));
+                bienes.add(new Bien(result.getString("cur"), result.getInt("id_Factura"), result.getString("procedencia"), result.getString("estado").charAt(0), result.getString("descripcion"), TipoDeBien.DONACION, result.getDouble("valor"), result.getString("division"), result.getInt("correlativo"), result.getString("punto"), result.getInt("numero_acta")));
             }
             prepStatement.close();
             result.close();
@@ -362,10 +367,12 @@ public class ImplementacionBien implements BienDAO {
         ArrayList<Bien> bienes = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_TRASLADO);
-            prepStatement.setString(1, String.valueOf(estado)); //enviando estado
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
+            System.out.println(prepStatement);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.TRASLADO, result.getDouble(7), result.getString(8), result.getTimestamp(11), result.getString(12).charAt(0), result.getString(13), result.getString(14)));
+                bienes.add(new Bien(result.getString("cur"), result.getInt("id_Factura"), result.getString("procedencia"), result.getString("estado").charAt(0), result.getString("descripcion"), TipoDeBien.TRASLADO, result.getDouble("valor"), result.getString("division"), result.getTimestamp("fecha"), result.getString("autorizacion").charAt(0), result.getString("seccion"), result.getString("persona_que_recibio")));
             }
             prepStatement.close();
             result.close();
@@ -381,7 +388,9 @@ public class ImplementacionBien implements BienDAO {
         ArrayList<Bien> bienes = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_COMPRA);
-            prepStatement.setString(1, String.valueOf(estado)); //enviando estado
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
+            System.out.println(prepStatement);
             result = prepStatement.executeQuery();
             while (result.next()) {
                 bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.COMPRA, result.getDouble(7), result.getString(8)));
