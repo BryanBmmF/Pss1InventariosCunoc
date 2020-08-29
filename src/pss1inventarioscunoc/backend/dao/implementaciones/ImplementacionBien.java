@@ -183,6 +183,74 @@ public class ImplementacionBien implements BienDAO {
         
         return bienes;
     }
+    
+    /**
+     * Se devuelven todos los bienes
+     *
+     * @param estado
+     * @return
+     */
+    @Override
+    public List<Bien> recuperarListaNoAsignados(char estado) {
+        
+        ArrayList<Bien> bienes = new ArrayList<>();
+        ResultSet resAux;
+        PreparedStatement prepAux;
+        Bien bien;
+        TipoDeBien tipo;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TODOS_LOS_BIENES_NO_ASIGNADOS);
+            prepStatement.setString(1, String.valueOf(estado)); //enviando estado
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                //Busco el tipo de bien    
+                if (result.getString("tipo").equalsIgnoreCase(TipoDeBien.DONACION.toString())) {
+                    tipo = TipoDeBien.DONACION;
+                } else if (result.getString("tipo").equalsIgnoreCase(TipoDeBien.TRASLADO.toString())) {
+                    tipo = TipoDeBien.TRASLADO;
+                } else {
+                    tipo = TipoDeBien.COMPRA;
+                }
+                //Lleno el bien
+                bien = new Bien(result.getString(1), result.getInt(2), 
+                        result.getString(3), result.getString(4).charAt(0), 
+                        result.getString(5), tipo, result.getDouble(7), result.getString(8));
+                if (tipo == TipoDeBien.DONACION) {
+                    prepAux = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_DONACION_POR_CUR);
+                    prepAux.setString(1, result.getString("cur"));
+                    resAux = prepAux.executeQuery();
+                    resAux.next();
+                    //Le seteo las partes de donacion
+                    bien.setCorrelativo(resAux.getInt(1));
+                    bien.setPunto(resAux.getString(2));
+                    bien.setNumeroActa(resAux.getInt(3));
+                    prepAux.close();
+                    resAux.close();
+                } else if (tipo == TipoDeBien.TRASLADO) {
+                    prepAux = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_TRASLADO_POR_CUR);
+                    prepAux.setString(1, result.getString("cur"));
+                    resAux = prepAux.executeQuery();
+                    resAux.next();
+                    //Le seteo las partes de TRASLADO
+                    bien.setFecha(resAux.getTimestamp(1));
+                    bien.setAutorizacion(resAux.getString(2).charAt(0));
+                    bien.setSeccion(resAux.getString(3));
+                    bien.setPersonaQueRecibio(resAux.getString(4));
+                    prepAux.close();
+                    resAux.close();
+                }
+                bienes.add(bien);
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+        return bienes;
+    }
+    
      /**
      * Se actualiza un bien
      *

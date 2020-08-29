@@ -32,6 +32,7 @@ public class ImplementacionEncargado implements EncargadoDAO{
             prepStatement.setString(3, model.getApellido());
             prepStatement.setString(4, model.getCargo());
             prepStatement.setString(5, model.getDivision());
+            prepStatement.setString(6, model.getEstado());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;
@@ -49,7 +50,8 @@ public class ImplementacionEncargado implements EncargadoDAO{
             result=prepStatement.executeQuery();
             while(result.next()){
                 encargados.add(new Encargado(result.getLong(1), result.getString(2), 
-                        result.getString(3), result.getString(4), result.getString(5)));
+                        result.getString(3), result.getString(4), result.getString(5),
+                        result.getString(6)));
             }
             result.close();
             prepStatement.close();
@@ -70,7 +72,8 @@ public class ImplementacionEncargado implements EncargadoDAO{
             prepStatement.setString(2, model.getApellido());
             prepStatement.setString(3, model.getCargo());
             prepStatement.setString(4, model.getDivision());
-            prepStatement.setLong(5, model.getId());
+            prepStatement.setString(5, model.getEstado());
+            prepStatement.setLong(6, model.getId());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;
