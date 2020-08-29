@@ -14,13 +14,16 @@ public class Encargado {
     private String apellido;
     private String cargo;
     private String division;
+    private String estado;
 
-    public Encargado(long id, String nombre, String apellido, String cargo, String division) {
+    public Encargado(long id, String nombre, String apellido, String cargo, String division,
+            String estado) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cargo = cargo;
         this.division = division;
+        this.estado = estado;
     }
 
     public long getId() {
@@ -61,6 +64,14 @@ public class Encargado {
 
     public void setDivision(String division) {
         this.division = division;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

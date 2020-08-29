@@ -33,8 +33,6 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
     private ControladorTarjetaResponsabilidad controlador = null;
     private boolean tableSelected = false;
 
-    public static final String PROP_NOMBRE = "nombre";
-
     
     /**
      * Creates new form ValidacionEncargado
@@ -45,7 +43,7 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
                 listadoTarjetaResponsabilidades);
         this.controlador = new ControladorTarjetaResponsabilidad();
         initComponents();
-        this.setName("Validacion");
+        this.setName("Reporte");
         this.actualizarLista();
     }
 

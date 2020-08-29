@@ -14,10 +14,11 @@ public interface EncargadoDAO extends CRUD<Encargado>{
     
     public List<String> recuperarListaCargos();
     public List<String> recuperarListaDivisiones();
-    public static final String INSERTAR_ENCARGADO="INSERT INTO ENCARGADO (id_encargado,nombre,apellido,cargo,division) VALUES(?,?,?,?,?)";
+    public static final String INSERTAR_ENCARGADO="INSERT INTO ENCARGADO (id_encargado,nombre,"
+            + "apellido,cargo,division,estado) VALUES(?,?,?,?,?,?)";
     public static final String CONSULTAR_ENCARGADOS="SELECT * FROM ENCARGADO";
     public static final String ACTUALIZAR_ENCARGADO="UPDATE ENCARGADO SET nombre = ?, "
-            + "apellido = ?, cargo = ?, division = ? WHERE id_encargado = ?";
+            + "apellido = ?, cargo = ?, division = ?, estado = ? WHERE id_encargado = ?";
     public static final String CONSULTAR_CARGOS = "SELECT cargo FROM ENCARGADO GROUP BY cargo";
     public static final String CONSULTAR_DIVISIONES = "SELECT division FROM ENCARGADO GROUP BY division";
     

@@ -4,7 +4,7 @@
 package pss1inventarioscunoc.frontend.vistas;
 
 import javax.swing.JTabbedPane;
-import pss1inventarioscunoc.frontend.encargados.ManejoEncargados;
+import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
 import javax.swing.UIManager;
 import pss1inventarioscunoc.backend.controladores.ControladorVistas;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
