@@ -62,7 +62,26 @@ public class ImplementacionEncargado implements EncargadoDAO{
         return encargados;
     }
     
-    
+    @Override
+    public List<Encargado> recuperarListaByState(String state) {
+        List<Encargado> encargados = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_ENCARGADOS_POR_ESTADO);
+            prepStatement.setString(1, state);
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                encargados.add(new Encargado(result.getLong(1), result.getString(2),
+                        result.getString(3), result.getString(4), result.getString(5),
+                        result.getString(6)));
+            }
+            result.close();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ImplementacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return encargados;
+        }
+        return encargados;
+    }
     
     @Override
     public boolean actualizar(Encargado model, String temp) {

@@ -75,6 +75,13 @@ public class ControladorEncargado {
     public List<Encargado> obtenerEncargadosActuales() {
         return encargadoDAO.recuperarLista('e');
     }
+    
+    /**
+     * Retorna una Lista de objetos Encargado registrados en el sistema
+     */
+    public List<Encargado> obtenerEncargadosActualesByState(String state) {
+        return encargadoDAO.recuperarListaByState(state);
+    }
 
     /**
      * ===== Metodos pertenecientes a GUI ManejoEncargados =====
@@ -317,7 +324,7 @@ public class ControladorEncargado {
      */
     public void actualizarEncargadosAsignacionEncargados(AsignacionEncargados ae) {
         ae.getListaEncargadosObsr().clear();
-        ae.getListaEncargadosObsr().addAll(obtenerEncargadosActuales());
+        ae.getListaEncargadosObsr().addAll(obtenerEncargadosActualesByState(EstadoUsuario.HABILITADO.getEstado()));
     }
 
     /**
