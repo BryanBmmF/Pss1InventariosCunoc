@@ -3,9 +3,13 @@
  */
 package pss1inventarioscunoc.frontend.vistas;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
 import javax.swing.UIManager;
+import pss1inventarioscunoc.backend.controladores.ControladorDeArchivos;
 import pss1inventarioscunoc.backend.controladores.ControladorVistas;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
@@ -14,15 +18,17 @@ import pss1inventarioscunoc.frontend.vistas.bienes.ReporteDeBiens;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
 import pss1inventarioscunoc.frontend.vistas.inventarios.InventarioPanel;
 import pss1inventarioscunoc.frontend.vistas.proveedores.ProveedorJPanel;
+import sun.awt.WindowClosingListener;
 
 /**
  *
  * @author fabricio
  */
-public class VentanaInicio extends javax.swing.JFrame {
-    
+public class VentanaInicio extends javax.swing.JFrame{
+
     private Vista vista = Vista.INICIO;
     private ControladorVistas controlador = null;
+
     /**
      * Creates new form VentanaInicio
      */
@@ -33,6 +39,44 @@ public class VentanaInicio extends javax.swing.JFrame {
         this.controlador = new ControladorVistas();
         this.ventanaPrincipal.add(new InventarioPanel());
         this.initDependencies();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+//                JOptionPane.showMessageDialog(null, "BIENVENIDO");
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("NO DEJES TODO EN UN RINCON");
+                //Aca se escribira el log
+                ControladorDeArchivos.escribirLog(null);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+ //             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+ //               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+  //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+  //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -359,8 +403,8 @@ public class VentanaInicio extends javax.swing.JFrame {
     public JTabbedPane getVentanaPrincipal() {
         return ventanaPrincipal;
     }
-    
-    public void initDependencies(){
+
+    public void initDependencies() {
         this.controlador.insertIntoInicioDefaultGrupoVista(this);
     }
 
@@ -402,4 +446,8 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JPanel ventana;
     private javax.swing.JTabbedPane ventanaPrincipal;
     // End of variables declaration//GEN-END:variables
+
+
+        
+   
 }

@@ -360,7 +360,7 @@ BEGIN
     SET idLogIngreso =obtener_id_log_ingreso();
     SET fecha = now();
 	INSERT INTO LOG_EVENTO(fecha,tipo,id_log_ingreso,descripcion) VALUES
-    (fecha,'I',idLogIngreso,CONCAT(fecha,".Creacion de encargado:",NEW.id_encargado));
+    (fecha,'I',idLogIngreso,CONCAT(fecha,".Creacion de encargado:",NEW.nombre));
 END $$
 
 DELIMITER ;
