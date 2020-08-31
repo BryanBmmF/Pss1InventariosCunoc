@@ -325,6 +325,7 @@ DELIMITER ;
 */
 
 /****************************Tarjeta de responsabilidad***********************************/
+/*
 #Insert
 DROP TRIGGER  IF exists TARJETA_RESPONSABILIDAD_AI;
 DELIMITER $$
@@ -342,8 +343,70 @@ BEGIN
 END $$
 
 DELIMITER ;
-
+*/
 
 /****************************Encargado ***********************************/
 
+#Insert
+DROP TRIGGER  IF exists ENCARGADO_AI;
+DELIMITER $$
+
+CREATE TRIGGER ENCARGADO_AI AFTER INSERT ON ENCARGADO
+
+FOR EACH ROW 
+BEGIN
+	DECLARE idLogIngreso INT;
+    DECLARE fecha TIMESTAMP;
+    SET idLogIngreso =obtener_id_log_ingreso();
+    SET fecha = now();
+	INSERT INTO LOG_EVENTO(fecha,tipo,id_log_ingreso,descripcion) VALUES
+    (fecha,'I',idLogIngreso,CONCAT(fecha,".Creacion de encargado:",NEW.id_encargado));
+END $$
+
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS ENCARGADO_AU;
+
+DELIMITER $$
+
+CREATE TRIGGER ENCARGADO_AU AFTER UPDATE ON ENCARGADO
+FOR EACH ROW
+BEGIN
+	DECLARE idLogIngreso INT;
+    DECLARE fecha TIMESTAMP;
+	DECLARE cambios VARCHAR(200);
+    SET idLogIngreso =obtener_id_log_ingreso();
+    SET fecha = now();
+    
+        -- verificando cambios en nombre
+    IF ((OLD.nombre LIKE New.nombre))=0 THEN BEGIN
+		SET cambios = CONCAT("(",OLD.nombre,",",NEW.nombre,")");
+		INSERT INTO LOG_EVENTO(fecha,tipo,id_log_ingreso,descripcion) VALUES
+		(fecha,'U',idLogIngreso,CONCAT(fecha,".Actualizacion nombre Encargado (v,n):",cambios));
+    END;END IF;
+    
+	-- verificando cambios en apellido
+    IF ((OLD.apellido LIKE New.apellido))=0 THEN BEGIN
+		SET cambios = CONCAT("(",OLD.apellido,",",NEW.apellido,")");
+		INSERT INTO LOG_EVENTO(fecha,tipo,id_log_ingreso,descripcion) VALUES
+		(fecha,'U',idLogIngreso,CONCAT(fecha,".Actualizacion apellido Encargado (v,n):",cambios));
+    END;END IF;
+    
+	-- verificando cambios en cargo
+    IF ((OLD.cargo LIKE New.cargo))=0 THEN BEGIN
+		SET cambios = CONCAT("(",OLD.cargo,",",NEW.cargo,")");
+		INSERT INTO LOG_EVENTO(fecha,tipo,id_log_ingreso,descripcion) VALUES
+		(fecha,'U',idLogIngreso,CONCAT(fecha,".Actualizacion Cargo Encargado (v,n):",cambios));
+    END;END IF;
+    
+	-- verificando cambios en division
+    IF ((OLD.division LIKE New.division))=0 THEN BEGIN
+		SET cambios = CONCAT("(",OLD.division,",",NEW.division,")");
+		INSERT INTO LOG_EVENTO(fecha,tipo,id_log_ingreso,descripcion) VALUES
+		(fecha,'U',idLogIngreso,CONCAT(fecha,".Actualizacion Division Encargado (v,n):",cambios));
+    END;END IF;
+    
+END $$
+
+DELIMITER ;
 
