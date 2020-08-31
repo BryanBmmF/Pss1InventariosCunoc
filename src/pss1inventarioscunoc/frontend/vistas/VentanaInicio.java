@@ -3,9 +3,22 @@
  */
 package pss1inventarioscunoc.frontend.vistas;
 
+import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
-import pss1inventarioscunoc.frontend.encargados.ManejoEncargados;
-import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
+import pss1inventarioscunoc.backend.bd.Conexion;
 import pss1inventarioscunoc.backend.controladores.ControladorVistas;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
@@ -28,6 +41,7 @@ public class VentanaInicio extends javax.swing.JFrame {
      */
     public VentanaInicio() {
         initComponents();
+        
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
         this.controlador = new ControladorVistas();
@@ -72,6 +86,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -299,6 +316,21 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Reportes");
+
+        jMenuItem8.setText("Bienes");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem8);
+
+        jMenuItem9.setText("Encargados");
+        jMenu4.add(jMenuItem9);
+
+        jMenuBar1.add(jMenu4);
+
         jMenu3.setText("Acerca");
 
         jMenuItem6.setText("jMenuItem6");
@@ -352,6 +384,35 @@ public class VentanaInicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_reportesButton2ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        try {
+            // TODO add your handling code here:
+            //reporte de ejemplo
+//            JasperReport archivo = JasperCompileManager.compileReport("Templates_Reports/reporte_1.jrxml");
+//            
+//            JasperPrint prin = JasperFillManager.fillReport(archivo, null, Conexion.getConexion());
+//            
+//            JasperExportManager.exportReportToPdfFile(prin,"reporte_1.pdf");
+            
+            // se muestra en una ventana aparte para su descarga
+            JasperPrint jasperPrintWindow = JasperFillManager.fillReport(
+                       "Templates_Reports/Prueba_2.jasper", null,
+                       Conexion.getConexion());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrintWindow, false); //false para no cerrar ventana principal alcerrar el jasperviewer
+            jasperViewer.setTitle("Reporte de Prueba 1");
+            jasperViewer.setIconImage((new ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/employees.png")).getImage())); 
+           
+            jasperViewer.setVisible(true);
+            
+        
+        } catch (JRException ex) {
+            Logger.getLogger(VentanaInicio.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     public Vista getVista() {
         return vista;
     }
@@ -385,6 +446,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -393,6 +455,8 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
