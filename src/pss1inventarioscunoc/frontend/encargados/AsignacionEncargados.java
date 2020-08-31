@@ -98,6 +98,7 @@ public class AsignacionEncargados extends javax.swing.JPanel {
         asignarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         asignarButton.setText("ASIGNAR");
         asignarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        asignarButton.setEnabled(false);
         asignarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 asignarButtonActionPerformed(evt);
@@ -478,6 +479,14 @@ public class AsignacionEncargados extends javax.swing.JPanel {
 
     public void setFechaAperturaDateChooser(JDateChooser fechaAperturaDateChooser) {
         this.fechaAperturaDateChooser = fechaAperturaDateChooser;
+    }
+
+    public JButton getAsignarButton() {
+        return asignarButton;
+    }
+
+    public void setAsignarButton(JButton asignarButton) {
+        this.asignarButton = asignarButton;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

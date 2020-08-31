@@ -19,6 +19,8 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.view.JasperViewer;
 import pss1inventarioscunoc.backend.bd.Conexion;
+import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
+import javax.swing.UIManager;
 import pss1inventarioscunoc.backend.controladores.ControladorVistas;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;

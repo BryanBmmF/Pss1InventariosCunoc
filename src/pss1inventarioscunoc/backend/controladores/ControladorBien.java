@@ -60,6 +60,15 @@ public class ControladorBien {
         return (ArrayList<Bien>) bienDao.recuperarLista(estado);
     }
     
+    /**
+     * Regresa todos los bienes del sistema
+     *
+     * @param estado
+     * @return
+     */
+    public ArrayList<Bien> consultarBienesNoAsignados(char estado) {
+        return (ArrayList<Bien>) bienDao.recuperarListaNoAsignados(estado);
+    }
 
     /**
      * Regresa todos los bienes por DONACION del sistema, null si existiera un

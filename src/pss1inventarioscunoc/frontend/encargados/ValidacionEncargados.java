@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorEncargado;
+import pss1inventarioscunoc.backend.enums.EstadoUsuario;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Encargado;
@@ -21,7 +22,7 @@ import pss1inventarioscunoc.backend.pojos.Encargado;
  *
  * @author fabricio
  */
-public class ManejoEncargados extends javax.swing.JPanel {
+public class ValidacionEncargados extends javax.swing.JPanel {
 
     private Vista vista = Vista.MANEJO_ENCARGADOS;
     public List<Encargado> listaEncargados = null;
@@ -29,6 +30,7 @@ public class ManejoEncargados extends javax.swing.JPanel {
     private Encargado selectedEncargado = null;
     private String selectedCargo = null;
     private String selectedDivision = null;
+    private String newStateEncargado = "";
     private ControladorEncargado controlador = null;
     private boolean tableSelected = false;
 
@@ -38,7 +40,7 @@ public class ManejoEncargados extends javax.swing.JPanel {
     /**
      * Creates new form ValidacionEncargado
      */
-    public ManejoEncargados() {
+    public ValidacionEncargados() {
         this.controlador = new ControladorEncargado();
         this.listaEncargados = new LinkedList<>();
         this.listaEncargadosObsr = ObservableCollections.observableList(listaEncargados);
@@ -74,7 +76,7 @@ public class ManejoEncargados extends javax.swing.JPanel {
         agregarButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         actualizarButton = new javax.swing.JButton();
-        eliminarButton = new javax.swing.JButton();
+        deshabilitarHabilitarButton = new javax.swing.JButton();
         limpiarButton = new javax.swing.JButton();
         apellidoTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -97,7 +99,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Agregar Encargado");
 
-        nombreTextField.setBackground(new java.awt.Color(255, 255, 255));
         nombreTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         nombreTextField.setForeground(new java.awt.Color(0, 0, 102));
         nombreTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -129,7 +130,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
             }
         });
 
-        cargoTextField.setBackground(new java.awt.Color(255, 255, 255));
         cargoTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         cargoTextField.setForeground(new java.awt.Color(0, 0, 102));
         cargoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -145,7 +145,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
             }
         });
 
-        divisionTextField.setBackground(new java.awt.Color(255, 255, 255));
         divisionTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         divisionTextField.setForeground(new java.awt.Color(0, 0, 102));
         divisionTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -177,14 +176,14 @@ public class ManejoEncargados extends javax.swing.JPanel {
             }
         });
 
-        eliminarButton.setBackground(new java.awt.Color(204, 0, 0));
-        eliminarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        eliminarButton.setText("ELIMINAR");
-        eliminarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        eliminarButton.setEnabled(false);
-        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
+        deshabilitarHabilitarButton.setBackground(new java.awt.Color(204, 0, 0));
+        deshabilitarHabilitarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        deshabilitarHabilitarButton.setText("DESHABILITAR");
+        deshabilitarHabilitarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        deshabilitarHabilitarButton.setEnabled(false);
+        deshabilitarHabilitarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarButtonActionPerformed(evt);
+                deshabilitarHabilitarButtonActionPerformed(evt);
             }
         });
 
@@ -198,7 +197,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
             }
         });
 
-        apellidoTextField.setBackground(new java.awt.Color(255, 255, 255));
         apellidoTextField.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         apellidoTextField.setForeground(new java.awt.Color(0, 0, 102));
         apellidoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -206,7 +204,6 @@ public class ManejoEncargados extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel8.setText("DPI");
 
-        dpiTextField.setBackground(new java.awt.Color(255, 255, 255));
         dpiTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         dpiTextField.setForeground(new java.awt.Color(0, 0, 51));
         try {
@@ -252,6 +249,9 @@ public class ManejoEncargados extends javax.swing.JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${division}"));
         columnBinding.setColumnName("Division");
         columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estado}"));
+        columnBinding.setColumnName("Estado");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedEncargado}"), tablaEncargados, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -269,31 +269,30 @@ public class ManejoEncargados extends javax.swing.JPanel {
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelValidacionLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(panelValidacionLayout.createSequentialGroup()
-                            .addComponent(divisionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(divisionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelValidacionLayout.createSequentialGroup()
-                            .addComponent(cargoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(cargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel6)
-                        .addGroup(panelValidacionLayout.createSequentialGroup()
-                            .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelValidacionLayout.createSequentialGroup()
-                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(apellidoTextField))))
+                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addComponent(divisionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(divisionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addComponent(cargoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(apellidoTextField)))
                     .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(43, 43, 43)
@@ -304,7 +303,7 @@ public class ManejoEncargados extends javax.swing.JPanel {
                     .addGroup(panelValidacionLayout.createSequentialGroup()
                         .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                        .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(deshabilitarHabilitarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
@@ -347,7 +346,7 @@ public class ManejoEncargados extends javax.swing.JPanel {
                     .addComponent(agregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deshabilitarHabilitarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
 
@@ -399,9 +398,9 @@ public class ManejoEncargados extends javax.swing.JPanel {
         this.controlador.actualizarButtonValidacionEncargados(this);
     }//GEN-LAST:event_actualizarButtonActionPerformed
 
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
-        this.controlador.eliminarButtonValidacionEncargados(this);
-    }//GEN-LAST:event_eliminarButtonActionPerformed
+    private void deshabilitarHabilitarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshabilitarHabilitarButtonActionPerformed
+        this.controlador.deshabilitarHabilitarButtonValidacionEncargados(this);
+    }//GEN-LAST:event_deshabilitarHabilitarButtonActionPerformed
 
     private void tablaEncargadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEncargadosMouseClicked
         this.controlador.tablaEncargadosMouseClickedValidacionEncargados(this);
@@ -492,7 +491,7 @@ public class ManejoEncargados extends javax.swing.JPanel {
     }
 
     public JButton getEliminarButton() {
-        return eliminarButton;
+        return deshabilitarHabilitarButton;
     }
 
     public JButton getActualizarButton() {
@@ -590,6 +589,22 @@ public class ManejoEncargados extends javax.swing.JPanel {
     public Vista getVista(){
         return this.vista;
     }
+
+    public JButton getDeshabilitarHabilitarButton() {
+        return deshabilitarHabilitarButton;
+    }
+
+    public void setDeshabilitarHabilitarButton(JButton deshabilitarHabilitarButton) {
+        this.deshabilitarHabilitarButton = deshabilitarHabilitarButton;
+    }
+
+    public String getNewStateEncargado() {
+        return newStateEncargado;
+    }
+
+    public void setNewStateEncargado(String newStateEncargado) {
+        this.newStateEncargado = newStateEncargado;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizarButton;
@@ -597,10 +612,10 @@ public class ManejoEncargados extends javax.swing.JPanel {
     private javax.swing.JTextField apellidoTextField;
     private javax.swing.JComboBox<String> cargoComboBox;
     private javax.swing.JTextField cargoTextField;
+    private javax.swing.JButton deshabilitarHabilitarButton;
     private javax.swing.JComboBox<String> divisionComboBox;
     private javax.swing.JTextField divisionTextField;
     private javax.swing.JFormattedTextField dpiTextField;
-    private javax.swing.JButton eliminarButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

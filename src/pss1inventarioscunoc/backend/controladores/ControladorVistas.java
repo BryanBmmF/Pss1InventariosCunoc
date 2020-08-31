@@ -9,7 +9,7 @@ import java.awt.Component;
 import java.util.LinkedList;
 import java.util.List;
 import pss1inventarioscunoc.frontend.vistas.proveedores.ModificarProveedorJDialog;
-import pss1inventarioscunoc.frontend.encargados.ManejoEncargados;
+import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
 import pss1inventarioscunoc.frontend.sesion.*;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
@@ -27,8 +27,8 @@ import pss1inventarioscunoc.frontend.vistas.proveedores.*;
  */
 public class ControladorVistas {
 
-    public static GrupoVista defaultGroup = GrupoVista.ENCARGADOS;
-    private ManejoEncargados manejoEncargados = null;
+    public static GrupoVista DEFAULT_GROUP = GrupoVista.ENCARGADOS;
+    private ValidacionEncargados manejoEncargados = null;
     private ModificarProveedorJDialog modificarProveedorJDialog = null;
     private VentanaInicio ventanaInicio = null;
     private VentanaRegistro ventanaRegistro = null;
@@ -46,7 +46,7 @@ public class ControladorVistas {
     private InventarioPanel inventarioPanel = null;
 
     public ControladorVistas() {
-        this.manejoEncargados = new ManejoEncargados();
+        this.manejoEncargados = new ValidacionEncargados();
         this.bienesJPanel1 = new BienesJPanel1();
         this.consultaBienes = new ConsultaBienes();
         this.bajaBienes = new PanelBajaBienes();
@@ -59,11 +59,14 @@ public class ControladorVistas {
     }
 
     public void insertIntoInicioDefaultGrupoVista(VentanaInicio vi) {
-        this.setPaneToTabbedPaneVentanaInicio(vi, defaultGroup);
+        this.setPaneToTabbedPaneVentanaInicio(vi, DEFAULT_GROUP);
     }
 
     public void setPaneToTabbedPaneVentanaInicio(VentanaInicio vi, GrupoVista gv) {
         vi.getVentanaPrincipal().removeAll();
+        if (0 == asignacionEncargados.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(asignacionEncargados);
+        }
         if (0 == manejoEncargados.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(manejoEncargados);
         }
@@ -81,9 +84,6 @@ public class ControladorVistas {
         }
         if (0 == bajaBienes.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(bajaBienes);
-        }
-        if (0 == asignacionEncargados.getVista().getGrupo().compareTo(gv)) {
-            vi.getVentanaPrincipal().add(asignacionEncargados);
         }
         if (0 == repoTarjetasResponsabilidad.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(repoTarjetasResponsabilidad);
