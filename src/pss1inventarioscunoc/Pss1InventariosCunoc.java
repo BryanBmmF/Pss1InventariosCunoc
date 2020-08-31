@@ -3,8 +3,12 @@
  */
 package pss1inventarioscunoc;
 
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import pss1inventarioscunoc.backend.controladores.ControladorBien;
 import pss1inventarioscunoc.backend.controladores.ControladorFactura;
@@ -29,16 +33,18 @@ import pss1inventarioscunoc.frontend.sesion.VentanaSesion;
  */
 public class Pss1InventariosCunoc {
 
+    private static ServerSocket SERVER_SOCKET;//Manejo de una sola instancia
+
     /**
      * @param args the command line arguments
      */
     public static Inventario inventario;
-    public static void main(String[] args) {
-        /*IMPORTANTE, ACTUALIZAR LA BD: campos num de tablas DONACION Y TRASLADO  a autoincrement*/
 
-        VentanaSesion ventanaLogin = new VentanaSesion();
-        ventanaLogin.setVisible(true);
-       
+    public static void main(String[] args) {
+            //SERVER_SOCKET = new ServerSocket(1334);//Manejo de una sola instancia de la aplicacion
+            VentanaSesion ventanaLogin = new VentanaSesion();
+            ventanaLogin.setVisible(true);
+
 //
 //        //Recuperacion de Inventarios
 //        ControladorInventario crIn = new ControladorInventario();
@@ -53,7 +59,6 @@ public class Pss1InventariosCunoc {
 //
 //        //Modificando un Proveedor
 //         crPro.modificarProveedor(new Proveedor(1, "Nombre cambio", "7777441", "Direccion cambio", "descripcion cambio", "correo@cambio"));
-
 //        //Listado de proveedores
 //        System.out.println("BUSQUEDA DE TODOS LOS PROVEEDORS");
 //        for (Proveedor proveedor : crPro.buscarProveedores()) {
@@ -137,11 +142,8 @@ public class Pss1InventariosCunoc {
 //        }
         //Trasladando un bien ya existente
         //     crBien.trasladarBien("curpk3", new Timestamp(System.currentTimeMillis()), "1", "Seccion jsjsjs", "Otra persona");
-   
-    
     }
-    
-    
+
     /*
    
 DELIMITER $$ 
@@ -211,8 +213,7 @@ BEGIN
 END$$ 
 DELIMITER ;
     
-    */
-
+     */
     public static Inventario getInventario() {
         return inventario;
     }
@@ -220,7 +221,5 @@ DELIMITER ;
     public static void setInventario(Inventario inventario) {
         Pss1InventariosCunoc.inventario = inventario;
     }
-    
-    
 
 }
