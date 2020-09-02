@@ -47,9 +47,8 @@ public class VentanaInicio extends javax.swing.JFrame{
 
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("NO DEJES TODO EN UN RINCON");
                 //Aca se escribira el log
-                ControladorDeArchivos.escribirLog(null);
+                ControladorDeArchivos.escribirLog();
             }
 
             @Override

@@ -1,6 +1,7 @@
 
 #Creacion de procedimiento que devolvera el ID de el ultimo LOG_INGRESO
-/*
+DROP FUNCTION IF EXISTS obtener_id_log_ingreso;
+
 DELIMITER $$
 CREATE FUNCTION obtener_id_log_ingreso() RETURNS INT
 BEGIN
@@ -9,11 +10,11 @@ BEGIN
      RETURN idLog;
 END $$
 DELIMITER ;
-*/
+
 #Creacion de TRIGGERS
 
 /**--------------------Tabla PROVEEDOR-------------------------------------*/
-/*
+
 #Insert
 DROP TRIGGER  IF exists PROVEEDOR_AI;
 DELIMITER $$
@@ -81,10 +82,10 @@ BEGIN
 END $$
 
 DELIMITER ;
-*/
+
 /**************FACTURA******************/
 
-/*
+
 #Insert
 DROP TRIGGER  IF exists FACTURA_AI;
 DELIMITER $$
@@ -158,11 +159,11 @@ BEGIN
     
 END $$
 
-DELIMITER ;*/
+DELIMITER ;
 
 
 /****************************BIEN***********************************/
-/*
+
 #Insert
 DROP TRIGGER  IF exists BIEN_AI;
 DELIMITER $$
@@ -252,10 +253,10 @@ END $$
 
 DELIMITER ;
 
-*/
+
 
 /****************************INVENTARIO***********************************/
-/*
+
 #Insert
 DROP TRIGGER  IF exists INVENTARIO_AI;
 DELIMITER $$
@@ -322,10 +323,10 @@ BEGIN
 
 END $$    
 DELIMITER ;
-*/
+
 
 /****************************Tarjeta de responsabilidad***********************************/
-/*
+
 #Insert
 DROP TRIGGER  IF exists TARJETA_RESPONSABILIDAD_AI;
 DELIMITER $$
@@ -343,7 +344,7 @@ BEGIN
 END $$
 
 DELIMITER ;
-*/
+
 
 /****************************Encargado ***********************************/
 
@@ -409,4 +410,77 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+
+
+/********************PROCEDIMIENTOS******************************/
+
+DELIMITER $$ 
+CREATE PROCEDURE actualizar_bien_compra (IN cur_antiguo VARCHAR(45), IN cur_nuevo VARCHAR(45), IN id_factura INTEGER,
+	IN proced VARCHAR(45), IN est CHAR(1), IN descrip VARCHAR(70), IN tip VARCHAR(30), IN val DOUBLE, IN divis VARCHAR(70), IN inventario INTEGER)
+BEGIN 
+		-- hacemos el delete del registro de en inventario
+        DELETE FROM REGISTRO_BIEN_INVENTARIO WHERE cur_bien=cur_antiguo;
+        
+		-- hacemos el update
+        UPDATE BIEN SET cur = cur_nuevo, id_Factura=id_factura,Procedencia=proced,estado = est,Descripcion=descrip
+			,tipo=tip,valor=val,division=divis WHERE cur=cur_antiguo; 
+        
+        -- insertamos nuevamente el registro en inventario
+        INSERT INTO REGISTRO_BIEN_INVENTARIO VALUES(inventario,cur_nuevo);
+ 
+END$$ 
+DELIMITER ;
+
+
+DELIMITER $$ 
+CREATE PROCEDURE actualizar_bien_donacion (IN cur_antiguo VARCHAR(45), IN cur_nuevo VARCHAR(45), IN id_factura INTEGER,
+	IN proced VARCHAR(45), IN est CHAR(1), IN descrip VARCHAR(70), IN tip VARCHAR(30), IN val DOUBLE, IN divis VARCHAR(70),
+		IN correlativ INTEGER, IN punt VARCHAR(45), IN num_acta INTEGER,  IN inventario INTEGER)
+BEGIN 
+		-- hacemos el delete del registro de en inventario
+        DELETE FROM REGISTRO_BIEN_INVENTARIO WHERE cur_bien=cur_antiguo;
+        
+        -- hacemos el delete del registro en donacion
+        DELETE FROM DONACION WHERE cur_bien=cur_antiguo;
+        
+		-- hacemos el update
+        UPDATE BIEN SET cur = cur_nuevo, id_Factura=id_factura,Procedencia=proced,estado = est,Descripcion=descrip
+			,tipo=tip,valor=val,division=divis WHERE cur=cur_antiguo; 
+        
+        -- insertamos nuevamente el registro en inventario
+        INSERT INTO REGISTRO_BIEN_INVENTARIO VALUES(inventario,cur_nuevo);
+        
+        -- insertamos nuevamente el registro en donacion
+        INSERT INTO DONACION VALUES(null,correlativ,punt,num_acta,cur_nuevo);
+ 
+END$$ 
+DELIMITER ;
+
+
+DELIMITER $$ 
+CREATE PROCEDURE actualizar_bien_traslado (IN cur_antiguo VARCHAR(45), IN cur_nuevo VARCHAR(45), IN id_factura INTEGER,
+	IN proced VARCHAR(45), IN est CHAR(1), IN descrip VARCHAR(70), IN tip VARCHAR(30), IN val DOUBLE, IN divis VARCHAR(70),
+		IN fech TIMESTAMP, IN autoriz CHAR(1), IN secc VARCHAR(45), IN encargado VARCHAR(45),   IN inventario INTEGER)
+BEGIN 
+		-- hacemos el delete del registro de en inventario
+        DELETE FROM REGISTRO_BIEN_INVENTARIO WHERE cur_bien=cur_antiguo;
+        
+        -- hacemos el delete del registro en donacion
+        DELETE FROM TRASLADO WHERE cur_bien=cur_antiguo;
+        
+		-- hacemos el update
+        UPDATE BIEN SET cur = cur_nuevo, id_Factura=id_factura,Procedencia=proced,estado = est,Descripcion=descrip
+			,tipo=tip,valor=val,division=divis WHERE cur=cur_antiguo; 
+        
+        -- insertamos nuevamente el registro en inventario
+        INSERT INTO REGISTRO_BIEN_INVENTARIO VALUES(inventario,cur_nuevo);
+        
+        -- insertamos nuevamente el registro en donacion
+        INSERT INTO TRASLADO VALUES(null,cur_nuevo,fech,autoriz,secc,encargado);
+ 
+END$$ 
+DELIMITER ;
+    
+
 
