@@ -384,6 +384,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
     private void reportesButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesButton2ActionPerformed
         // TODO add your handling code here:
+        controlador.reportesButtonVentanaInicio(this);
     }//GEN-LAST:event_reportesButton2ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed

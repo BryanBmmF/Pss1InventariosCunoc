@@ -44,6 +44,7 @@ public class ControladorVistas {
     private AsignacionEncargados asignacionEncargados = null;
     private reporteTarjetasResponsabilidad repoTarjetasResponsabilidad = null;
     private InventarioPanel inventarioPanel = null;
+    private ReporteBienesTipo reporteBienesTipo = null;
 
     public ControladorVistas() {
         this.manejoEncargados = new ValidacionEncargados();
@@ -56,6 +57,7 @@ public class ControladorVistas {
         this.asignacionEncargados = new AsignacionEncargados();
         this.repoTarjetasResponsabilidad = new reporteTarjetasResponsabilidad();
         this.inventarioPanel = new InventarioPanel();
+        this.reporteBienesTipo = new ReporteBienesTipo();
     }
 
     public void insertIntoInicioDefaultGrupoVista(VentanaInicio vi) {
@@ -93,6 +95,10 @@ public class ControladorVistas {
         }
         if (0 == reporteBienes.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienes);
+        }
+        
+        if (0 == reporteBienesTipo.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(reporteBienesTipo);
         }
 
     }
