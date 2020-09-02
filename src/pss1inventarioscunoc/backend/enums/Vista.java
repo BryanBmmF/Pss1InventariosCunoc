@@ -27,6 +27,7 @@ public enum Vista {
     CONSULTA_BIENES_BAJA("Consulta de Bienes dados de Baja",GrupoVista.BIENES,14),
     REPORTE_BIENS_1("Reporte de Bienes en Inventario",GrupoVista.INVENTARIOS,15),
     INVENTARIOS("Inventarios",GrupoVista.INVENTARIOS,16),
+    MODIFICACION_TARJETAS("Modificacion Tarjeta Responsabilidad",GrupoVista.TARJETAS_RESPONSABILIDAD,17),
     ;
     
     private String nombre;

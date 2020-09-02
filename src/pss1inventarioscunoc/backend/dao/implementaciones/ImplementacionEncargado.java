@@ -41,6 +41,20 @@ public class ImplementacionEncargado implements EncargadoDAO{
             return false;
         }
     }
+    
+    @Override
+    public boolean registrarPredeterminado(Encargado model){
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_ENCARGADO_PREDETERMINADO);
+            prepStatement.setLong(1, model.getId());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
     @Override
     public List<Encargado> recuperarLista(char estado) {
@@ -62,7 +76,46 @@ public class ImplementacionEncargado implements EncargadoDAO{
         return encargados;
     }
     
+    @Override
+    public Encargado recuperarPredeterminado(char estado){
+        Encargado predeterminado = null;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_ENCARGADO_PREDETERMINADO);
+            result=prepStatement.executeQuery();
+            while(result.next()){
+                predeterminado = new Encargado(result.getLong(1), result.getString(2), 
+                        result.getString(3), result.getString(4), result.getString(5),
+                        result.getString(6));
+            }
+            result.close();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ImplementacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return predeterminado;
+    }
     
+    @Override
+    public List<Encargado> recuperarListaByState(String state) {
+        List<Encargado> encargados = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_ENCARGADOS_POR_ESTADO);
+            prepStatement.setString(1, state);
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                encargados.add(new Encargado(result.getLong(1), result.getString(2),
+                        result.getString(3), result.getString(4), result.getString(5),
+                        result.getString(6)));
+            }
+            result.close();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ImplementacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return encargados;
+        }
+        return encargados;
+    }
     
     @Override
     public boolean actualizar(Encargado model, String temp) {
@@ -74,6 +127,21 @@ public class ImplementacionEncargado implements EncargadoDAO{
             prepStatement.setString(4, model.getDivision());
             prepStatement.setString(5, model.getEstado());
             prepStatement.setLong(6, model.getId());
+            prepStatement.executeUpdate();
+            prepStatement.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean actualizarPredeterminado(Encargado model, String temp){
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(ACTUALIZAR_ENCARGADO_PREDETERMINADO);
+            prepStatement.setLong(1, model.getId());
+            prepStatement.setString(2, temp);
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;
