@@ -4,10 +4,13 @@
 package pss1inventarioscunoc.backend.controladores;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionProveedor;
 import pss1inventarioscunoc.backend.dao.interfaces.ProveedorDAO;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
 
 /**
  *
@@ -120,4 +123,19 @@ public class ControladorProveedor {
         }
         return true;
     }
+    
+    /**
+     * ===== Metodos pertenecientes a GUI ModificacionTarjetaResponsabilidad =====
+     */
+    
+    public void actualizarProveedoresModificacionTarjetaResponsabilidad(ModificacionTarjetaResponsabilidad ceb){
+        ceb.getListaProveedoresObsr().clear();
+        ceb.getListaProveedoresObsr().addAll(this.buscarProveedores());
+    }
+    
+    public void tablaProveedoresMouseClickedModificacionTarjetaResponsabilidad(ModificacionTarjetaResponsabilidad ceb){
+        ceb.getSelectedProveedorLabel().setText(Integer.toString(ceb.getSelectedProveedor().getIdProveedor()));
+        ceb.setTableProveedoresSelected(true);
+    }
+    
 }

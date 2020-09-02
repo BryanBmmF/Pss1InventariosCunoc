@@ -14,6 +14,7 @@ import pss1inventarioscunoc.frontend.sesion.*;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.frontend.encargados.AsignacionEncargados;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.reporteTarjetasResponsabilidad;
 import pss1inventarioscunoc.frontend.vistas.*;
 import pss1inventarioscunoc.frontend.vistas.bienes.*;
@@ -45,6 +46,7 @@ public class ControladorVistas {
     private reporteTarjetasResponsabilidad repoTarjetasResponsabilidad = null;
     private InventarioPanel inventarioPanel = null;
     private ReporteBienesTipo reporteBienesTipo = null;
+    private ModificacionTarjetaResponsabilidad modificacionTarjeta = null;
 
     public ControladorVistas() {
         this.manejoEncargados = new ValidacionEncargados();
@@ -58,14 +60,18 @@ public class ControladorVistas {
         this.repoTarjetasResponsabilidad = new reporteTarjetasResponsabilidad();
         this.inventarioPanel = new InventarioPanel();
         this.reporteBienesTipo = new ReporteBienesTipo();
+        this.modificacionTarjeta = new ModificacionTarjetaResponsabilidad();
     }
 
     public void insertIntoInicioDefaultGrupoVista(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, DEFAULT_GROUP);
     }
-
+  
     public void setPaneToTabbedPaneVentanaInicio(VentanaInicio vi, GrupoVista gv) {
         vi.getVentanaPrincipal().removeAll();
+        if (0 == modificacionTarjeta.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(modificacionTarjeta);
+        }
         if (0 == asignacionEncargados.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(asignacionEncargados);
         }

@@ -14,6 +14,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorFactura;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Factura;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.vistas.ConsultaBienes;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 
@@ -30,6 +31,7 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
     private Factura factura;
     private BienesJPanel1 bienPanel;
     private ConsultaBienes consultaBienes;
+    private ModificacionTarjetaResponsabilidad mtr;
 
     /**
      * Creates new form listadoDeFacturasJDialog
@@ -49,6 +51,18 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
     public ListadoDeFacturasJDialog(java.awt.Frame parent, boolean modal, ConsultaBienes consultaBienes) {
         super(parent, modal);
         this.consultaBienes = consultaBienes;
+        this.controlador = new ControladorFactura();
+        this.factura = null;
+        this.listaFacturas = new LinkedList<>();
+        this.listaObservableFacturas = ObservableCollections.observableList(listaFacturas);
+        actualizarLista(controlador.buscarFacturas());
+        this.bienPanel = null;
+        initComponents();
+    }
+    
+    public ListadoDeFacturasJDialog(java.awt.Frame parent, boolean modal, ModificacionTarjetaResponsabilidad mtr) {
+        super(parent, modal);
+        this.mtr = mtr;
         this.controlador = new ControladorFactura();
         this.factura = null;
         this.listaFacturas = new LinkedList<>();
@@ -203,7 +217,11 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
         if (bienPanel != null) {
             this.bienPanel.setFactura(this.factura);
             this.bienPanel.getFacturaTextField10().setText(this.factura.getDescripcion());
-        }else{
+        } else if (mtr != null){
+            this.mtr.setSelectedFactura(factura);
+            this.mtr.getNoFacturaTextField().setText(Integer.toString(mtr.getSelectedFactura().getIdFactura()));
+            this.mtr.setFacturaButtonSelected(true);
+        } else{
             this.consultaBienes.setFactura(factura);
             this.consultaBienes.getFacturaTextField10().setText(this.factura.getDescripcion());
         }

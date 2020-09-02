@@ -5,6 +5,7 @@ package pss1inventarioscunoc.backend.controladores;
 
 import java.awt.Color;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
@@ -12,9 +13,11 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.*;
 import pss1inventarioscunoc.backend.dao.interfaces.*;
+import pss1inventarioscunoc.backend.enums.EstadoObjeto;
 import pss1inventarioscunoc.backend.enums.EstadoUsuario;
 import pss1inventarioscunoc.backend.pojos.*;
 import pss1inventarioscunoc.frontend.encargados.AsignacionEncargados;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
 
 /**
@@ -28,9 +31,11 @@ public class ControladorEncargado {
     private ControladorTarjetaResponsabilidad controladorTarjetaResponsabilidad = null;
     private EncargadoDAO encargadoDAO;
     private String DEFAULT_STATE_ENCARGADO = EstadoUsuario.HABILITADO.getEstado();
+    private String DEFAULT_STATE_TARJETA = EstadoObjeto.ACTIVO.getEstado();
     public static String EMPTY_TEXT = "";
     public static String DESHABILITAR_TEXT = "DESHABILITAR";
     public static String HABILITAR_TEXT = "HABILITAR";
+    public static String SIN_DEFINIR_TEXT = "SIN DEFINIR";
 
     public ControladorEncargado() {
         this.encargadoDAO = new ImplementacionEncargado();
@@ -55,6 +60,21 @@ public class ControladorEncargado {
     }
 
     /**
+     * Registra un nuevo encargado predeterminado
+     *
+     * @param encargado
+     */
+    public void registrarEncargadoPredeterminado(Encargado encargado) {
+        if (encargadoDAO.registrarPredeterminado(encargado)) {
+            JOptionPane.showMessageDialog(null, "Encargado Predeterminado actualizado "
+                    + "correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha podido registrar el encargado "
+                    + "predeterminado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * Metodo encargado de registrar un encargado Si no existen errores en la
      * base de datos se devuelve un dialogo con un informe de exito, de lo
      * contrario se informará un error
@@ -70,6 +90,19 @@ public class ControladorEncargado {
     }
 
     /**
+     * Se actualiza el encargado predeterminado definido anteriormente
+     *
+     * @param encargado
+     */
+    public void actualizarEncargadoPredeterminado(Encargado encargado, String temp) {
+        if (encargadoDAO.actualizarPredeterminado(encargado, temp)) {
+            JOptionPane.showMessageDialog(null, "Encargado actualizado correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha podido actualizar el encargado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * Retorna una Lista de objetos Encargado registrados en el sistema
      */
     public List<Encargado> obtenerEncargadosActuales() {
@@ -77,7 +110,14 @@ public class ControladorEncargado {
     }
 
     /**
-     * ===== Metodos pertenecientes a GUI ManejoEncargados =====
+     * Retorna una Lista de objetos Encargado registrados en el sistema
+     */
+    public List<Encargado> obtenerEncargadosActualesByState(String state) {
+        return encargadoDAO.recuperarListaByState(state);
+    }
+
+    /**
+     * ===== Metodos pertenecientes a GUI ValidacionEncargados =====
      */
     /**
      * Recibe como primer parametro la instancia de la interfaz (vista) a
@@ -91,6 +131,24 @@ public class ControladorEncargado {
         ve.getListaEncargadosObsr().addAll(obtenerEncargadosActuales());
         this.fillCargoComboBox(ve, encargadoDAO.recuperarListaCargos());
         this.fillDivisionComboBox(ve, encargadoDAO.recuperarListaDivisiones());
+        this.actualizarEncargadoPredeterminadoValidacionEncargados(ve);
+    }
+
+    /**
+     * Se asigna en la vista el encargado predeterminado Si no existiese se
+     * coloca un mensaje determinado
+     *
+     * @param ve
+     */
+    public void actualizarEncargadoPredeterminadoValidacionEncargados(ValidacionEncargados ve) {
+        Encargado predeterminado = null;
+        predeterminado = encargadoDAO.recuperarPredeterminado('1');
+        if (predeterminado != null) {
+            ve.getEncargadoPredetermLabel().setText(predeterminado.getNombre() + " - "
+                    + predeterminado.getId());
+        } else {
+            ve.getEncargadoPredetermLabel().setText(SIN_DEFINIR_TEXT);
+        }
     }
 
     /**
@@ -181,10 +239,64 @@ public class ControladorEncargado {
         this.setStateSecundaryButtons(ve, false);
         this.setStatePrimaryButtons(ve, true);
 
+        Encargado predeterminado = encargadoDAO.recuperarPredeterminado('1');
         Encargado estadoEncargado = ve.getSelectedEncargado();
-        estadoEncargado.setEstado(ve.getNewStateEncargado());
-        this.actualizarEncargado(estadoEncargado, null);
-        this.actualizarEncargadosValidacionEncargados(ve);
+        if (estadoEncargado.getEstado().equals(EstadoUsuario.HABILITADO.getEstado())) {
+            if (controladorTarjetaResponsabilidad.obtenerNumeroTarjetasPorEncargado(Long.toString(estadoEncargado.getId())) > 0) {
+                if (predeterminado != null) {
+                    if (predeterminado.getId() != estadoEncargado.getId()) {
+                        LinkedList<TarjetaResponsabilidad> tarjetas = new LinkedList<>();
+                        tarjetas.addAll(controladorTarjetaResponsabilidad.obtenerTarjetasPorEncargado(
+                                Long.toString(estadoEncargado.getId())));
+                        Long idEncargado = predeterminado.getId();
+                        for (TarjetaResponsabilidad tarjeta : tarjetas) {
+                            tarjeta.setIdResponsable(idEncargado);
+                            controladorTarjetaResponsabilidad.actualizarTarjeta(tarjeta, null);
+                        }
+                        estadoEncargado.setEstado(ve.getNewStateEncargado());
+                        this.actualizarEncargado(estadoEncargado, null);
+                        this.actualizarEncargadosValidacionEncargados(ve);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Seleccione un nuevo Encargado Predeterminado", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Encargado predeterminado sin definir", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                estadoEncargado.setEstado(ve.getNewStateEncargado());
+                this.actualizarEncargado(estadoEncargado, null);
+                this.actualizarEncargadosValidacionEncargados(ve);
+            }
+        } else {
+            estadoEncargado.setEstado(ve.getNewStateEncargado());
+            this.actualizarEncargado(estadoEncargado, null);
+            this.actualizarEncargadosValidacionEncargados(ve);
+        }
+
+    }
+
+    /**
+     * Se encarga de colocar un encargado como predeterminado el encargado
+     * seleccionado
+     *
+     * @param ve
+     */
+    public void predeterminadoButtonValidacionEncargados(ValidacionEncargados ve) {
+        this.setStateSecundaryButtons(ve, false);
+        this.setStatePrimaryButtons(ve, true);
+
+        if (ve.getSelectedEncargado().getEstado().equals(EstadoUsuario.HABILITADO.getEstado())) {
+            Encargado predeterminado = encargadoDAO.recuperarPredeterminado('1');
+            if (predeterminado != null) {
+                this.actualizarEncargadoPredeterminado(ve.getSelectedEncargado(), Long.toString(predeterminado.getId()));
+            } else {
+                this.registrarEncargadoPredeterminado(ve.getSelectedEncargado());
+            }
+            this.actualizarEncargadoPredeterminadoValidacionEncargados(ve);
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un encargado HABILITADO", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -274,6 +386,7 @@ public class ControladorEncargado {
     private void setStateSecundaryButtons(ValidacionEncargados ve, boolean state) {
         ve.getActualizarButton().setEnabled(state);
         ve.getEliminarButton().setEnabled(state);
+        ve.getPredeterminadoButton().setEnabled(state);
     }
 
     /**
@@ -317,7 +430,7 @@ public class ControladorEncargado {
      */
     public void actualizarEncargadosAsignacionEncargados(AsignacionEncargados ae) {
         ae.getListaEncargadosObsr().clear();
-        ae.getListaEncargadosObsr().addAll(obtenerEncargadosActuales());
+        ae.getListaEncargadosObsr().addAll(obtenerEncargadosActualesByState(EstadoUsuario.HABILITADO.getEstado()));
     }
 
     /**
@@ -335,14 +448,23 @@ public class ControladorEncargado {
             ae.getAsignarButton().setEnabled(false);
             Factura factura = controladorFactura.buscarFactura(ae.getSelectedBien().getIdFactura());
             TarjetaResponsabilidad tr = new TarjetaResponsabilidad(new Timestamp(ae.getFechaAperturaDateChooser().getDate().getTime()),
-                    ae.getSelectedBien().getDescripcion(),
-                    ae.getSelectedBien().getIdFactura(),
-                    null, factura.getFecha(),
-                    null, ae.getSelectedBien().getCur(), ae.getSelectedEncargado().getId(), factura.getIdProveedor());
+                    ae.getSelectedBien().getDescripcion(), ae.getSelectedBien().getIdFactura(),
+                    null, factura.getFecha(), null, ae.getSelectedBien().getCur(),
+                    ae.getSelectedEncargado().getId(), factura.getIdProveedor(), DEFAULT_STATE_TARJETA);
             if (!ae.getNoOrdenCompraTextField().getText().trim().isEmpty()) {
                 tr.setNoOrdenCompra(ae.getNoOrdenCompraTextField().getText().trim());
             }
             controladorTarjetaResponsabilidad.registrarTarjetaResponsabilidad(tr);
+            Date date = new Date();
+            long time = date.getTime();
+            Timestamp ts = new Timestamp(time);
+            ControladorHistorialTarjetaResponsabilidad controladorHistorialTarjeta
+                    = new ControladorHistorialTarjetaResponsabilidad();
+            controladorHistorialTarjeta.registrarHistorialTarjetaResponsabilidad(
+                    new HistorialTarjetaResponsabilidad(0, controladorTarjetaResponsabilidad.
+                            obtenerTarjetasActuales().getLast().getId(),
+                            ts, tr.getIdResponsable(), tr.getIdProveedor(),
+                            tr.getEstado(), tr.getNoFactura()));
             this.actualizarBienesAsignacionEncargados(ae);
             this.actualizarEncargadosAsignacionEncargados(ae);
         } else {
@@ -375,6 +497,39 @@ public class ControladorEncargado {
         ae.setTableBienesSelected(false);
         ae.setTableEncargadosSelected(false);
         ae.getAsignarButton().setEnabled(false);
+    }
+
+    /**
+     * ===== Metodos pertenecientes a GUI AsignacionEncargados =====
+     */
+    /**
+     * Actualiza la lista de Encargados después de una accion en la vista
+     *
+     * @param ceb
+     */
+    public void actualizarEncargadosCambioEncargadoBien(ModificacionTarjetaResponsabilidad ceb) {
+        ceb.getListaEncargadosObsr().clear();
+        ceb.getListaEncargadosObsr().addAll(obtenerEncargadosActualesByState(EstadoUsuario.HABILITADO.getEstado()));
+    }
+
+    public void asignarButtonCambioEncargadoBien(ModificacionTarjetaResponsabilidad ceb) {
+
+    }
+
+    public void tablaEncargadosMouseClickedCambioEncargadoBien(ModificacionTarjetaResponsabilidad ceb) {
+        ceb.getSelectedEncargadoLabel().setText(Long.toString(ceb.getSelectedEncargado().getId()));
+        ceb.setTableEncargadosSelected(true);
+    }
+
+    public void limpiarButtonCambioEncargadoBien(ModificacionTarjetaResponsabilidad ceb) {
+        ceb.getSelectedProveedorLabel().setText(AsignacionEncargados.DEFAULT_TEXT_SIN_ASIGNAR);
+        ceb.getSelectedEncargadoLabel().setText(AsignacionEncargados.DEFAULT_TEXT_SIN_ASIGNAR);
+        ceb.getNoFacturaTextField().setText(AsignacionEncargados.DEFAULT_TEXT_SIN_ASIGNAR);
+        ceb.setTableTarjetasSelected(false);
+        ceb.setTableEncargadosSelected(false);
+        ceb.setTableProveedoresSelected(false);
+        ceb.setFacturaButtonSelected(false);
+        ceb.getActualizarButton().setEnabled(false);
     }
 
     /**
