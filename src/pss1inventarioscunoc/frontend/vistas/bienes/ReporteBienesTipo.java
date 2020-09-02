@@ -384,8 +384,6 @@ public class ReporteBienesTipo extends javax.swing.JPanel {
     }//GEN-LAST:event_agregarButtonActionPerformed
     
     public boolean validarParametrosEnviar(){
-        
-        
         if (fechaInicio.getDate()!=null && fechaFin.getDate()!=null) {
             //validar las fechas
             Timestamp fecha1 = new Timestamp(this.fechaInicio.getDate().getTime());

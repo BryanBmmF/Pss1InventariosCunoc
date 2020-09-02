@@ -13,6 +13,7 @@ import pss1inventarioscunoc.backend.pojos.HistorialTarjetaResponsabilidad;
 import pss1inventarioscunoc.backend.pojos.TarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.reporteTarjetasResponsabilidad;
+import pss1inventarioscunoc.frontend.vistas.bienes.ReporteBienesEncargado;
 
 /**
  *
@@ -100,6 +101,10 @@ public class ControladorTarjetaResponsabilidad {
     public void actualizarTarjetasResponsabilidadReporteTarjetasResponsabilidad(reporteTarjetasResponsabilidad rtr) {
         rtr.getListaTarjetaResponsabilidadesObsr().clear();
         rtr.getListaTarjetaResponsabilidadesObsr().addAll(this.obtenerTarjetasActuales());
+    }
+    public void actualizarTarjetasResponsabilidad(ReporteBienesEncargado rtr, String idEncargado) {
+        rtr.getListaTarjetas().clear();
+        rtr.getListaTarjetasObsr().addAll(this.obtenerTarjetasPorEncargado(idEncargado));
     }
 
     /**

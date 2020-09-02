@@ -19,6 +19,7 @@ import pss1inventarioscunoc.backend.pojos.*;
 import pss1inventarioscunoc.frontend.encargados.AsignacionEncargados;
 import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
+import pss1inventarioscunoc.frontend.vistas.bienes.ReporteBienesEncargado;
 
 /**
  *
@@ -520,6 +521,26 @@ public class ControladorEncargado {
         ceb.getSelectedEncargadoLabel().setText(Long.toString(ceb.getSelectedEncargado().getId()));
         ceb.setTableEncargadosSelected(true);
     }
+    
+    /**
+     * ===== Metodos pertenecientes a GUI ReporteBienesEncargado =====
+     */
+    /**
+     * Actualiza la lista de Encargados después de una accion en la vista
+     *
+     * @param ceb
+     */
+    public void actualizarEncargados(ReporteBienesEncargado ceb) {
+        ceb.getListaEncargadosObsr().clear();
+        ceb.getListaEncargadosObsr().addAll(obtenerEncargadosActualesByState(EstadoUsuario.HABILITADO.getEstado()));
+    }
+
+    public void tablaEncargadosMouseClicked(ReporteBienesEncargado ceb) {
+        ceb.getSelectedEncargadoLabel().setText(Long.toString(ceb.getSelectedEncargado().getId()));
+        ceb.setTableEncargadosSelected(true);
+    }
+    
+    
 
     public void limpiarButtonCambioEncargadoBien(ModificacionTarjetaResponsabilidad ceb) {
         ceb.getSelectedProveedorLabel().setText(AsignacionEncargados.DEFAULT_TEXT_SIN_ASIGNAR);
