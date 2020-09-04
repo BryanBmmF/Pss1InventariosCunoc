@@ -1,3 +1,5 @@
+Usuario:1->2020-09-04 09:20:17.Insercion de bien:1234578 tipo:compra
+
 Usuario:1->2020-09-02 08:52:55.Actualizacion Nombre Proveedor(v,n):(otro proveedorsdadfasdfasdf,ot)
 Usuario:1->2020-09-02 08:52:55.Actualizacion Direccion Proveedor(v,n):(asdfas,asdfasASDFASDF)
 
