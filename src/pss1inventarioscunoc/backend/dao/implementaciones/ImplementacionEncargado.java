@@ -33,6 +33,7 @@ public class ImplementacionEncargado implements EncargadoDAO{
             prepStatement.setString(4, model.getCargo());
             prepStatement.setString(5, model.getDivision());
             prepStatement.setString(6, model.getEstado());
+            System.out.println(prepStatement.toString());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;

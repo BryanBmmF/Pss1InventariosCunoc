@@ -3,7 +3,10 @@
  */
 package pss1inventarioscunoc;
 
+import pss1inventarioscunoc.backend.pojos.Inventario;
 import pss1inventarioscunoc.frontend.sesion.VentanaSesion;
+
+
 
 /**
  *
@@ -11,16 +14,30 @@ import pss1inventarioscunoc.frontend.sesion.VentanaSesion;
  */
 public class Pss1InventariosCunoc {
 
+
     /**
      * @param args the command line arguments
      */
+
+    public static Inventario inventario;
+
     
     public static void main(String[] args) {
         /*IMPORTANTE, ACTUALIZAR LA BD: campos num de tablas DONACION Y TRASLADO  a autoincrement*/
 
+
+    public static void main(String[] args) {
         VentanaSesion ventanaLogin = new VentanaSesion();
         ventanaLogin.setVisible(true);
 
     }
-    
+
+    public static Inventario getInventario() {
+        return inventario;
+    }
+
+    public static void setInventario(Inventario inventario) {
+        Pss1InventariosCunoc.inventario = inventario;
+    }
+
 }
