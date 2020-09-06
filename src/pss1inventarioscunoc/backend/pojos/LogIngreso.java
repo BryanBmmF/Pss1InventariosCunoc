@@ -20,15 +20,20 @@ public class LogIngreso {
     private String idUsuario;
     private String deescripcion;
 
+    /**
+     * Para creacion de LogIngreso
+     * @param fecha
+     * @param tipo
+     * @param idUsuario
+     * @param deescripcion 
+     */
     public LogIngreso(Timestamp fecha, String tipo, String idUsuario, String deescripcion) {
         this.fecha = fecha;
         this.tipo = tipo;
         this.idUsuario = idUsuario;
         this.deescripcion = deescripcion;
-    }
-
-    
-    
+    } 
+   
     
     public int getId() {
         return id;

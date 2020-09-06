@@ -28,11 +28,13 @@ public class ImplementacionEncargado implements EncargadoDAO{
         try {
             prepStatement = Conexion.getConexion().prepareStatement(INSERTAR_ENCARGADO);
             prepStatement.setLong(1, model.getId());
-            prepStatement.setString(2, model.getNombre());
-            prepStatement.setString(3, model.getApellido());
-            prepStatement.setString(4, model.getCargo());
-            prepStatement.setString(5, model.getDivision());
-            prepStatement.setString(6, model.getEstado());
+            prepStatement.setString(2, model.getRegistro());
+            prepStatement.setString(3, model.getNombre());
+            prepStatement.setString(4, model.getApellido());
+            prepStatement.setString(5, model.getCargo());
+            prepStatement.setString(6, model.getDivision());
+            prepStatement.setString(7, model.getEstado());
+            System.out.println(prepStatement.toString());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;
@@ -65,7 +67,7 @@ public class ImplementacionEncargado implements EncargadoDAO{
             while(result.next()){
                 encargados.add(new Encargado(result.getLong(1), result.getString(2), 
                         result.getString(3), result.getString(4), result.getString(5),
-                        result.getString(6)));
+                        result.getString(6), result.getString(7)));
             }
             result.close();
             prepStatement.close();
@@ -85,7 +87,7 @@ public class ImplementacionEncargado implements EncargadoDAO{
             while(result.next()){
                 predeterminado = new Encargado(result.getLong(1), result.getString(2), 
                         result.getString(3), result.getString(4), result.getString(5),
-                        result.getString(6));
+                        result.getString(6),result.getString(7));
             }
             result.close();
             prepStatement.close();
@@ -106,7 +108,7 @@ public class ImplementacionEncargado implements EncargadoDAO{
             while (result.next()) {
                 encargados.add(new Encargado(result.getLong(1), result.getString(2),
                         result.getString(3), result.getString(4), result.getString(5),
-                        result.getString(6)));
+                        result.getString(6), result.getString(7)));
             }
             result.close();
             prepStatement.close();
@@ -121,12 +123,13 @@ public class ImplementacionEncargado implements EncargadoDAO{
     public boolean actualizar(Encargado model, String temp) {
         try {
             prepStatement = Conexion.getConexion().prepareStatement(ACTUALIZAR_ENCARGADO);
-            prepStatement.setString(1, model.getNombre());
-            prepStatement.setString(2, model.getApellido());
-            prepStatement.setString(3, model.getCargo());
-            prepStatement.setString(4, model.getDivision());
-            prepStatement.setString(5, model.getEstado());
-            prepStatement.setLong(6, model.getId());
+            prepStatement.setString(1, model.getRegistro());
+            prepStatement.setString(2, model.getNombre());
+            prepStatement.setString(3, model.getApellido());
+            prepStatement.setString(4, model.getCargo());
+            prepStatement.setString(5, model.getDivision());
+            prepStatement.setString(6, model.getEstado());
+            prepStatement.setLong(7, model.getId());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;

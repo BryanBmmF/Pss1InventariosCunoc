@@ -3,6 +3,7 @@
  */
 package pss1inventarioscunoc.backend.controladores;
 
+import java.util.ArrayList;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionLogIngreso;
 import pss1inventarioscunoc.backend.dao.interfaces.LogIngresoDAO;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
@@ -42,4 +43,8 @@ public class ControladorLogIngreso {
         return log.busquedaDeLogEvento();
     }
     
+    
+    public ArrayList<String> buscarLogs(){
+        return log.buscarLogEvento();
+    }
 }

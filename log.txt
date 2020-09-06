@@ -1,0 +1,29 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Usuario:1->2020-09-04 09:20:17.Insercion de bien:1234578 tipo:compra
+
+Usuario:1->2020-09-02 08:52:55.Actualizacion Nombre Proveedor(v,n):(otro proveedorsdadfasdfasdf,ot)
+Usuario:1->2020-09-02 08:52:55.Actualizacion Direccion Proveedor(v,n):(asdfas,asdfasASDFASDF)
+
+Usuario:1->2020-09-02 08:52:17.Actualizacion Nombre Proveedor(v,n):(dasdasd,dasdasdAAAAA)
+
+
+12020-09-02 08:39:42.Se inserto el proveedor:asdf
+12020-09-02 08:39:57.Se inserto la factura con descripcion:asdfa
+1
+12020-09-02 08:37:27.Se inserto el proveedor:dasd
+12020-09-02 08:32:42.Se inserto la factura con descripcion:asdf
+12020-09-02 08:31:46.Se inserto el proveedor:dsa
