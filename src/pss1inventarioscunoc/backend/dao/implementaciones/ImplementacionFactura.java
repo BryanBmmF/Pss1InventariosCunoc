@@ -42,6 +42,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setTimestamp(3, model.getFecha());
             prepStatement.setString(4, model.getDescripcion());
             prepStatement.setDouble(5, model.getValor());
+            System.out.println("FACTURA:\n" + prepStatement.toString() + "\n");
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -109,21 +110,22 @@ public class ImplementacionFactura implements FacturaDAO {
         }
         return facturas;
     }
-    
+
     /**
      * Busca una factura por su propio id
+     *
      * @param id
-     * @return 
+     * @return
      */
     @Override
-    public Factura buscarFacturaPorId(int idFactura){
+    public Factura buscarFacturaPorId(int idFactura) {
         Factura factura = null;
         try {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA_POR_ID);
             prepStatement.setInt(1, idFactura);
             result = prepStatement.executeQuery();
-            while(result.next()){
-                factura = new Factura(result.getInt(2), result.getInt(3), 
+            while (result.next()) {
+                factura = new Factura(result.getInt(2), result.getInt(3),
                         result.getTimestamp(4), result.getString(5), result.getDouble(6));
             }
             prepStatement.close();
@@ -179,6 +181,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setTimestamp(3, model.getFecha());
             prepStatement.setString(4, model.getDescripcion());
             prepStatement.setDouble(5, model.getValor());
+            System.out.println("FACTURA:\n" + prepStatement.toString() + "\n");
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -202,7 +205,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setTimestamp(2, model.getFecha());
             prepStatement.setString(3, model.getDescripcion());
             prepStatement.setDouble(4, model.getValor());
-            System.out.println(prepStatement.toString());
+            System.out.println("FACTURA:\n" + prepStatement.toString() + "\n");
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {

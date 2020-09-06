@@ -3,9 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/fabricio/Documentos/8vo-Semestre/SS1/proyecto-inventarios/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorTarjetaResponsabilidad.java</file>
-            <file>file:/home/fabricio/Documentos/8vo-Semestre/SS1/proyecto-inventarios/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/implementaciones/ImplementacionHistorialTarjetaResponsabilidad.java</file>
-            <file>file:/home/fabricio/Documentos/8vo-Semestre/SS1/proyecto-inventarios/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/tarjetasresponsabilidad/ModificacionTarjetaResponsabilidad.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorVistas.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/Pss1InventariosCunoc.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/implementaciones/ImplementacionInventario.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/      ControladorHistorialTarjetaResponsabilidad.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/inventarios/InventarioPanel.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/enums/TipoDeBien.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorFactura.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/ProveedorDAO.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/FacturaDAO.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/bd/Conexion.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/VentanaInicio.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/interfaces/InventarioDAO.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/bienes/ReporteDeBiens.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/facturas/ListadoDeFacturasJDialog.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/facturas/FacturasJPanel.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/controladores/ControladorInventario.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/implementaciones/ImplementacionBien.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/frontend/vistas/bienes/ReporteBienesTipo.java</file>
+            <file>file:/home/jesfrin/NetBeansProjects/Pss1InventariosCunoc/src/pss1inventarioscunoc/backend/dao/implementaciones/ImplementacionFactura.java</file>
         </group>
     </open-files>
 </project-private>
