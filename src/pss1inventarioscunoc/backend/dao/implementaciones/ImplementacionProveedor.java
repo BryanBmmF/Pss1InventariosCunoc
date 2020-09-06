@@ -54,7 +54,9 @@ public class ImplementacionProveedor implements ProveedorDAO {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_PROVEEDORES);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                if(!result.getString(2).equalsIgnoreCase("PROVEEDOR_UNICO_PREDETERMINADO")) {
+                    proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -86,7 +88,9 @@ public class ImplementacionProveedor implements ProveedorDAO {
             prepStatement.setString(1, "%" + nombre + "%");
             result = prepStatement.executeQuery();
             while (result.next()) {
-                proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                if(!result.getString(2).equalsIgnoreCase("PROVEEDOR_UNICO_PREDETERMINADO")) {
+                    proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -109,7 +113,9 @@ public class ImplementacionProveedor implements ProveedorDAO {
             prepStatement.setString(1, "%" + direccion + "%");
             result = prepStatement.executeQuery();
             while (result.next()) {
-                proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                if(!result.getString(2).equalsIgnoreCase("PROVEEDOR_UNICO_PREDETERMINADO")) {
+                    proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -132,7 +138,9 @@ public class ImplementacionProveedor implements ProveedorDAO {
             prepStatement.setString(1, "%" + descripcion + "%");
             result = prepStatement.executeQuery();
             while (result.next()) {
-                proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                if(!result.getString(2).equalsIgnoreCase("PROVEEDOR_UNICO_PREDETERMINADO")) {
+                    proveedores.add(new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -164,6 +172,22 @@ public class ImplementacionProveedor implements ProveedorDAO {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Proveedor buscarProveedor(String nombre) {
+        Proveedor prov = null;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(BUSQUEDA_POR_NOMBRE_UNICO);
+            prepStatement.setString(1,nombre);
+            result = prepStatement.executeQuery();
+            while(result.next()){
+                prov = new Proveedor(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return  prov;
     }
 
 }

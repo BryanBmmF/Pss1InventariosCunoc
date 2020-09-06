@@ -516,7 +516,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         //Validadndo valor
         String tipoDeBien = this.tipoBienComboBox.getSelectedItem().toString();
         int numeroFactura = ControladorBien.ID_FACTURA_INEXISTENTE;
-        boolean verValores = controlador.verificarValoresGenerales(curTextField6.getText(),procedenciaTextField5.getText(),descripcionTextField7.getText(),divisionTextField9.getText(),valorTextField10.getText());
+        boolean verValores = controlador.verificarValoresGenerales("---",facturaTextField10.getText(),curTextField6.getText(),procedenciaTextField5.getText(),descripcionTextField7.getText(),divisionTextField9.getText(),valorTextField10.getText());
         if (verValores) {
             if (factura != null) {
                 numeroFactura = factura.getIdFactura();

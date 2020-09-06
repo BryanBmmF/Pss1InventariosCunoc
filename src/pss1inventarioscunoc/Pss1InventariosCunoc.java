@@ -20,9 +20,6 @@ public class Pss1InventariosCunoc {
      */
 
     public static Inventario inventario;
-
-    
-    public static void main(String[] args) {
         /*IMPORTANTE, ACTUALIZAR LA BD: campos num de tablas DONACION Y TRASLADO  a autoincrement*/
 
 
