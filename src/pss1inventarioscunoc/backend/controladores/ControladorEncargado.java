@@ -162,14 +162,16 @@ public class ControladorEncargado {
     public void agregarButtonValidacionEncargados(ValidacionEncargados ve) {
         List<String> campos = new LinkedList<>();
         campos.add(ve.getTextDpiTextField());
+        campos.add(ve.getTextRegistroTextField());
         campos.add(ve.getTextNombreTextField());
         campos.add(ve.getTextApellidoTextField());
         campos.add(ve.getTextCargoTextField());
         campos.add(ve.getTextDivisionTextField());
         if (!existenCamposVacios(campos)) {
             this.registrarEncargado(new Encargado(Long.parseLong(campos.get(0).replaceAll("\\s", "")),
-                    campos.get(1).trim(), campos.get(2).trim(), campos.get(3).trim(),
-                    campos.get(4).trim(), DEFAULT_STATE_ENCARGADO));
+                    campos.get(1).replaceAll("\\s", ""),
+                    campos.get(2).trim(), campos.get(3).trim(), campos.get(4).trim(),
+                    campos.get(5).trim(), DEFAULT_STATE_ENCARGADO));
             this.limpiarButtonValidacionEncargados(ve);
             this.actualizarEncargadosValidacionEncargados(ve);
         }
@@ -195,6 +197,7 @@ public class ControladorEncargado {
      */
     public void setTextInFieldsdValidacionEncargados(ValidacionEncargados ve, String text) {
         ve.setTextDpiTextField(text);
+        ve.setTextRegistroTextField(text);
         ve.setTextNombreTextField(text);
         ve.setTextApellidoTextField(text);
         ve.setTextCargoTextField(text);
@@ -210,6 +213,7 @@ public class ControladorEncargado {
     public void actualizarButtonValidacionEncargados(ValidacionEncargados ve) {
         List<String> campos = new LinkedList<>();
         campos.add(ve.getTextDpiTextField());
+        campos.add(ve.getTextRegistroTextField());
         campos.add(ve.getTextNombreTextField());
         campos.add(ve.getTextApellidoTextField());
         campos.add(ve.getTextCargoTextField());
@@ -221,8 +225,9 @@ public class ControladorEncargado {
             this.setStatePrimaryButtons(ve, true);
 
             this.actualizarEncargado(new Encargado(ve.getSelectedEncargado().getId(),
-                    campos.get(1).trim(), campos.get(2).trim(), campos.get(3).trim(),
-                    campos.get(4).trim(), ve.getSelectedEncargado().getEstado()), null);
+                    campos.get(1).trim(), campos.get(2).trim(), campos.get(3).trim(), 
+                    campos.get(4).trim(), campos.get(5).trim(), 
+                    ve.getSelectedEncargado().getEstado()), null);
 
             ve.setTableSelected(false);
             this.limpiarButtonValidacionEncargados(ve);
@@ -308,13 +313,15 @@ public class ControladorEncargado {
      * @param ve
      */
     public void tablaEncargadosMouseClickedValidacionEncargados(ValidacionEncargados ve) {
-        ve.setTextDpiTextField(Long.toString(ve.getSelectedEncargado().getId()));
-        ve.setTextNombreTextField(ve.getSelectedEncargado().getNombre());
-        ve.setTextApellidoTextField(ve.getSelectedEncargado().getApellido());
-        ve.setTextCargoTextField(ve.getSelectedEncargado().getCargo());
-        ve.setTextDivisionTextField(ve.getSelectedEncargado().getDivision());
-
-        if (ve.getSelectedEncargado().getEstado().equals(EstadoUsuario.HABILITADO.getEstado())) {
+        Encargado encr = ve.getSelectedEncargado();
+        ve.setTextDpiTextField(Long.toString(encr.getId()));
+        ve.setTextRegistroTextField(encr.getRegistro());
+        ve.setTextNombreTextField(encr.getNombre());
+        ve.setTextApellidoTextField(encr.getApellido());
+        ve.setTextCargoTextField(encr.getCargo());
+        ve.setTextDivisionTextField(encr.getDivision());
+        
+        if (encr.getEstado().equals(EstadoUsuario.HABILITADO.getEstado())) {
             ve.getDeshabilitarHabilitarButton().setBackground(Color.red);
             ve.getDeshabilitarHabilitarButton().setText(DESHABILITAR_TEXT);
             ve.setNewStateEncargado(EstadoUsuario.INHABILITADO.getEstado());

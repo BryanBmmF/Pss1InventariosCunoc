@@ -18,18 +18,18 @@ import pss1inventarioscunoc.backend.controladores.ControladorTarjetaResponsabili
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Encargado;
+import pss1inventarioscunoc.backend.pojos.HistorialTarjetaResponsabilidad;
 import pss1inventarioscunoc.backend.pojos.TarjetaResponsabilidad;
 
 /**
  *
  * @author fabricio
  */
-public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
+public class reporteHistorialTarjetasResponsabilidad extends javax.swing.JPanel {
 
-    private Vista vista = Vista.REPORTE_TARJETAS_RESPONSABILIDAD;
-    public List<TarjetaResponsabilidad> listadoTarjetaResponsabilidades = null;
-    public ObservableList<TarjetaResponsabilidad> listaTarjetaResponsabilidadesObsr = null;
-    private TarjetaResponsabilidad selectedTarjetaResp = null;
+    private Vista vista = Vista.REPORTE_HISTORIAL_TARJETAS;
+    private List<HistorialTarjetaResponsabilidad> listaHistorial = null;
+    private ObservableList<HistorialTarjetaResponsabilidad> listaHistorialObsr = null;
     private ControladorTarjetaResponsabilidad controlador = null;
     private boolean tableSelected = false;
 
@@ -37,13 +37,12 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
     /**
      * Creates new form ValidacionEncargado
      */
-    public reporteTarjetasResponsabilidad() {
-        this.listadoTarjetaResponsabilidades = new LinkedList<>();
-        this.listaTarjetaResponsabilidadesObsr = ObservableCollections.observableList(
-                listadoTarjetaResponsabilidades);
+    public reporteHistorialTarjetasResponsabilidad() {
         this.controlador = new ControladorTarjetaResponsabilidad();
+        this.listaHistorial = new LinkedList<>();
+        this.listaHistorialObsr = ObservableCollections.observableList(listaHistorial);
         initComponents();
-        this.setName("Reporte");
+        this.setName("Historial");
         this.actualizarLista();
     }
 
@@ -71,12 +70,12 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel1.setText("Reporte de Tarjetas");
+        jLabel1.setText("Reporte de Historial Tarjetas");
 
         panelValidacion.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setText("Tarjetas de Responsabilidad");
+        jLabel3.setText("Historial Tarjetas de Responsabilidad");
 
         actualizarButton.setBackground(new java.awt.Color(255, 153, 0));
         actualizarButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
@@ -88,29 +87,26 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
             }
         });
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaTarjetaResponsabilidadesObsr}");
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaHistorialObsr}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tablaTarjetasResponsabilidad);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
-        columnBinding.setColumnName("Id");
-        columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${curBien}"));
-        columnBinding.setColumnName("Bien");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
-        columnBinding.setColumnName("Descripcion");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaApertura}"));
-        columnBinding.setColumnName("Apertura");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaModificacion}"));
+        columnBinding.setColumnName("Fecha Modificacion");
         columnBinding.setColumnClass(java.sql.Timestamp.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${noFactura}"));
-        columnBinding.setColumnName("Factura");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idTarjetaResponsabilidad}"));
+        columnBinding.setColumnName("Id Tarjeta Responsabilidad");
         columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idResponsable}"));
-        columnBinding.setColumnName("Responsable");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${noFactura}"));
+        columnBinding.setColumnName("No Factura");
         columnBinding.setColumnClass(Long.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProveedor}"));
-        columnBinding.setColumnName("Proveedor");
+        columnBinding.setColumnName("Id Proveedor");
         columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idResponsable}"));
+        columnBinding.setColumnName("Id Responsable");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estado}"));
+        columnBinding.setColumnName("Estado");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedTarjetaResp}"), tablaTarjetasResponsabilidad, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -127,18 +123,16 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
         panelValidacionLayout.setHorizontalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelValidacionLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addGap(256, 256, 256)
-                                .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelValidacionLayout.createSequentialGroup()
-                                .addGap(202, 202, 202)
-                                .addComponent(jLabel3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(296, 296, 296)
+                        .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
+                    .addGroup(panelValidacionLayout.createSequentialGroup()
+                        .addGap(200, 200, 200)
+                        .addComponent(jLabel3)))
                 .addGap(44, 44, 44))
         );
         panelValidacionLayout.setVerticalGroup(
@@ -193,11 +187,11 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void actualizarLista(){
-        this.controlador.actualizarTarjetasResponsabilidadReporteTarjetasResponsabilidad(this);
+        this.controlador.actualizarHistorialTarjetasReporteHistorialTarjetasResponsabilidad(this);
     }
     
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
-        this.controlador.actualizarTarjetasResponsabilidadReporteTarjetasResponsabilidad(this);
+        this.controlador.actualizarHistorialTarjetasReporteHistorialTarjetasResponsabilidad(this);
     }//GEN-LAST:event_actualizarButtonActionPerformed
 
     private void tablaTarjetasResponsabilidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaTarjetasResponsabilidadMouseClicked
@@ -216,33 +210,25 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
     public JButton getActualizarButton() {
         return actualizarButton;
     }
-
-    public TarjetaResponsabilidad getSelectedTarjetaResp() {
-        return selectedTarjetaResp;
-    }
-
-    public void setSelectedTarjetaResp(TarjetaResponsabilidad selectedTarjetaResp) {
-        this.selectedTarjetaResp = selectedTarjetaResp;
-    }
    
     public Vista getVista(){
         return this.vista;
     }
 
-    public List<TarjetaResponsabilidad> getListadoTarjetaResponsabilidades() {
-        return listadoTarjetaResponsabilidades;
+    public List<HistorialTarjetaResponsabilidad> getListaHistorial() {
+        return listaHistorial;
     }
 
-    public void setListadoTarjetaResponsabilidades(List<TarjetaResponsabilidad> listadoTarjetaResponsabilidades) {
-        this.listadoTarjetaResponsabilidades = listadoTarjetaResponsabilidades;
+    public void setListaHistorial(List<HistorialTarjetaResponsabilidad> listaHistorial) {
+        this.listaHistorial = listaHistorial;
     }
 
-    public ObservableList<TarjetaResponsabilidad> getListaTarjetaResponsabilidadesObsr() {
-        return listaTarjetaResponsabilidadesObsr;
+    public ObservableList<HistorialTarjetaResponsabilidad> getListaHistorialObsr() {
+        return listaHistorialObsr;
     }
 
-    public void setListaTarjetaResponsabilidadesObsr(ObservableList<TarjetaResponsabilidad> listaTarjetaResponsabilidadesObsr) {
-        this.listaTarjetaResponsabilidadesObsr = listaTarjetaResponsabilidadesObsr;
+    public void setListaHistorialObsr(ObservableList<HistorialTarjetaResponsabilidad> listaHistorialObsr) {
+        this.listaHistorialObsr = listaHistorialObsr;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

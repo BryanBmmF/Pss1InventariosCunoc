@@ -77,7 +77,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reporte de Tarjetas"/>
+            <Property name="text" type="java.lang.String" value="Reporte de Historial Tarjetas"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="panelValidacion">
@@ -90,22 +90,19 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="256" max="-2" attributes="0"/>
-                                      <Component id="actualizarButton" min="-2" pref="184" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="212" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="296" max="-2" attributes="0"/>
+                              <Component id="actualizarButton" min="-2" pref="184" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" pref="701" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
@@ -131,7 +128,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tarjetas de Responsabilidad"/>
+                <Property name="text" type="java.lang.String" value="Historial Tarjetas de Responsabilidad"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="actualizarButton">
@@ -206,34 +203,24 @@
                     </Property>
                   </Properties>
                   <BindingProperties>
-                    <BindingProperty name="elements" source="Form" sourcePath="${listaTarjetaResponsabilidadesObsr}" target="tablaTarjetasResponsabilidad" targetPath="elements" updateStrategy="0" immediately="true">
-                      <Subbinding sourcePath="${id}">
-                        <BindingParameter name="NAME" value="Id"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
-                      </Subbinding>
-                      <Subbinding sourcePath="${curBien}">
-                        <BindingParameter name="NAME" value="Bien"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                      </Subbinding>
-                      <Subbinding sourcePath="${descripcion}">
-                        <BindingParameter name="NAME" value="Descripcion"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                      </Subbinding>
-                      <Subbinding sourcePath="${fechaApertura}">
-                        <BindingParameter name="NAME" value="Apertura"/>
+                    <BindingProperty name="elements" source="Form" sourcePath="${listaHistorialObsr}" target="tablaTarjetasResponsabilidad" targetPath="elements" updateStrategy="0" immediately="true">
+                      <Subbinding sourcePath="${fechaModificacion}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.sql.Timestamp.class"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${noFactura}">
-                        <BindingParameter name="NAME" value="Factura"/>
+                      <Subbinding sourcePath="${idTarjetaResponsabilidad}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${idResponsable}">
-                        <BindingParameter name="NAME" value="Responsable"/>
+                      <Subbinding sourcePath="${noFactura}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${idProveedor}">
-                        <BindingParameter name="NAME" value="Proveedor"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                      </Subbinding>
+                      <Subbinding sourcePath="${idResponsable}">
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                      </Subbinding>
+                      <Subbinding sourcePath="${estado}">
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                     </BindingProperty>
                     <BindingProperty name="selectedElement" source="Form" sourcePath="${selectedTarjetaResp}" target="tablaTarjetasResponsabilidad" targetPath="selectedElement" updateStrategy="0" immediately="false">

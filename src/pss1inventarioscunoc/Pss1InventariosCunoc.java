@@ -14,18 +14,11 @@ import pss1inventarioscunoc.frontend.sesion.VentanaSesion;
  */
 public class Pss1InventariosCunoc {
 
-
+    public static Inventario inventario;
+    
     /**
      * @param args the command line arguments
      */
-
-    public static Inventario inventario;
-
-    
-    public static void main(String[] args) {
-        /*IMPORTANTE, ACTUALIZAR LA BD: campos num de tablas DONACION Y TRASLADO  a autoincrement*/
-
-
     public static void main(String[] args) {
         VentanaSesion ventanaLogin = new VentanaSesion();
         ventanaLogin.setVisible(true);

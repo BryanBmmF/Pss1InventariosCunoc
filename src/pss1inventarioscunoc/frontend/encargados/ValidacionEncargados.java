@@ -85,6 +85,8 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEncargados = new javax.swing.JTable();
         predeterminadoButton = new javax.swing.JButton();
+        registroTextField = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         encargadoPredetermLabel = new javax.swing.JLabel();
 
@@ -241,6 +243,9 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
         columnBinding.setColumnName("Id");
         columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${registro}"));
+        columnBinding.setColumnName("Registro");
+        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
         columnBinding.setColumnName("Nombre");
         columnBinding.setColumnClass(String.class);
@@ -278,6 +283,37 @@ public class ValidacionEncargados extends javax.swing.JPanel {
             }
         });
 
+        registroTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        registroTextField.setForeground(new java.awt.Color(0, 0, 51));
+        try {
+            registroTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        registroTextField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                registroTextFieldCaretUpdate(evt);
+            }
+        });
+        registroTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                registroTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                registroTextFieldFocusLost(evt);
+            }
+        });
+        registroTextField.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                registroTextFieldInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel9.setText("Registro");
+
         javax.swing.GroupLayout panelValidacionLayout = new javax.swing.GroupLayout(panelValidacion);
         panelValidacion.setLayout(panelValidacionLayout);
         panelValidacionLayout.setHorizontalGroup(
@@ -302,14 +338,18 @@ public class ValidacionEncargados extends javax.swing.JPanel {
                         .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelValidacionLayout.createSequentialGroup()
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(dpiTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nombreTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(apellidoTextField)))
-                    .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                            .addComponent(jLabel9)
+                            .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(apellidoTextField)
+                                .addComponent(registroTextField)))))
                 .addGap(43, 43, 43)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
@@ -332,11 +372,15 @@ public class ValidacionEncargados extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8)
+                .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
                 .addGap(9, 9, 9)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelValidacionLayout.createSequentialGroup()
-                        .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dpiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -490,12 +534,32 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         this.controlador.predeterminadoButtonValidacionEncargados(this);
     }//GEN-LAST:event_predeterminadoButtonActionPerformed
 
+    private void registroTextFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_registroTextFieldCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registroTextFieldCaretUpdate
+
+    private void registroTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_registroTextFieldFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registroTextFieldFocusGained
+
+    private void registroTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_registroTextFieldFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registroTextFieldFocusLost
+
+    private void registroTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_registroTextFieldInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registroTextFieldInputMethodTextChanged
+
     public JButton getAgregarButton() {
         return agregarButton;
     }
 
     public JTextField getApellidoTextField() {
         return apellidoTextField;
+    }
+
+    public JFormattedTextField getRegistroTextField() {
+        return registroTextField;
     }
 
     public boolean isTableSelected() {
@@ -590,6 +654,10 @@ public class ValidacionEncargados extends javax.swing.JPanel {
         this.divisionTextField.setText(text);
     }
     
+    public void setTextRegistroTextField(String text){
+        this.registroTextField.setText(text);
+    }
+    
     public void setTextDpiTextField(String text){
         this.dpiTextField.setText(text);
     }
@@ -620,6 +688,10 @@ public class ValidacionEncargados extends javax.swing.JPanel {
     
     public String getTextDivisionTextField(){
         return this.divisionTextField.getText();
+    }
+    
+    public String getTextRegistroTextField(){
+        return this.registroTextField.getText();
     }
     
     public Vista getVista(){
@@ -678,6 +750,7 @@ public class ValidacionEncargados extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -685,6 +758,7 @@ public class ValidacionEncargados extends javax.swing.JPanel {
     private javax.swing.JTextField nombreTextField;
     private javax.swing.JPanel panelValidacion;
     private javax.swing.JButton predeterminadoButton;
+    private javax.swing.JFormattedTextField registroTextField;
     private javax.swing.JTable tablaEncargados;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
