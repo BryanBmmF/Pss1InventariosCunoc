@@ -492,7 +492,6 @@ public class FacturasJPanel extends javax.swing.JPanel {
         this.numeroDeFacturaTextField6.setText("");
         this.descripcionTextField10.setText("");
         this.valorTextField9.setText("");
-        this.proveedor = null;
     }
 
     public Proveedor getProveedor() {
