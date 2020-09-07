@@ -151,5 +151,27 @@ public class ImplementacionTarjetaResponsabilidad implements TarjetaResponsabili
         }
         return tarjetas;
     }
+
+    @Override
+    public TarjetaResponsabilidad recuperarTarjetaBien(String cur) {
+        TarjetaResponsabilidad tarjeta = null;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TARJETA_BIEN);
+            prepStatement.setString(1, cur);
+            result=prepStatement.executeQuery();
+            while(result.next()){
+                tarjeta= new TarjetaResponsabilidad(result.getLong(1), result.getTimestamp(2), 
+                        result.getString(3), result.getLong(4), result.getString(5), 
+                        result.getTimestamp(6), result.getString(7), result.getString(8), 
+                        result.getLong(9), result.getString(10), result.getLong(11), result.getString(12));
+            }
+            result.close();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(ImplementacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return tarjeta;
+    }
     
 }

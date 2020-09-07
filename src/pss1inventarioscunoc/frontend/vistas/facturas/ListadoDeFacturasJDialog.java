@@ -46,6 +46,7 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
         actualizarLista(controlador.buscarFacturas());
         this.consultaBienes = null;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     public ListadoDeFacturasJDialog(java.awt.Frame parent, boolean modal, ConsultaBienes consultaBienes) {
@@ -58,6 +59,7 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
         actualizarLista(controlador.buscarFacturas());
         this.bienPanel = null;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public ListadoDeFacturasJDialog(java.awt.Frame parent, boolean modal, ModificacionTarjetaResponsabilidad mtr) {
@@ -70,6 +72,7 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
         actualizarLista(controlador.buscarFacturas());
         this.bienPanel = null;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

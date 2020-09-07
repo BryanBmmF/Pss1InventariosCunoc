@@ -27,6 +27,7 @@ public class ModificacionInventarioJDialog extends javax.swing.JDialog {
         initComponents();
         colocarValoresDeInventario();
         controladorInventario = new ControladorInventario();
+        this.setLocationRelativeTo(null);
     }
 
     /**

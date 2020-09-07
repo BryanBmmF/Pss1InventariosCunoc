@@ -47,6 +47,7 @@ public class ControladorVistas {
     private ReporteBienesTipo reporteBienesTipo = null;
     private ModificacionTarjetaResponsabilidad modificacionTarjeta = null;
     private ReporteBienesEncargado reporteBienesEncargado = null;
+    private VentanaUsuarios manejoUsuarios = null;
     private reporteHistorialTarjetasResponsabilidad reporteHistorialTarjetas = null;
 
     public ControladorVistas() {
@@ -63,6 +64,7 @@ public class ControladorVistas {
         this.reporteBienesTipo = new ReporteBienesTipo();
         this.modificacionTarjeta = new ModificacionTarjetaResponsabilidad();
         this.reporteBienesEncargado = new ReporteBienesEncargado();
+        this.manejoUsuarios = new VentanaUsuarios();
         this.reporteHistorialTarjetas = new reporteHistorialTarjetasResponsabilidad();
     }
 
@@ -90,9 +92,9 @@ public class ControladorVistas {
         if (0 == facturasJPanel.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(facturasJPanel);
         }
-        if (0 == bienesJPanel1.getVista().getGrupo().compareTo(gv)) {
-            vi.getVentanaPrincipal().add(bienesJPanel1);
-        }
+        //if (0 == bienesJPanel1.getVista().getGrupo().compareTo(gv)) {
+        //    vi.getVentanaPrincipal().add(bienesJPanel1);
+        //}
         if (0 == bajaBienes.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(bajaBienes);
         }
@@ -105,12 +107,14 @@ public class ControladorVistas {
         if (0 == reporteBienes.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienes);
         }
-        
         if (0 == reporteBienesTipo.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienesTipo);
         }
         if (0 == reporteBienesEncargado.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienesEncargado);
+        }
+        if (0 == manejoUsuarios.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(manejoUsuarios);
         }
         if (0 == reporteHistorialTarjetas.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteHistorialTarjetas);
@@ -123,7 +127,7 @@ public class ControladorVistas {
      *
      * @param vi
      */
-    public void encargadosButtonVentanaInicio(VentanaInicio vi) {
+     public void encargadosButtonVentanaInicio(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.ENCARGADOS);
     }
 
@@ -162,6 +166,15 @@ public class ControladorVistas {
      */
     public void inventarioButtonVentanaInicio(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.INVENTARIOS);
+    }
+    
+    /**
+     * Coloca en el Tabbed pan las clases relacionadas a Usuarios
+     *
+     * @param vi
+     */
+    public void usuariosButtonVentanaInicio(VentanaInicio vi) {
+        this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.USUARIOS);
     }
 
 }

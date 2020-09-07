@@ -16,11 +16,15 @@ import javax.swing.JTextField;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorBien;
+import pss1inventarioscunoc.backend.controladores.ControladorFactura;
 import pss1inventarioscunoc.backend.controladores.ControladorInventario;
+import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
+import pss1inventarioscunoc.backend.controladores.ControladorTarjetaResponsabilidad;
 import pss1inventarioscunoc.backend.enums.TipoDeBien;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Bien;
 import pss1inventarioscunoc.backend.pojos.Factura;
+import pss1inventarioscunoc.backend.pojos.TarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.vistas.facturas.ListadoDeFacturasJDialog;
 import pss1inventarioscunoc.frontend.vistas.inventarios.ListarInventariosJdialog;
 
@@ -620,8 +624,8 @@ public class ConsultaBienes extends javax.swing.JPanel {
     private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
         //Validadndo valor
         String tipoDeBien = this.tipoBienComboBox.getSelectedItem().toString();
-        int numeroFactura = ControladorBien.ID_FACTURA_INEXISTENTE;
-        boolean verValores = controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText());
+        int numeroFactura = ControladorFactura.getFacturaPredeterminda().getIdFactura();
+        boolean verValores = controlador.verificarValoresGenerales(inventarioTextField.getText(),facturaTextField10.getText(),curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText());
         if (verValores) {
             if (factura != null) {
                 numeroFactura = factura.getIdFactura();
@@ -648,11 +652,12 @@ public class ConsultaBienes extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "No ha seleccionado un tipo de bien", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
         }
+        
 
     }//GEN-LAST:event_agregarButtonActionPerformed
 
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
-        int numeroFactura = bienSeleccionado.getIdFactura();
+        int numeroFactura = ControladorFactura.getFacturaPredeterminda().getIdFactura();
         if (factura != null) {
                 numeroFactura = factura.getIdFactura();
         }
@@ -739,34 +744,34 @@ public class ConsultaBienes extends javax.swing.JPanel {
         if (factura != null) {
                 numeroFactura = factura.getIdFactura();
         }
-        
-        
-        if (!this.tipoBienComboBox.getSelectedItem().toString().equalsIgnoreCase("todos *")) {
-            int input = JOptionPane.showConfirmDialog(null, "¿Esta seguro de dar de baja este Bien?");
-            // 0=yes, 1=no, 2=cancel
-            if (input==0) {
-                /*Actualizacion de un bien*/
-                switch (bienSeleccionado.getTipo()) {
-                    case COMPRA:
-                        actualizarBienCompra(numeroFactura, this.estadoInactivo);
-                    break;
-                    case TRASLADO:
-                        actualizarBienTraslado(numeroFactura, this.estadoInactivo);
-                    break;
-                    case DONACION:
-                        actualizarBienDonacion(numeroFactura, this.estadoInactivo);
-                    break;
-                    default:
-                        JOptionPane.showMessageDialog(this, "No ha seleccionado ningun bien, porfavor seleccione uno del listado", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                }   
-            } else {
-                limpiarCampos();
+        ControladorTarjetaResponsabilidad contTarjeta = new ControladorTarjetaResponsabilidad();
+        if (!contTarjeta.obtenerTarjetaBien(bienSeleccionado.getCur())) {
+            if (!this.tipoBienComboBox.getSelectedItem().toString().equalsIgnoreCase("todos *")) {
+                int input = JOptionPane.showConfirmDialog(null, "¿Esta seguro de dar de baja este Bien?");
+                // 0=yes, 1=no, 2=cancel
+                if (input==0) {
+                    /*Actualizacion de un bien*/
+                    switch (bienSeleccionado.getTipo()) {
+                        case COMPRA:
+                            actualizarBienCompra(numeroFactura, this.estadoInactivo);
+                        break;
+                        case TRASLADO:
+                            actualizarBienTraslado(numeroFactura, this.estadoInactivo);
+                        break;
+                        case DONACION:
+                            actualizarBienDonacion(numeroFactura, this.estadoInactivo);
+                        break;
+                        default:
+                            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun bien, porfavor seleccione uno del listado", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    }   
+                } else {
+                    limpiarCampos();
+                }
+            } else{
+                JOptionPane.showMessageDialog(this, "Se debe seleccionar un tipo de bien para darlo de baja y no modificar ninguno de sus campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
-            
-            
-        } else{
-            JOptionPane.showMessageDialog(this, "Se debe seleccionar un tipo de bien para darlo de baja y no modificar ninguno de sus campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+        
         actualizarButton.setEnabled(false);
         darBajaButton.setEnabled(false);
     }//GEN-LAST:event_darBajaButtonActionPerformed
@@ -836,7 +841,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
     }
 
     public void actualizarBienCompra(int numeroFactura, char estado) {
-        if (controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText())) {
+        if (controlador.verificarValoresGenerales(inventarioTextField.getText(),facturaTextField10.getText(),curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText())) {
             Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),
                     TipoDeBien.COMPRA, Double.parseDouble(valorTextField10.getText()), divisionTextField9.getText());
             if (controlador.actualizarBien(bien, tempCUR)) {
@@ -848,7 +853,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
     }
 
     public void actualizarBienDonacion(int numeroFactura, char estado) {
-        if ((controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
+        if ((controlador.verificarValoresGenerales(inventarioTextField.getText(),facturaTextField10.getText(),curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
                     controlador.verificarDatosDonacion(this.correlativoTextField12.getText(), this.puntoTextField13.getText(), this.numeroActaTextField14.getText()))) {
             Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),
                     TipoDeBien.DONACION, Double.parseDouble(valorTextField10.getText()), divisionTextField9.getText(), Integer.parseInt(correlativoTextField12.getText()), puntoTextField13.getText(), Integer.parseInt(numeroActaTextField14.getText()));
@@ -861,7 +866,7 @@ public class ConsultaBienes extends javax.swing.JPanel {
     }
 
     public void actualizarBienTraslado(int numeroFactura, char estado) {
-        if ((controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
+        if ((controlador.verificarValoresGenerales(inventarioTextField.getText(),facturaTextField10.getText(),curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
                     controlador.verificarDatosTraslado(this.fechajDateChooser1.getDate(), seccionTextField17.getText(), receptorTextField16.getText()))) {
             Timestamp fecha1 = new Timestamp(this.fechajDateChooser1.getDate().getTime());
             Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),

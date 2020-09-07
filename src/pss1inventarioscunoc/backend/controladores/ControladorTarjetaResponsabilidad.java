@@ -174,5 +174,20 @@ public class ControladorTarjetaResponsabilidad {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    /**
+     * Evalua si el bien con cur ya tiene una tarjeta de responsabilidad
+     * @param cur
+     * @return true or false
+     */
+    public boolean obtenerTarjetaBien(String cur) {
+        if (tarjetaResponsabilidadDAO.recuperarTarjetaBien(cur)!=null) {
+            JOptionPane.showMessageDialog(null, "El bien con CUR: "+cur+" no puede ser dado de baja ya que posee una tarjeta de responsabilidad, porfavor anule la tarjeta e intente de nuevo",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

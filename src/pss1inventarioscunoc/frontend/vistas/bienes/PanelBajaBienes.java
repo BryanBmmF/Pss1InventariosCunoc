@@ -701,7 +701,7 @@ public class PanelBajaBienes extends javax.swing.JPanel {
     }
 
     public void actualizarBienCompra(int numeroFactura, char estado) {
-        if (controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText())) {
+        if (controlador.verificarValoresGenerales(inventarioTextField.getText(),facturaTextField10.getText(),curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText())) {
             Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),
                     TipoDeBien.COMPRA, Double.parseDouble(valorTextField10.getText()), divisionTextField9.getText());
             if (controlador.actualizarBien(bien, tempCUR)) {
@@ -713,7 +713,7 @@ public class PanelBajaBienes extends javax.swing.JPanel {
     }
 
     public void actualizarBienDonacion(int numeroFactura, char estado) {
-        if ((controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
+        if ((controlador.verificarValoresGenerales(inventarioTextField.getText(),facturaTextField10.getText(),curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
                     controlador.verificarDatosDonacion(this.correlativoTextField12.getText(), this.puntoTextField13.getText(), this.numeroActaTextField14.getText()))) {
             Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),
                     TipoDeBien.DONACION, Double.parseDouble(valorTextField10.getText()), divisionTextField9.getText(), Integer.parseInt(correlativoTextField12.getText()), puntoTextField13.getText(), Integer.parseInt(numeroActaTextField14.getText()));
@@ -726,7 +726,7 @@ public class PanelBajaBienes extends javax.swing.JPanel {
     }
 
     public void actualizarBienTraslado(int numeroFactura, char estado) {
-        if ((controlador.verificarValoresGenerales(curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
+        if ((controlador.verificarValoresGenerales(inventarioTextField.getText(),facturaTextField10.getText(),curTextField6.getText(), procedenciaTextField5.getText(), descripcionTextField7.getText(), divisionTextField9.getText(), valorTextField10.getText()) &&
                     controlador.verificarDatosTraslado(this.fechajDateChooser1.getDate(), seccionTextField17.getText(), receptorTextField16.getText()))) {
             Timestamp fecha1 = new Timestamp(this.fechajDateChooser1.getDate().getTime());
             Bien bien = new Bien(curTextField6.getText(), numeroFactura, procedenciaTextField5.getText(), estado, descripcionTextField7.getText(),

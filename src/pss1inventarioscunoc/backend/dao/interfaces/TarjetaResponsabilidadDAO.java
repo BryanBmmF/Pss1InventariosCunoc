@@ -15,6 +15,7 @@ public interface TarjetaResponsabilidadDAO extends CRUD<TarjetaResponsabilidad>{
     public boolean registrarConOrdenCompra(TarjetaResponsabilidad model);
     public int recuperarNumeroTarjetasPorEncargado(String idEncargado);
     public List<TarjetaResponsabilidad> recuperarListaTarjetasEncargado(String idEncargado);
+    public TarjetaResponsabilidad recuperarTarjetaBien(String cur);
     
     /*Querys a utilizar*/
     public static final String CONSULTAR_TARJETA = "SELECT * FROM TARJETA_RESPONSABILIDAD WHERE id = ?";
@@ -39,4 +40,5 @@ public interface TarjetaResponsabilidadDAO extends CRUD<TarjetaResponsabilidad>{
             + "FROM TARJETA_RESPONSABILIDAD INNER JOIN ENCARGADO ON "
             + "TARJETA_RESPONSABILIDAD.`id_responsable` = ENCARGADO.`id_encargado` "
             + "WHERE ENCARGADO.`id_encargado` = ?";
+    public static final String CONSULTAR_TARJETA_BIEN = "SELECT * FROM TARJETA_RESPONSABILIDAD WHERE cur_bien = ?";
 }

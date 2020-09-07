@@ -34,6 +34,7 @@ public class ListarInventariosJdialog extends javax.swing.JDialog {
         //Actualizamos la lista
         actualizarLista(controlador.recuperarInventarios());
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
