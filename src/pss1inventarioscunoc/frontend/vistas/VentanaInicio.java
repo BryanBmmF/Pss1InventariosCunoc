@@ -26,6 +26,8 @@ import pss1inventarioscunoc.backend.bd.Conexion;
 import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
 import javax.swing.UIManager;
 import pss1inventarioscunoc.backend.controladores.ControladorDeArchivos;
+import pss1inventarioscunoc.backend.controladores.ControladorFactura;
+import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
 import pss1inventarioscunoc.backend.controladores.ControladorVistas;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
@@ -43,7 +45,8 @@ import sun.awt.WindowClosingListener;
  *
  * @author fabricio
  */
-public class VentanaInicio extends javax.swing.JFrame{
+public class VentanaInicio extends javax.swing.JFrame {
+
     protected static final String ICON_URL = "/pss1inventarioscunoc/frontend/media/logo-inventarios.jpg";
     private Vista vista = Vista.INICIO;
     private ControladorVistas controlador = null;
@@ -55,12 +58,16 @@ public class VentanaInicio extends javax.swing.JFrame{
      */
     public VentanaInicio() {
         initComponents();
-        
+
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
         this.controlador = new ControladorVistas();
         this.ventanaPrincipal.add(new InventarioPanel());
         this.initDependencies();
+        ControladorProveedor conP = new ControladorProveedor();
+        conP.consultarProveedorPred();
+        ControladorFactura conF = new ControladorFactura();
+        conF.consultarFacturaPred();
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -75,17 +82,17 @@ public class VentanaInicio extends javax.swing.JFrame{
 
             @Override
             public void windowClosed(WindowEvent e) {
- //             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void windowIconified(WindowEvent e) {
- //               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void windowDeiconified(WindowEvent e) {
-  //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
@@ -95,7 +102,7 @@ public class VentanaInicio extends javax.swing.JFrame{
 
             @Override
             public void windowDeactivated(WindowEvent e) {
-  //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
     }
@@ -461,7 +468,7 @@ public class VentanaInicio extends javax.swing.JFrame{
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        VentanaSesion nuevaVentana= new VentanaSesion();
+        VentanaSesion nuevaVentana = new VentanaSesion();
         nuevaVentana.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -482,11 +489,12 @@ public class VentanaInicio extends javax.swing.JFrame{
         infoSistema = new InfoSistema(true);
         infoSistema.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
-    
-    public void habilitarParaInventarios(){
+
+    public void habilitarParaInventarios() {
         usuariosButton.setEnabled(false);
     }
-    public void habilitarParaExternos(){
+
+    public void habilitarParaExternos() {
         tarjetaRespButton.setEnabled(false);
         usuariosButton.setEnabled(false);
         encargadosButton.setEnabled(false);
@@ -494,12 +502,13 @@ public class VentanaInicio extends javax.swing.JFrame{
         bienesButton.setEnabled(false);
         reportesButton2.setEnabled(true);
         ventanaPrincipal.removeAll();
-        
+
     }
-    
-    public void setUserLog(String user){
+
+    public void setUserLog(String user) {
         this.lbUserLog.setText(user);
     }
+
     public Vista getVista() {
         return vista;
     }
@@ -511,8 +520,7 @@ public class VentanaInicio extends javax.swing.JFrame{
     public void initDependencies() {
         this.controlador.insertIntoInicioDefaultGrupoVista(this);
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bienesButton;
@@ -553,7 +561,4 @@ public class VentanaInicio extends javax.swing.JFrame{
     private javax.swing.JTabbedPane ventanaPrincipal;
     // End of variables declaration//GEN-END:variables
 
-
-        
-   
 }

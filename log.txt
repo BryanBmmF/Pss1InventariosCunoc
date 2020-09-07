@@ -1,4 +1,35 @@
 
+Usuario:superU->2020-09-07 00:14:22.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Distribuidora Carrillo
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Ecotec
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Papelera Internacional S.A
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Anclo-Difassa
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Abastecedora de color
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Dacema
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Intelaf
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Acerradero Madera Fina
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario correspondiente al Ciclo 2016
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Primer semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Segundo semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2018
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2019
+
+Usuario:superU->2020-09-07 00:14:22.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Distribuidora Carrillo
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Ecotec
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Papelera Internacional S.A
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Anclo-Difassa
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Abastecedora de color
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Dacema
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Intelaf
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Acerradero Madera Fina
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario correspondiente al Ciclo 2016
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Primer semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Segundo semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2018
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2019
+
+
 
 
 

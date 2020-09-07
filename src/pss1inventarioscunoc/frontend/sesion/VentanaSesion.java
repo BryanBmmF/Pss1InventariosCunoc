@@ -21,6 +21,7 @@ import pss1inventarioscunoc.frontend.vistas.VentanaInicio;
  * @author bryan
  */
 public class VentanaSesion extends javax.swing.JFrame {
+
     protected static final String ICON_URL = "/pss1inventarioscunoc/frontend/media/logo-inventarios.jpg";
     /*Objetos a utilizar*/
     private Vista vista = Vista.VENTANA_SESION;
@@ -29,7 +30,7 @@ public class VentanaSesion extends javax.swing.JFrame {
     private Usuario usuarioLogueado;
     private VentanaInicio ventanaInicio;
     private boolean mostrarContra;
-    
+
     /**
      * Creates new form VentanaInicio
      */
@@ -39,10 +40,9 @@ public class VentanaSesion extends javax.swing.JFrame {
         this.setTitle("Iniciar Sesion");
         this.contrUser = new ControladorUser();
         this.controladorLog = new ControladorLogIngreso();
-        this.mostrarContra= false;
+        this.mostrarContra = false;
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -193,31 +193,32 @@ public class VentanaSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Evento de boton iniciar sesion
+     *
      * @param ActionEvent evt
      * @return null
      */
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // Instansiacion del usuario que se desea loguear y validación de su existencia
-        usuarioLogueado=contrUser.buscarUsuario(txtUser.getText(),txtPass.getText());
-        if (usuarioLogueado!=null) { // si existe el usaurio
+        usuarioLogueado = contrUser.buscarUsuario(txtUser.getText(), txtPass.getText());
+        if (usuarioLogueado != null) { // si existe el usaurio
             if (usuarioLogueado.getEstado().equalsIgnoreCase("activo")) { // si esta ctivo
                 //Se guarda el usuario logueado
-                ControladorUser.USUARIO_LOGUEADO=usuarioLogueado;
+                ControladorUser.USUARIO_LOGUEADO = usuarioLogueado;
                 //Registro de logIngreso
-                ControladorLogIngreso.LOG_DE_SESION = new LogIngreso( new Timestamp(System.currentTimeMillis()), "1", ControladorUser.USUARIO_LOGUEADO.getId_usuario(), "Inicio de sesion");
+                ControladorLogIngreso.LOG_DE_SESION = new LogIngreso(new Timestamp(System.currentTimeMillis()), "1", ControladorUser.USUARIO_LOGUEADO.getId_usuario(), "Inicio de sesion");
                 controladorLog.registrar(ControladorLogIngreso.LOG_DE_SESION);
                 /*habilitando ventana principal*/
                 habilitarVentana(usuarioLogueado.getTipo());
-            } else{
+            } else {
                 /*No se pudo loguear por estar inactivo*/
                 JOptionPane.showMessageDialog(null, "Su usuario esta desactivado por el momento, porfavor consulte con Administración.", "Advertencia de Acceso", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             /*No se pudo loguear*/
             JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos, porfavor intente nuevamente", "Error de Acceso", JOptionPane.ERROR_MESSAGE);
-        
+
         }
-        
+
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -233,31 +234,27 @@ public class VentanaSesion extends javax.swing.JFrame {
     /**
      * Metodo de habilitacion de ventana de Inicio
      */
-    private void habilitarVentana(String tipoUser){
-            /*antes habilitar lac ventana establecer datos predeterminados*/
-            ControladorProveedor conP = new ControladorProveedor();
-            conP.consultarProveedorPred();
-            ControladorFactura conF = new ControladorFactura();
-            conF.consultarFacturaPred();
-            ventanaInicio = new VentanaInicio();
-            ventanaInicio.setUserLog(controladorLog.LOG_DE_SESION.getIdUsuario());
-        
-            if (tipoUser.equalsIgnoreCase("admin")) {
-               //todo habilitado 
-            } else if (tipoUser.equalsIgnoreCase("normal")) {
-                ventanaInicio.habilitarParaInventarios();
-            } else {
-                ventanaInicio.habilitarParaExternos();
-            }
-            
-            this.dispose();
-            ventanaInicio.setVisible(true);
+    private void habilitarVentana(String tipoUser) {
+        /*antes habilitar lac ventana establecer datos predeterminados*/
+        ventanaInicio = new VentanaInicio();
+        ventanaInicio.setUserLog(controladorLog.LOG_DE_SESION.getIdUsuario());
+
+        if (tipoUser.equalsIgnoreCase("admin")) {
+            //todo habilitado 
+        } else if (tipoUser.equalsIgnoreCase("normal")) {
+            ventanaInicio.habilitarParaInventarios();
+        } else {
+            ventanaInicio.habilitarParaExternos();
+        }
+
+        this.dispose();
+        ventanaInicio.setVisible(true);
     }
 
     public Vista getVista() {
         return vista;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;
