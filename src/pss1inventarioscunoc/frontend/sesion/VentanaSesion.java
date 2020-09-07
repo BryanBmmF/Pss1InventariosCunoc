@@ -3,6 +3,7 @@
  */
 package pss1inventarioscunoc.frontend.sesion;
 
+import java.awt.Toolkit;
 import java.sql.Timestamp;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -20,7 +21,7 @@ import pss1inventarioscunoc.frontend.vistas.VentanaInicio;
  * @author bryan
  */
 public class VentanaSesion extends javax.swing.JFrame {
-    
+    protected static final String ICON_URL = "/pss1inventarioscunoc/frontend/media/logo-inventarios.jpg";
     /*Objetos a utilizar*/
     private Vista vista = Vista.VENTANA_SESION;
     private ControladorUser contrUser;
@@ -61,6 +62,7 @@ public class VentanaSesion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(ICON_URL)));
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

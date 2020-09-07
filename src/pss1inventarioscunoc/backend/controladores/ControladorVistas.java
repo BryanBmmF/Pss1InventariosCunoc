@@ -115,6 +115,7 @@ public class ControladorVistas {
         }
         if (0 == manejoUsuarios.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(manejoUsuarios);
+        }
         if (0 == reporteHistorialTarjetas.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteHistorialTarjetas);
         }
@@ -126,7 +127,7 @@ public class ControladorVistas {
      *
      * @param vi
      */
-    public void encargadosButtonVentanaInicio(VentanaInicio vi) {
+     public void encargadosButtonVentanaInicio(VentanaInicio vi) {
         this.setPaneToTabbedPaneVentanaInicio(vi, GrupoVista.ENCARGADOS);
     }
 

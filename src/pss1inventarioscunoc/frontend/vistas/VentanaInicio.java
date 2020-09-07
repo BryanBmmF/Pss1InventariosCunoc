@@ -3,6 +3,7 @@
  */
 package pss1inventarioscunoc.frontend.vistas;
 
+import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
@@ -32,6 +33,8 @@ import pss1inventarioscunoc.frontend.sesion.VentanaSesion;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.bienes.ReporteDeBiens;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
+import pss1inventarioscunoc.frontend.vistas.info.InfoDepartamento;
+import pss1inventarioscunoc.frontend.vistas.info.InfoSistema;
 import pss1inventarioscunoc.frontend.vistas.inventarios.InventarioPanel;
 import pss1inventarioscunoc.frontend.vistas.proveedores.ProveedorJPanel;
 import sun.awt.WindowClosingListener;
@@ -41,9 +44,11 @@ import sun.awt.WindowClosingListener;
  * @author fabricio
  */
 public class VentanaInicio extends javax.swing.JFrame{
-
+    protected static final String ICON_URL = "/pss1inventarioscunoc/frontend/media/logo-inventarios.jpg";
     private Vista vista = Vista.INICIO;
     private ControladorVistas controlador = null;
+    private InfoDepartamento infoDepartamento;
+    private InfoSistema infoSistema;
 
     /**
      * Creates new form VentanaInicio
@@ -145,6 +150,7 @@ public class VentanaInicio extends javax.swing.JFrame{
         jButton9.setFocusPainted(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(ICON_URL)));
         setMinimumSize(new java.awt.Dimension(1002, 550));
 
         jPanel1.setBackground(new java.awt.Color(0, 50, 102));
@@ -386,9 +392,19 @@ public class VentanaInicio extends javax.swing.JFrame{
         jMenu3.setText("Acerca de");
 
         jMenuItem6.setText("Departamento de Inventarios CUNOC");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
         jMenuItem7.setText("Sistema");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuBar1.add(jMenu3);
@@ -454,6 +470,18 @@ public class VentanaInicio extends javax.swing.JFrame{
         this.dispose();
         System.exit(0);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        infoDepartamento = new InfoDepartamento(true);
+        infoDepartamento.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        infoSistema = new InfoSistema(true);
+        infoSistema.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
     
     public void habilitarParaInventarios(){
         usuariosButton.setEnabled(false);
@@ -483,6 +511,8 @@ public class VentanaInicio extends javax.swing.JFrame{
     public void initDependencies() {
         this.controlador.insertIntoInicioDefaultGrupoVista(this);
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bienesButton;

@@ -19,10 +19,12 @@ import pss1inventarioscunoc.backend.controladores.ControladorBien;
 import pss1inventarioscunoc.backend.controladores.ControladorFactura;
 import pss1inventarioscunoc.backend.controladores.ControladorInventario;
 import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
+import pss1inventarioscunoc.backend.controladores.ControladorTarjetaResponsabilidad;
 import pss1inventarioscunoc.backend.enums.TipoDeBien;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Bien;
 import pss1inventarioscunoc.backend.pojos.Factura;
+import pss1inventarioscunoc.backend.pojos.TarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.vistas.facturas.ListadoDeFacturasJDialog;
 import pss1inventarioscunoc.frontend.vistas.inventarios.ListarInventariosJdialog;
 
@@ -742,33 +744,34 @@ public class ConsultaBienes extends javax.swing.JPanel {
         if (factura != null) {
                 numeroFactura = factura.getIdFactura();
         }
-        
-        if (!this.tipoBienComboBox.getSelectedItem().toString().equalsIgnoreCase("todos *")) {
-            int input = JOptionPane.showConfirmDialog(null, "¿Esta seguro de dar de baja este Bien?");
-            // 0=yes, 1=no, 2=cancel
-            if (input==0) {
-                /*Actualizacion de un bien*/
-                switch (bienSeleccionado.getTipo()) {
-                    case COMPRA:
-                        actualizarBienCompra(numeroFactura, this.estadoInactivo);
-                    break;
-                    case TRASLADO:
-                        actualizarBienTraslado(numeroFactura, this.estadoInactivo);
-                    break;
-                    case DONACION:
-                        actualizarBienDonacion(numeroFactura, this.estadoInactivo);
-                    break;
-                    default:
-                        JOptionPane.showMessageDialog(this, "No ha seleccionado ningun bien, porfavor seleccione uno del listado", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                }   
-            } else {
-                limpiarCampos();
+        ControladorTarjetaResponsabilidad contTarjeta = new ControladorTarjetaResponsabilidad();
+        if (!contTarjeta.obtenerTarjetaBien(bienSeleccionado.getCur())) {
+            if (!this.tipoBienComboBox.getSelectedItem().toString().equalsIgnoreCase("todos *")) {
+                int input = JOptionPane.showConfirmDialog(null, "¿Esta seguro de dar de baja este Bien?");
+                // 0=yes, 1=no, 2=cancel
+                if (input==0) {
+                    /*Actualizacion de un bien*/
+                    switch (bienSeleccionado.getTipo()) {
+                        case COMPRA:
+                            actualizarBienCompra(numeroFactura, this.estadoInactivo);
+                        break;
+                        case TRASLADO:
+                            actualizarBienTraslado(numeroFactura, this.estadoInactivo);
+                        break;
+                        case DONACION:
+                            actualizarBienDonacion(numeroFactura, this.estadoInactivo);
+                        break;
+                        default:
+                            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun bien, porfavor seleccione uno del listado", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    }   
+                } else {
+                    limpiarCampos();
+                }
+            } else{
+                JOptionPane.showMessageDialog(this, "Se debe seleccionar un tipo de bien para darlo de baja y no modificar ninguno de sus campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
-            
-            
-        } else{
-            JOptionPane.showMessageDialog(this, "Se debe seleccionar un tipo de bien para darlo de baja y no modificar ninguno de sus campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+        
         actualizarButton.setEnabled(false);
         darBajaButton.setEnabled(false);
     }//GEN-LAST:event_darBajaButtonActionPerformed

@@ -19,5 +19,5 @@ public interface UsuarioDAO extends CRUD<Usuario>{
     //CRUD
     public static final String INSERTAR_USUARIO="INSERT INTO USUARIO VALUES(?,?,?,SHA(?),?,?,?)";
     public static final String CONSULTAR_USUARIOS="SELECT * FROM USUARIO";
-    public static final String ACTUALIZAR_USUARIO="UPDATE USUARIO SET id_usuario=?, nombre=?,apellido =?,contrasena=?,estado=?,tipo=?,correoElectronico=? WHERE id_usuario=?";
+    public static final String ACTUALIZAR_USUARIO="UPDATE USUARIO SET id_usuario=?, nombre=?,apellido =?,contrasena = SHA(?),estado=?,tipo=?,correoElectronico=? WHERE id_usuario=?";
 }
