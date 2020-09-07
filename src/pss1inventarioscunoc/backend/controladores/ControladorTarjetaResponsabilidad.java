@@ -7,11 +7,12 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionTarjetaResponsabilidad;
-import pss1inventarioscunoc.backend.dao.interfaces.TarjetaResponsabilidadDAO;
+import pss1inventarioscunoc.backend.dao.implementaciones.*;
+import pss1inventarioscunoc.backend.dao.interfaces.*;
 import pss1inventarioscunoc.backend.pojos.HistorialTarjetaResponsabilidad;
 import pss1inventarioscunoc.backend.pojos.TarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.reporteHistorialTarjetasResponsabilidad;
 import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.reporteTarjetasResponsabilidad;
 import pss1inventarioscunoc.frontend.vistas.bienes.ReporteBienesEncargado;
 
@@ -22,10 +23,12 @@ import pss1inventarioscunoc.frontend.vistas.bienes.ReporteBienesEncargado;
 public class ControladorTarjetaResponsabilidad {
 
     private TarjetaResponsabilidadDAO tarjetaResponsabilidadDAO = null;
+    private HistorialTarjetaResponsabilidadDAO historialTarjetaDAO = null;
     private ControladorHistorialTarjetaResponsabilidad controladorHistorialTarjeta = null;
 
     public ControladorTarjetaResponsabilidad() {
         this.tarjetaResponsabilidadDAO = new ImplementacionTarjetaResponsabilidad();
+        this.historialTarjetaDAO = new ImplementacionHistorialTarjetaResponsabilidad();
         this.controladorHistorialTarjeta = new ControladorHistorialTarjetaResponsabilidad();
     }
 
@@ -35,6 +38,14 @@ public class ControladorTarjetaResponsabilidad {
      */
     public LinkedList<TarjetaResponsabilidad> obtenerTarjetasActuales() {
         return new LinkedList<>(tarjetaResponsabilidadDAO.recuperarLista('e'));
+    }
+    
+    /**
+     * Retorna una Lista de objetos Encargado registrados en el sistema
+     * @return 
+     */
+    public LinkedList<HistorialTarjetaResponsabilidad> obtenerHistorialTarjetasActuales() {
+        return new LinkedList<>(historialTarjetaDAO.recuperarLista('e'));
     }
 
     /**
@@ -106,6 +117,19 @@ public class ControladorTarjetaResponsabilidad {
         rtr.getListaTarjetas().clear();
         rtr.getListaTarjetasObsr().addAll(this.obtenerTarjetasPorEncargado(idEncargado));
     }
+    
+    
+    /**
+     * ===== Metodos pertenecientes a GUI ModificacionTarjetaResponsabilidad
+     * =====
+     */
+    
+    public void actualizarHistorialTarjetasReporteHistorialTarjetasResponsabilidad(reporteHistorialTarjetasResponsabilidad rhtr) {
+        rhtr.getListaHistorialObsr().clear();
+        rhtr.getListaHistorialObsr().addAll(this.obtenerHistorialTarjetasActuales());
+    }
+    
+    
 
     /**
      * ===== Metodos pertenecientes a GUI ModificacionTarjetaResponsabilidad

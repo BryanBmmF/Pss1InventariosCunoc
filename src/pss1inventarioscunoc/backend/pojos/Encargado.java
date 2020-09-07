@@ -10,15 +10,17 @@ package pss1inventarioscunoc.backend.pojos;
 public class Encargado {
     
     private long id;
+    private String registro;
     private String nombre;
     private String apellido;
     private String cargo;
     private String division;
     private String estado;
 
-    public Encargado(long id, String nombre, String apellido, String cargo, String division,
+    public Encargado(long id, String registro, String nombre, String apellido, String cargo, String division,
             String estado) {
         this.id = id;
+        this.registro = registro;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cargo = cargo;
@@ -72,6 +74,14 @@ public class Encargado {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(String registro) {
+        this.registro = registro;
     }
     
 }

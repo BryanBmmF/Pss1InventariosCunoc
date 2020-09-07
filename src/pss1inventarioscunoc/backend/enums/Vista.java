@@ -32,6 +32,7 @@ public enum Vista {
     REPORTE_BIENES_ENCARGADO("Reporte de Bienes por Encargado",GrupoVista.REPORTES,19),
     MODIFICACION_TARJETAS("Modificacion Tarjeta Responsabilidad",GrupoVista.TARJETAS_RESPONSABILIDAD,20),
     MANEJO_USUARIOS("Gestión de Usuarios del Sistema",GrupoVista.USUARIOS,21),
+    REPORTE_HISTORIAL_TARJETAS("Reporte del Historial de Tarjetas de Responsbilidad",GrupoVista.TARJETAS_RESPONSABILIDAD,22),
     ;
     
     private String nombre;

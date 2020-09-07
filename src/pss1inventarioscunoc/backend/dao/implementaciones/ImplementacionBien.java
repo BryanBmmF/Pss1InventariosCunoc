@@ -43,7 +43,7 @@ public class ImplementacionBien implements BienDAO {
         prepStatement.setString(6, model.getTipo().toString());
         prepStatement.setDouble(7, model.getValor());
         prepStatement.setString(8, model.getDivision());
-        //System.out.println(prepStatement.toString());
+        System.out.println("BIEN:\n\n"+prepStatement.toString()+"\n");
         prepStatement.executeUpdate();
         prepStatement.close();
 
@@ -62,7 +62,7 @@ public class ImplementacionBien implements BienDAO {
         prepStatement.setString(5, model.getTipo().toString());
         prepStatement.setDouble(6, model.getValor());
         prepStatement.setString(7, model.getDivision());
-        //System.out.println(prepStatement.toString());
+        System.out.println("Bien:\n\n"+prepStatement.toString()+"\n");
         prepStatement.executeUpdate();
         prepStatement.close();
 
@@ -90,7 +90,7 @@ public class ImplementacionBien implements BienDAO {
                 prepStatement.setString(3, String.valueOf(model.getAutorizacion()));
                 prepStatement.setString(4, model.getSeccion());
                 prepStatement.setString(5, model.getPersonaQueRecibio());
-                System.out.println(prepStatement.toString());
+                System.out.println("Bien Traslado:\n\n"+prepStatement.toString()+"\n");
                 prepStatement.executeUpdate();
                 prepStatement.close();
             } else if (model.getTipo() == TipoDeBien.DONACION) {
@@ -99,7 +99,7 @@ public class ImplementacionBien implements BienDAO {
                 prepStatement.setString(2, model.getPunto());
                 prepStatement.setInt(3, model.getNumeroActa());
                 prepStatement.setString(4, model.getCur());
-                System.out.println(prepStatement.toString());
+                System.out.println("Bien Donacion:\n\n"+prepStatement.toString()+"\n");
                 prepStatement.executeUpdate();
                 prepStatement.close();
             }

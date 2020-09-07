@@ -14,8 +14,7 @@ import pss1inventarioscunoc.frontend.sesion.*;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.frontend.encargados.AsignacionEncargados;
-import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
-import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.reporteTarjetasResponsabilidad;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.*;
 import pss1inventarioscunoc.frontend.vistas.*;
 import pss1inventarioscunoc.frontend.vistas.bienes.*;
 import pss1inventarioscunoc.frontend.vistas.facturas.*;
@@ -49,6 +48,7 @@ public class ControladorVistas {
     private ModificacionTarjetaResponsabilidad modificacionTarjeta = null;
     private ReporteBienesEncargado reporteBienesEncargado = null;
     private VentanaUsuarios manejoUsuarios = null;
+    private reporteHistorialTarjetasResponsabilidad reporteHistorialTarjetas = null;
 
     public ControladorVistas() {
         this.manejoEncargados = new ValidacionEncargados();
@@ -65,6 +65,7 @@ public class ControladorVistas {
         this.modificacionTarjeta = new ModificacionTarjetaResponsabilidad();
         this.reporteBienesEncargado = new ReporteBienesEncargado();
         this.manejoUsuarios = new VentanaUsuarios();
+        this.reporteHistorialTarjetas = new reporteHistorialTarjetasResponsabilidad();
     }
 
     public void insertIntoInicioDefaultGrupoVista(VentanaInicio vi) {
@@ -106,16 +107,16 @@ public class ControladorVistas {
         if (0 == reporteBienes.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienes);
         }
-        
         if (0 == reporteBienesTipo.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienesTipo);
         }
         if (0 == reporteBienesEncargado.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(reporteBienesEncargado);
         }
-        
         if (0 == manejoUsuarios.getVista().getGrupo().compareTo(gv)) {
             vi.getVentanaPrincipal().add(manejoUsuarios);
+        if (0 == reporteHistorialTarjetas.getVista().getGrupo().compareTo(gv)) {
+            vi.getVentanaPrincipal().add(reporteHistorialTarjetas);
         }
 
     }
