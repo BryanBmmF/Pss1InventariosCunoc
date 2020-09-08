@@ -27,7 +27,7 @@ public interface BienDAO extends CRUD<Bien> {
     /*Querys a utilizar*/
     public static final String CONSULTAR_TODOS_LOS_BIENES_NO_ASIGNADOS = "SELECT b.* "
             + "FROM BIEN b WHERE b.cur NOT IN (SELECT t.cur_bien "
-            + "FROM TARJETA_RESPONSABILIDAD t) AND b.estado = ?";
+            + "FROM TARJETA_RESPONSABILIDAD t WHERE t.estado='activo') AND b.estado = ?";
     public static final String CONSULTAR_BIEN_POR_DONACION = "SELECT t1.cur,t1.id_Factura,t1.procedencia,t1.estado,t1.descripcion,t1.tipo,t1.valor,t1.division,t3.correlativo,t3.punto,t3.numero_acta\n" +
                                                              "FROM BIEN AS t1 JOIN REGISTRO_BIEN_INVENTARIO AS t2 ON t1.cur=t2.cur_bien\n" +
                                                              "JOIN DONACION AS t3 ON t1.cur = t3.cur_bien\n" +

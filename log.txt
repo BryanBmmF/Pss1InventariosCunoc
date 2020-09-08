@@ -1,4 +1,33 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+Usuario:superU->2020-09-07 11:53:28.Cambio de estado en Bien(v,n):(1,0)
+
+
+
+
+Usuario:superU->2020-09-07 10:41:20.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 10:41:20.Se inserto la factura con descripcion:FACTURA_UNICA_PREDETERMINADA
+Usuario:superU->2020-09-07 10:41:26.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+
+Usuario:superU->2020-09-07 10:37:25.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 10:37:25.Se inserto la factura con descripcion:FACTURA_UNICA_PREDETERMINADA
+
+Usuario:superU->2020-09-07 10:30:29.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 10:30:29.Se inserto la factura con descripcion:FACTURA_UNICA_PREDETERMINADA
+
+
+
 Usuario:superU->2020-09-07 00:14:22.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
 Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Distribuidora Carrillo
 Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Ecotec

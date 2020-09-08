@@ -35,6 +35,7 @@ public class ImplementacionTarjetaResponsabilidad implements TarjetaResponsabili
             prepStatement.setLong(6, model.getIdResponsable());
             prepStatement.setLong(7, model.getIdProveedor());
             prepStatement.setString(8, model.getEstado());
+            System.out.println("\n\nRegistro de Tarjeta de responsabilidad:"+prepStatement.toString()+"\n\n");
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;
@@ -73,7 +74,8 @@ public class ImplementacionTarjetaResponsabilidad implements TarjetaResponsabili
             prepStatement.setLong(1, model.getIdResponsable());
             prepStatement.setLong(2, model. getIdProveedor());
             prepStatement.setLong(3, model.getNoFactura());
-            prepStatement.setLong(4, model.getId());
+            prepStatement.setString(4, model.getEstado());
+            prepStatement.setLong(5, model.getId());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;
@@ -172,6 +174,29 @@ public class ImplementacionTarjetaResponsabilidad implements TarjetaResponsabili
             
         }
         return tarjeta;
+    }
+
+@Override
+    public List<TarjetaResponsabilidad> recuperarLista(String estado) {
+        List<TarjetaResponsabilidad> tarjetas = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TARJETAS_ESTADO);
+            prepStatement.setString(1, estado);
+            result=prepStatement.executeQuery();
+            while(result.next()){
+                tarjetas.add(new TarjetaResponsabilidad(result.getLong(1), result.getTimestamp(2), 
+                        result.getString(3), result.getLong(4), result.getString(5), 
+                        result.getTimestamp(6), result.getString(7), result.getString(8), 
+                        result.getLong(9), result.getString(10), result.getLong(11), result.getString(12)));
+            }
+            result.close();
+            prepStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            //Logger.getLogger(ImplementacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return tarjetas;
+        }
+        return tarjetas;
     }
     
 }

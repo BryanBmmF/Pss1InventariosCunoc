@@ -316,14 +316,28 @@ public class ReporteDeBiens extends javax.swing.JPanel {
         int totalBienesDeBaja = controlador.sumarTodosLosBienesDeBajaDeUnInventario(inventarioSeleccionado.getNumero());
         //Tipo de bienes de alta
         int totalCompraActivo = controlador.sumarBienesActivosPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA);
+        int elementosActivosCompra = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA, "1");
+
         int totalDonacionActivo = controlador.sumarBienesActivosPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION);
+        int elementosActivosDonacion = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION, "1");
+
         int totalTrasladoActivo = controlador.sumarBienesActivosPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO);
+        int elementosActivosTraslado = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO, "1");
+
+        int totalActivos = elementosActivosCompra+elementosActivosDonacion+elementosActivosTraslado;
         //Tipos de bienes de baja
         int totalCompraDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA);
+        int elementosDeBajaCompra = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA, "0");
+
         int totalDonacionDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION);
+        int elementosDeBajaDonacion = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION, "0");
+
         int totalTrasladoDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO);
+        int elementosDeBajaTraslado = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO, "0");
+
+        int totalDeBaja = elementosDeBajaCompra+elementosDeBajaDonacion+elementosDeBajaTraslado;
         this.reporteInventariojEditorPane.setText(""
-                + "<p><font color='red'>Total bienes activos:</font>" + totalBienesActivos + "</p><br>"
+                + "<p><font color='red'>Total bienes activos :</font>Q" + totalBienesActivos + "<font color='red'>Cantidad de Elementos:</font>"+totalActivos+"</p><br>"
                 + "<p><font color='red'>Total bienes activos compra:</font>" + totalCompraActivo + "</p><br>"
                 + "<p><font color='red'>Total bienes activos donacion:</font>" + totalDonacionActivo + "</p><br>"
                 + "<p><font color='red'>Total bienes activos traslados:</font>" + totalTrasladoActivo + "</p><br>"

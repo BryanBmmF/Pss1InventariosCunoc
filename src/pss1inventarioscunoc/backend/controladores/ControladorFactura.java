@@ -186,6 +186,12 @@ public class ControladorFactura {
         }
     }
 
+    public ArrayList<Factura> buscarFacturaPorId(int id){
+        ArrayList<Factura> lista = new ArrayList<>();
+        lista.add(facturaDao.buscarFacturaPorId(id));
+        return lista;
+    }
+    
     public static Factura getFacturaPredeterminda() {
         return facturaPredeterminda;
     }
@@ -193,6 +199,7 @@ public class ControladorFactura {
     public static void setFacturaPredeterminda(Factura facturaPredeterminda) {
         ControladorFactura.facturaPredeterminda = facturaPredeterminda;
     }
+    
     
     
 }

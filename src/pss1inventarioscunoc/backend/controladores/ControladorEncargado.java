@@ -257,6 +257,7 @@ public class ControladorEncargado {
                         Long idEncargado = predeterminado.getId();
                         for (TarjetaResponsabilidad tarjeta : tarjetas) {
                             tarjeta.setIdResponsable(idEncargado);
+                            tarjeta.setEstado(EstadoObjeto.INACTIVO.getEstado());
                             controladorTarjetaResponsabilidad.actualizarTarjeta(tarjeta, null);
                         }
                         estadoEncargado.setEstado(ve.getNewStateEncargado());

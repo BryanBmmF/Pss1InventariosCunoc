@@ -16,7 +16,7 @@ public interface TarjetaResponsabilidadDAO extends CRUD<TarjetaResponsabilidad>{
     public int recuperarNumeroTarjetasPorEncargado(String idEncargado);
     public List<TarjetaResponsabilidad> recuperarListaTarjetasEncargado(String idEncargado);
     public TarjetaResponsabilidad recuperarTarjetaBien(String cur);
-    
+    public List<TarjetaResponsabilidad> recuperarLista(String estado);
     /*Querys a utilizar*/
     public static final String CONSULTAR_TARJETA = "SELECT * FROM TARJETA_RESPONSABILIDAD WHERE id = ?";
     //CRUD
@@ -28,9 +28,11 @@ public interface TarjetaResponsabilidadDAO extends CRUD<TarjetaResponsabilidad>{
             + "(fecha_apertura,descripcion,no_factura,fecha_factura,"
             + "cur_bien,id_responsable,id_proveedor,estado) VALUES(?,?,?,?,?,?,?,?)";
     public static final String CONSULTAR_TARJETAS="SELECT * FROM TARJETA_RESPONSABILIDAD";
+    public static final String CONSULTAR_TARJETAS_ESTADO="SELECT * FROM TARJETA_RESPONSABILIDAD "
+            + "where estado = ?";
     
     public static final String ACTUALIZAR_TARJETA="UPDATE TARJETA_RESPONSABILIDAD SET "
-            + "id_responsable = ?, id_Proveedor = ?, no_factura = ? "
+            + "id_responsable = ?, id_Proveedor = ?, no_factura = ? , estado = ?"
             + "WHERE id = ?";
     public static final String CONSULTAR_NUMERO_TARJETAS_ENCARGADO = "SELECT COUNT(*) "
             + "FROM TARJETA_RESPONSABILIDAD INNER JOIN ENCARGADO ON "

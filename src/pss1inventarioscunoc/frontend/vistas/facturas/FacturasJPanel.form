@@ -300,7 +300,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="fecha2jDateChooser2" pref="156" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="proveedorTextField11" min="-2" pref="171" max="-2" attributes="0"/>
+                              <Component id="parametroBusquedaTextField11" min="-2" pref="171" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="opcionBusquedajComboBox1" min="-2" pref="140" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -338,7 +338,7 @@
                                   <Component id="opcionBusquedajComboBox1" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="buscarButton1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <Component id="proveedorTextField11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="parametroBusquedaTextField11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="fecha2jDateChooser2" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -398,30 +398,23 @@
                   </Properties>
                   <BindingProperties>
                     <BindingProperty name="elements" source="Form" sourcePath="${listaObservableFacturas}" target="jTable1" targetPath="elements" updateStrategy="0" immediately="true">
+                      <Subbinding sourcePath="${idFactura}">
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+                      </Subbinding>
                       <Subbinding sourcePath="${fecha}">
-                        <BindingParameter name="NAME" value="Fecha"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.sql.Timestamp.class"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${descripcion}">
-                        <BindingParameter name="NAME" value="Descripcion"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${nombreProveedor}">
-                        <BindingParameter name="NAME" value="Proveedor"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${numeroFactura}">
-                        <BindingParameter name="NAME" value="No Factura"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${valor}">
-                        <BindingParameter name="NAME" value="Valor"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                     </BindingProperty>
                     <BindingProperty name="selectedElement" source="Form" sourcePath="${factura}" target="jTable1" targetPath="selectedElement" updateStrategy="0" immediately="false">
@@ -481,7 +474,7 @@
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="fecha2jDateChooser2">
             </Component>
-            <Component class="javax.swing.JTextField" name="proveedorTextField11">
+            <Component class="javax.swing.JTextField" name="parametroBusquedaTextField11">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -498,13 +491,18 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="parametroBusquedaTextField11KeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="parametroBusquedaTextField11KeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="opcionBusquedajComboBox1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
+                  <StringArray count="3">
                     <StringItem index="0" value="proveedor"/>
                     <StringItem index="1" value="fecha"/>
+                    <StringItem index="2" value="id"/>
                   </StringArray>
                 </Property>
               </Properties>

@@ -129,9 +129,10 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setInt(1, idFactura);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                factura = new Factura(result.getInt(2), result.getInt(3),
+                factura = new Factura(result.getInt(1),result.getInt(2), result.getInt(3),
                         result.getTimestamp(4), result.getString(5), result.getDouble(6));
             }
+            System.out.println("\n\nFACTURA:"+prepStatement.toString());
             prepStatement.close();
             result.close();
         } catch (SQLException ex) {

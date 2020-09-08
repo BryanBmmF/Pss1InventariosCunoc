@@ -77,7 +77,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
         modificarButton2 = new javax.swing.JButton();
         fecha1jDateChooser1 = new com.toedter.calendar.JDateChooser();
         fecha2jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        proveedorTextField11 = new javax.swing.JTextField();
+        parametroBusquedaTextField11 = new javax.swing.JTextField();
         opcionBusquedajComboBox1 = new javax.swing.JComboBox<>();
         guardarButton2 = new javax.swing.JButton();
 
@@ -148,26 +148,24 @@ public class FacturasJPanel extends javax.swing.JPanel {
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaObservableFacturas}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fecha}"));
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idFactura}"));
+        columnBinding.setColumnName("Id Factura");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fecha}"));
         columnBinding.setColumnName("Fecha");
         columnBinding.setColumnClass(java.sql.Timestamp.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
         columnBinding.setColumnName("Descripcion");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreProveedor}"));
-        columnBinding.setColumnName("Proveedor");
+        columnBinding.setColumnName("Nombre Proveedor");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numeroFactura}"));
-        columnBinding.setColumnName("No Factura");
+        columnBinding.setColumnName("Numero Factura");
         columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valor}"));
         columnBinding.setColumnName("Valor");
         columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${factura}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -197,12 +195,20 @@ public class FacturasJPanel extends javax.swing.JPanel {
             }
         });
 
-        proveedorTextField11.setBackground(new java.awt.Color(255, 255, 255));
-        proveedorTextField11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        proveedorTextField11.setForeground(new java.awt.Color(0, 0, 102));
-        proveedorTextField11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        parametroBusquedaTextField11.setBackground(new java.awt.Color(255, 255, 255));
+        parametroBusquedaTextField11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        parametroBusquedaTextField11.setForeground(new java.awt.Color(0, 0, 102));
+        parametroBusquedaTextField11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        parametroBusquedaTextField11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                parametroBusquedaTextField11KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                parametroBusquedaTextField11KeyReleased(evt);
+            }
+        });
 
-        opcionBusquedajComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "proveedor", "fecha" }));
+        opcionBusquedajComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "proveedor", "fecha", "id" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -216,7 +222,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fecha2jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(proveedorTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(parametroBusquedaTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(opcionBusquedajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,7 +252,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
                             .addComponent(opcionBusquedajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(proveedorTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(parametroBusquedaTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(fecha2jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,24 +366,39 @@ public class FacturasJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_asignarProveedorButton1ActionPerformed
 
     private void buscarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton1ActionPerformed
-        String opcion = this.opcionBusquedajComboBox1.getSelectedItem().toString();
-        if (opcion.equalsIgnoreCase("proveedor")) {
-            if (!this.proveedorTextField11.getText().isEmpty()) {
-                actualizarLista(controlador.buscarFacturas(this.proveedorTextField11.getText()));
-            } else {
-                JOptionPane.showMessageDialog(this, "Ingrese el nombre de un proveedor", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+                String opcion = this.opcionBusquedajComboBox1.getSelectedItem().toString();
+        if (parametroBusquedaTextField11.getText().isEmpty()) {
+            actualizarLista(controlador.buscarFacturas());
         } else {
-            Timestamp fecha1 = new Timestamp(this.fecha1jDateChooser1.getDate().getTime());
-            Timestamp fecha2 = new Timestamp(this.fecha2jDateChooser2.getDate().getTime());
-            System.out.println();
-            if (fecha1 != null && fecha2 != null) {
-                actualizarLista(controlador.buscarFacturas(fecha1, fecha2));
+            if (opcion.equalsIgnoreCase("proveedor")) {
+                if (!this.parametroBusquedaTextField11.getText().isEmpty()) {
+                    actualizarLista(controlador.buscarFacturas(this.parametroBusquedaTextField11.getText()));
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ingrese el nombre de un proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (opcion.equalsIgnoreCase("fecha")) {
+                Timestamp fecha1 = new Timestamp(this.fecha1jDateChooser1.getDate().getTime());
+                Timestamp fecha2 = new Timestamp(this.fecha2jDateChooser2.getDate().getTime());
+                System.out.println();
+                if (fecha1 != null && fecha2 != null) {
+                    actualizarLista(controlador.buscarFacturas(fecha1, fecha2));
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ingrese fecha incio y final", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Ingrese fecha incio y final", "Error", JOptionPane.ERROR_MESSAGE);
+                if (!this.parametroBusquedaTextField11.getText().isEmpty()) {
+                    try {
+                        int numeroDeFactura = Integer.valueOf(parametroBusquedaTextField11.getText());
+                        actualizarLista(controlador.buscarFacturaPorId(numeroDeFactura));
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this, "Debe ingresar un numero entero", "Advetencia", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ingrese el nombre de un proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        }
 
+        }
     }//GEN-LAST:event_buscarButton1ActionPerformed
 
     private void valorTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorTextField9KeyTyped
@@ -396,7 +417,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
                     this.descripcionTextField10.getText(),
                     this.valorTextField9.getText(),
                     proveedor);
-            if (factura!=null && proveedor != null) {//Insercion factura con proveedor
+            if (factura != null && proveedor != null) {//Insercion factura con proveedor
                 if (controlador.registrarFacturaConProveedor(factura)) {
                     JOptionPane.showMessageDialog(this, "Se ingreso la factura");
                     limpiarCampos();
@@ -404,7 +425,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(this, "No se pudo ingresar la factura", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else if(factura!=null){//Insercion sin proveedor
+            } else if (factura != null) {//Insercion sin proveedor
                 if (controlador.registrarFacturaSinProveedor(factura)) {
                     JOptionPane.showMessageDialog(this, "Se ingreso la factura");
                     limpiarCampos();
@@ -431,6 +452,14 @@ public class FacturasJPanel extends javax.swing.JPanel {
         mod.setVisible(true);
         actualizarLista(controlador.buscarFacturas());
     }//GEN-LAST:event_modificarButton2ActionPerformed
+
+    private void parametroBusquedaTextField11KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_parametroBusquedaTextField11KeyPressed
+
+    }//GEN-LAST:event_parametroBusquedaTextField11KeyPressed
+
+    private void parametroBusquedaTextField11KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_parametroBusquedaTextField11KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_parametroBusquedaTextField11KeyReleased
 
     private void actualizarLista(List<Factura> listado) {
         listaObservableFacturas.clear();
@@ -482,7 +511,7 @@ public class FacturasJPanel extends javax.swing.JPanel {
     private javax.swing.JButton modificarButton2;
     private javax.swing.JTextField numeroDeFacturaTextField6;
     private javax.swing.JComboBox<String> opcionBusquedajComboBox1;
-    private javax.swing.JTextField proveedorTextField11;
+    private javax.swing.JTextField parametroBusquedaTextField11;
     private javax.swing.JTextField proveedorTextField5;
     private javax.swing.JTextField valorTextField9;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
@@ -513,5 +542,5 @@ public class FacturasJPanel extends javax.swing.JPanel {
     public Vista getVista() {
         return vista;
     }
-    
+
 }

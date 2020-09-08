@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.*;
 import pss1inventarioscunoc.backend.dao.interfaces.*;
+import pss1inventarioscunoc.backend.enums.EstadoObjeto;
 import pss1inventarioscunoc.backend.pojos.HistorialTarjetaResponsabilidad;
 import pss1inventarioscunoc.backend.pojos.TarjetaResponsabilidad;
 import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
@@ -34,15 +35,17 @@ public class ControladorTarjetaResponsabilidad {
 
     /**
      * Retorna una Lista de objetos Encargado registrados en el sistema
-     * @return 
+     *
+     * @return
      */
     public LinkedList<TarjetaResponsabilidad> obtenerTarjetasActuales() {
         return new LinkedList<>(tarjetaResponsabilidadDAO.recuperarLista('e'));
     }
-    
+
     /**
      * Retorna una Lista de objetos Encargado registrados en el sistema
-     * @return 
+     *
+     * @return
      */
     public LinkedList<HistorialTarjetaResponsabilidad> obtenerHistorialTarjetasActuales() {
         return new LinkedList<>(historialTarjetaDAO.recuperarLista('e'));
@@ -50,8 +53,9 @@ public class ControladorTarjetaResponsabilidad {
 
     /**
      * Retorna una Lista de objetos Encargado registrados en el sistema
+     *
      * @param idEncargado
-     * @return 
+     * @return
      */
     public LinkedList<TarjetaResponsabilidad> obtenerTarjetasPorEncargado(String idEncargado) {
         return new LinkedList<>(tarjetaResponsabilidadDAO.recuperarListaTarjetasEncargado(idEncargado));
@@ -59,8 +63,9 @@ public class ControladorTarjetaResponsabilidad {
 
     /**
      * Retorna una Lista de objetos Encargado registrados en el sistema
+     *
      * @param idEncargado
-     * @return 
+     * @return
      */
     public int obtenerNumeroTarjetasPorEncargado(String idEncargado) {
         return (tarjetaResponsabilidadDAO.recuperarNumeroTarjetasPorEncargado(idEncargado));
@@ -113,38 +118,21 @@ public class ControladorTarjetaResponsabilidad {
         rtr.getListaTarjetaResponsabilidadesObsr().clear();
         rtr.getListaTarjetaResponsabilidadesObsr().addAll(this.obtenerTarjetasActuales());
     }
+
     public void actualizarTarjetasResponsabilidad(ReporteBienesEncargado rtr, String idEncargado) {
         rtr.getListaTarjetas().clear();
         rtr.getListaTarjetasObsr().addAll(this.obtenerTarjetasPorEncargado(idEncargado));
     }
-    
-    
-    /**
-     * ===== Metodos pertenecientes a GUI ModificacionTarjetaResponsabilidad
-     * =====
-     */
-    
-    public void actualizarHistorialTarjetasReporteHistorialTarjetasResponsabilidad(reporteHistorialTarjetasResponsabilidad rhtr) {
-        rhtr.getListaHistorialObsr().clear();
-        rhtr.getListaHistorialObsr().addAll(this.obtenerHistorialTarjetasActuales());
-    }
-    
-    
 
     /**
      * ===== Metodos pertenecientes a GUI ModificacionTarjetaResponsabilidad
      * =====
      */
-    /**
-     * Actualiza la lista de Tarjetas de Responsabilidad después de una accion
-     * en la vista
-     *
-     * @param ceb
-     */
-    public void actualizarTarjetasModificacionTarjetaResponsabilidad(ModificacionTarjetaResponsabilidad ceb) {
-        ceb.getListaTarjetasObsr().clear();
-        ceb.getListaTarjetasObsr().addAll(this.obtenerTarjetasActuales());
+    public void actualizarHistorialTarjetasReporteHistorialTarjetasResponsabilidad(reporteHistorialTarjetasResponsabilidad rhtr) {
+        rhtr.getListaHistorialObsr().clear();
+        rhtr.getListaHistorialObsr().addAll(this.obtenerHistorialTarjetasActuales());
     }
+
 
     public void tablaTarjetasMouseClickedCambioEncargadoBien(ModificacionTarjetaResponsabilidad ceb) {
         ceb.setTableTarjetasSelected(true);
@@ -174,20 +162,38 @@ public class ControladorTarjetaResponsabilidad {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Evalua si el bien con cur ya tiene una tarjeta de responsabilidad
+     *
      * @param cur
      * @return true or false
      */
     public boolean obtenerTarjetaBien(String cur) {
-        if (tarjetaResponsabilidadDAO.recuperarTarjetaBien(cur)!=null) {
-            JOptionPane.showMessageDialog(null, "El bien con CUR: "+cur+" no puede ser dado de baja ya que posee una tarjeta de responsabilidad, porfavor anule la tarjeta e intente de nuevo",
+        TarjetaResponsabilidad tarjeta = tarjetaResponsabilidadDAO.recuperarTarjetaBien(cur);
+        if (tarjeta != null && tarjeta.getEstado().equalsIgnoreCase(EstadoObjeto.ACTIVO.getEstado())) {
+            JOptionPane.showMessageDialog(null, "El bien con CUR: " + cur + " no puede ser dado de baja ya que posee una tarjeta de responsabilidad Activa, porfavor anule la tarjeta e intente de nuevo",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
             return true;
         } else {
+
             return false;
         }
     }
-
+    
+      public void actualizarTarjetasModificacionTarjetaResponsabilidad(ModificacionTarjetaResponsabilidad ceb) {
+        ceb.getListaTarjetasObsr().clear();
+        ceb.getListaTarjetasObsr().addAll(this.obtenerTarjetasActualesEstado(EstadoObjeto.ACTIVO.getEstado()));
+    }
+      
+          /**
+     * Retorna una Lista de objetos Encargado registrados en el sistema
+     *
+     * @return
+     */
+    public LinkedList<TarjetaResponsabilidad> obtenerTarjetasActualesEstado(String estado) {
+        return new LinkedList<>(tarjetaResponsabilidadDAO.recuperarLista(estado));
+    }
+    
+    
 }

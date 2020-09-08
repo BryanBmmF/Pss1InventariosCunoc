@@ -329,4 +329,28 @@ public class ImplementacionInventario implements InventarioDAO {
         return listaDeInventarios;
     }
 
+    /**
+     * Consulta cuantos bienes hay en un determinado inventario, segun tipo y estado de bien
+     * @param numeroDeInventario
+     * @param tipo
+     * @param estado
+     * @return 
+     */
+    @Override
+    public int consultarTotalDeBienes(int numeroDeInventario, TipoDeBien tipo, String estado) {
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(BUSQUEDA_DE_BIENES_DE_INVENTARIO);
+            prepStatement.setInt(1, numeroDeInventario);
+            prepStatement.setString(2, tipo.toString().toLowerCase());
+            prepStatement.setString(3, "1");
+            result=prepStatement.executeQuery();
+            while(result.next()){
+                return result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+
 }

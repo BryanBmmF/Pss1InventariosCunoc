@@ -34,6 +34,7 @@ public class ImplementacionHistorialTarjetaResponsabilidad implements HistorialT
             prepStatement.setLong(4, model.getIdProveedor());
             prepStatement.setString(5, model.getEstado());
             prepStatement.setLong(6, model.getNoFactura());
+            System.out.println("\n\nTarjeta de responsabilidad:"+prepStatement.toString()+"\n\n");
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;

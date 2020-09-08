@@ -47,7 +47,8 @@ public class Factura {
  * @param descripcion
  * @param valor 
  */
-    public Factura(int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor) {
+    public Factura(int idFactura,int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor) {
+        this.idFactura=idFactura;
         this.idProveedor = idProveedor;
         this.numeroFactura = numeroFactura;
         this.fecha = fecha;
@@ -55,6 +56,16 @@ public class Factura {
         this.valor = valor;
     }
 
+    
+        public Factura(int idProveedor, int numeroFactura, Timestamp fecha, String descripcion, double valor) {
+        this.idFactura=idFactura;
+        this.idProveedor = idProveedor;
+        this.numeroFactura = numeroFactura;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+        this.valor = valor;
+    }
+    
     
     
     public int getIdFactura() {

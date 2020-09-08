@@ -150,4 +150,15 @@ public class ControladorInventario {
     public LinkedList<Inventario> buscarInventarioPorRangoDeFecha(Timestamp fechaInicial,Timestamp fechaFinal){
         return inventarioDAO.buscarInventarioPorFecha(fechaInicial, fechaFinal);
     }
+    
+    /**
+     * Devuelve el total de bienes de inventario
+     * @param numeroDeInventario
+     * @param tipo
+     * @param estado
+     * @return 
+     */
+    public int buscarTotalDeBienesDeInventario(int numeroDeInventario,TipoDeBien tipo,String estado){
+        return inventarioDAO.consultarTotalDeBienes(numeroDeInventario, tipo, estado);
+    }
 }

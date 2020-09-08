@@ -39,6 +39,7 @@ public class ImplementacionLogIngreso implements LogIngresoDAO {
             prepStatement.setString(2, model.getTipo());
             prepStatement.setString(3, model.getIdUsuario());
             prepStatement.setString(4, model.getDeescripcion());
+            System.out.println(prepStatement.toString());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;

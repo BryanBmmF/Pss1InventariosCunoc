@@ -32,10 +32,12 @@ public interface InventarioDAO extends CRUD<Inventario> {
     public int sumarBienesActivosPorTipo(int numeroDeInventario, TipoDeBien tipo);
 
     public int sumarBienesDeBajaPorTipo(int numeroDeInventario, TipoDeBien tipo);
-    
+
     public LinkedList<Inventario> buscarInventariosPorDescripcion(String descripcion);
-    
+
     public LinkedList<Inventario> buscarInventarioPorFecha(Timestamp fechaInicio, Timestamp fechaFinal);
+    
+    public int consultarTotalDeBienes(int numeroDeInventario,TipoDeBien tipo,String estado);
 
     //***CONSULTAS**//
     public static String INSERTAR_REGISTRO_BIEN_INVENTARIO = "INSERT INTO REGISTRO_BIEN_INVENTARIO(no_inventario,cur_bien) VALUES(?,?)";
@@ -90,5 +92,12 @@ public interface InventarioDAO extends CRUD<Inventario> {
     public static String BUSQUEDA_DE_INVENTARIO_POR_FECHAS
             = "SELECT * FROM INVENTARIO WHERE \n"
             + "fecha_inicio >= ? AND fecha_finalizacion <= ?";
+
+    /**
+     * Busca el total de bienes de un inventario, necesita: no_inventario,tipoDeBien,estadoDeBien
+     */
+    public static String BUSQUEDA_DE_BIENES_DE_INVENTARIO = ""
+            + "SELECT COUNT(*) FROM BIEN AS t1 JOIN REGISTRO_BIEN_INVENTARIO AS t2 ON t1.cur=t2.cur_bien \n"
+            + "WHERE t2.no_inventario=? AND t1.tipo=? AND t1.estado=?";
 
 }

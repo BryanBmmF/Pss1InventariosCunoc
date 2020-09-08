@@ -328,7 +328,7 @@ DELIMITER ;
 
 
 /****************************Tarjeta de responsabilidad***********************************/
-
+/*
 #Insert
 DROP TRIGGER  IF exists TARJETA_RESPONSABILIDAD_AI;
 DELIMITER $$
@@ -346,6 +346,7 @@ BEGIN
 END $$
 
 DELIMITER ;
+*/
 
 
 /****************************Encargado ***********************************/
