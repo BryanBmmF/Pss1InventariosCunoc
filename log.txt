@@ -11,6 +11,9 @@
 
 
 
+
+
+
 Usuario:superU->2020-09-07 11:53:28.Cambio de estado en Bien(v,n):(1,0)
 
 

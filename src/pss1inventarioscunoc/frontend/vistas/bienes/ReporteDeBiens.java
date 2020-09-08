@@ -324,7 +324,7 @@ public class ReporteDeBiens extends javax.swing.JPanel {
         int totalTrasladoActivo = controlador.sumarBienesActivosPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO);
         int elementosActivosTraslado = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO, "1");
 
-        int totalActivos = elementosActivosCompra+elementosActivosDonacion+elementosActivosTraslado;
+        int totalActivos = elementosActivosCompra + elementosActivosDonacion + elementosActivosTraslado;
         //Tipos de bienes de baja
         int totalCompraDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA);
         int elementosDeBajaCompra = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA, "0");
@@ -335,16 +335,64 @@ public class ReporteDeBiens extends javax.swing.JPanel {
         int totalTrasladoDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO);
         int elementosDeBajaTraslado = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO, "0");
 
-        int totalDeBaja = elementosDeBajaCompra+elementosDeBajaDonacion+elementosDeBajaTraslado;
-        this.reporteInventariojEditorPane.setText(""
-                + "<p><font color='red'>Total bienes activos :</font>Q" + totalBienesActivos + "<font color='red'>Cantidad de Elementos:</font>"+totalActivos+"</p><br>"
-                + "<p><font color='red'>Total bienes activos compra:</font>" + totalCompraActivo + "</p><br>"
-                + "<p><font color='red'>Total bienes activos donacion:</font>" + totalDonacionActivo + "</p><br>"
-                + "<p><font color='red'>Total bienes activos traslados:</font>" + totalTrasladoActivo + "</p><br>"
-                + "<p><font color='blue'>Total bienes de baja:</font>" + totalBienesDeBaja + "</p><br>"
-                + "<p><font color='blue'>Total bienes de baja compra:</font>" + totalCompraDeBaja + "</p><br>"
-                + "<p><font color='blue'>Total bienes de baja donacion:</font>" + totalDonacionDeBaja + "</p><br>"
-                + "<p><font color='blue'>Total bienes de baja traslados:</font>" + totalTrasladoDeBaja + "</p><br>");
+        int totalDeBaja = elementosDeBajaCompra + elementosDeBajaDonacion + elementosDeBajaTraslado;
+
+        this.reporteInventariojEditorPane.setText("<table style=\"width:100%\">\n"
+                + "  <tr>\n"
+                + "    <th>Estado</th>\n"
+                + "    <th>Tipo</th>\n"
+                + "    <th>Cantidad Q</th>\n"
+                + "   <th>No. Elementos Q</th>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Todos</td>\n"
+                + "    <td>" + totalBienesActivos + "</td>\n"
+                + "    <td>" + totalActivos + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Compra</td>\n"
+                + "    <td>" + totalCompraActivo + "</td>\n"
+                + "    <td>" + elementosActivosCompra + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Donacion</td>\n"
+                + "    <td>" + totalDonacionActivo + "</td>\n"
+                + "    <td>" + elementosActivosDonacion + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Traslado</td>\n"
+                + "    <td>" + totalTrasladoActivo + "</td>\n"
+                + "    <td>" + elementosActivosTraslado + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Todos</td>\n"
+                + "    <td>" + totalBienesDeBaja + "</td>\n"
+                + "    <td>" + totalDeBaja + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Compra</td>\n"
+                + "    <td>" + totalCompraDeBaja + "</td>\n"
+                + "    <td>" + elementosDeBajaCompra + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Donacion</td>\n"
+                + "    <td>" + totalDonacionDeBaja + "</td>\n"
+                + "    <td>" + elementosDeBajaDonacion + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Traslado</td>\n"
+                + "    <td>" + totalTrasladoDeBaja + "</td>\n"
+                + "    <td>" + elementosDeBajaTraslado + "</td>\n"
+                + "  </tr>\n"
+                + "</table>");
     }
 
 }

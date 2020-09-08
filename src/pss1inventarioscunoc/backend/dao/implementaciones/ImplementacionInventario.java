@@ -342,7 +342,7 @@ public class ImplementacionInventario implements InventarioDAO {
             prepStatement = Conexion.getConexion().prepareStatement(BUSQUEDA_DE_BIENES_DE_INVENTARIO);
             prepStatement.setInt(1, numeroDeInventario);
             prepStatement.setString(2, tipo.toString().toLowerCase());
-            prepStatement.setString(3, "1");
+            prepStatement.setString(3, estado);
             result=prepStatement.executeQuery();
             while(result.next()){
                 return result.getInt(1);
