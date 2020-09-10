@@ -12,6 +12,8 @@ import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionInventari
 import pss1inventarioscunoc.backend.dao.interfaces.BienDAO;
 import pss1inventarioscunoc.backend.dao.interfaces.InventarioDAO;
 import pss1inventarioscunoc.backend.pojos.Bien;
+import pss1inventarioscunoc.backend.pojos.Factura;
+import pss1inventarioscunoc.backend.pojos.Proveedor;
 
 /**
  *
@@ -43,6 +45,7 @@ public class ControladorBien {
      * false si no lo ha insertado
      *
      * @param bien
+     * @param tempCur
      * @return
      */
     public boolean actualizarBien(Bien bien, String tempCur) {
@@ -52,41 +55,58 @@ public class ControladorBien {
     /**
      * Regresa todos los bienes del sistema
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienes() {
-        return (ArrayList<Bien>) bienDao.recuperarLista();
+    public ArrayList<Bien> consultarBienes(char estado) {
+        return (ArrayList<Bien>) bienDao.recuperarLista(estado);
+    }
+    
+    /**
+     * Regresa todos los bienes del sistema
+     *
+     * @param estado
+     * @return
+     */
+    public ArrayList<Bien> consultarBienesNoAsignados(char estado) {
+        return (ArrayList<Bien>) bienDao.recuperarListaNoAsignados(estado);
     }
 
     /**
      * Regresa todos los bienes por DONACION del sistema, null si existiera un
      * error
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienDonacion() {
-        return (ArrayList<Bien>) bienDao.consultarBienDonacion();
+    public ArrayList<Bien> consultarBienDonacion(char estado) {
+        return (ArrayList<Bien>) bienDao.consultarBienDonacion(estado);
     }
+    
 
     /**
      * Regresa todos los bienes por TRASLADO del sistema, null si existiera un
      * error
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienTraslado() {
-        return (ArrayList<Bien>) bienDao.consultarBienTraslado();
+    public ArrayList<Bien> consultarBienTraslado(char estado) {
+        return (ArrayList<Bien>) bienDao.consultarBienTraslado(estado);
     }
+    
 
     /**
      * Regresa todos los bienes por COMPRA del sistema, null si existiera un
      * error
      *
+     * @param estado
      * @return
      */
-    public ArrayList<Bien> consultarBienCompra() {
-        return (ArrayList<Bien>) bienDao.consultarBienCompra();
+    public ArrayList<Bien> consultarBienCompra(char estado) {
+        return (ArrayList<Bien>) bienDao.consultarBienCompra(estado);
     }
+    
 
     /**
      * Se traslada un bien ya existente
@@ -105,6 +125,8 @@ public class ControladorBien {
     /**
      * Se verifican si los datos(generales) tipo cadena de bien se han ingresado
      *
+     * @param inventario
+     * @param factura
      * @param cur
      * @param procedencia
      * @param descripcion
@@ -112,7 +134,7 @@ public class ControladorBien {
      * @param valor
      * @return
      */
-    public boolean verificarValoresGenerales(String cur, String procedencia, String descripcion, String division, String valor) {
+    public boolean verificarValoresGenerales(String inventario,String factura,String cur, String procedencia, String descripcion, String division, String valor) {
         if (cur.isEmpty() || procedencia.isEmpty() || descripcion.isEmpty() || division.isEmpty() || valor.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Faltan datos obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return false;
@@ -133,6 +155,20 @@ public class ControladorBien {
             JOptionPane.showMessageDialog(null, "Division solo debe tener como 70 maximo  caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return false;
         }
+        if (inventario.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un Inventario para registrar el Bien", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (factura.isEmpty()) {
+            int input = JOptionPane.showConfirmDialog(null, "¿Esta seguro de guardar este bien sin antes asociarle una factura?");
+            // 0=yes, 1=no, 2=cancel
+            if (input!=0) {
+                return false;
+            }
+            
+        }
+        
         return verificarDatoNumerico(valor);
     }
 
@@ -202,4 +238,6 @@ public class ControladorBien {
         }
         return true;
     }
+    
+    
 }

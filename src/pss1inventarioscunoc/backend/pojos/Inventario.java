@@ -25,6 +25,15 @@ public class Inventario {
         this.fechaFinalizacion = fechaFinalizacion;
     }
     
+    /**
+     * A la hora de iniciar sesion se le asignara un inventario 0, el cual no existe en la bd,
+     * cambiara cuando el usuario escoja el inventario que desea
+     *  
+     */
+    public Inventario(){
+        this.numero=0;
+    }
+    
     public int getNumero() {
         return numero;
     }

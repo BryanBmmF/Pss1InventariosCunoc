@@ -37,6 +37,21 @@ public class ControladorUser {
         }
 
     }
+    
+    /**
+     * Permite actualizar datos de un Usuario a la base de datos
+     *
+     * @param usuario
+     * @param temp
+     */
+    public void actualizar(Usuario usuario, String temp) {
+        if (usuarioDao.actualizar(usuario,temp)) {
+            JOptionPane.showMessageDialog(null, "Usuario Actualizado correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha podido actualizar los datos del usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
 
     /**
      * Permite buscar un usuario en especifico. Si el usuario no es encontrado
@@ -54,7 +69,7 @@ public class ControladorUser {
      * @return 
      */
     public List<Usuario> busquedaUsuarios(){
-        return usuarioDao.recuperarLista();
+        return usuarioDao.recuperarLista('e');
     }
     
     /**

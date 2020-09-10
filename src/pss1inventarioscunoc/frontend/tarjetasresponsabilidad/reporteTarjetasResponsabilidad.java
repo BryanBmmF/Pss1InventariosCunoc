@@ -33,8 +33,6 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
     private ControladorTarjetaResponsabilidad controlador = null;
     private boolean tableSelected = false;
 
-    public static final String PROP_NOMBRE = "nombre";
-
     
     /**
      * Creates new form ValidacionEncargado
@@ -45,7 +43,7 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
                 listadoTarjetaResponsabilidades);
         this.controlador = new ControladorTarjetaResponsabilidad();
         initComponents();
-        this.setName("Validacion");
+        this.setName("Reporte");
         this.actualizarLista();
     }
 
@@ -95,26 +93,23 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
         columnBinding.setColumnName("Id");
         columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaApertura}"));
-        columnBinding.setColumnName("Fecha Apertura");
-        columnBinding.setColumnClass(java.sql.Timestamp.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${curBien}"));
+        columnBinding.setColumnName("Bien");
+        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
         columnBinding.setColumnName("Descripcion");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${curBien}"));
-        columnBinding.setColumnName("Cur Bien");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${noFactura}"));
-        columnBinding.setColumnName("No Factura");
-        columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaFactura}"));
-        columnBinding.setColumnName("Fecha Factura");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaApertura}"));
+        columnBinding.setColumnName("Apertura");
         columnBinding.setColumnClass(java.sql.Timestamp.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${noFactura}"));
+        columnBinding.setColumnName("Factura");
+        columnBinding.setColumnClass(Long.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idResponsable}"));
-        columnBinding.setColumnName("Id Responsable");
+        columnBinding.setColumnName("Responsable");
         columnBinding.setColumnClass(Long.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProveedor}"));
-        columnBinding.setColumnName("Id Proveedor");
+        columnBinding.setColumnName("Proveedor");
         columnBinding.setColumnClass(Long.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedTarjetaResp}"), tablaTarjetasResponsabilidad, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
@@ -134,7 +129,7 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
             .addGroup(panelValidacionLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelValidacionLayout.createSequentialGroup()
                         .addGroup(panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelValidacionLayout.createSequentialGroup()
@@ -144,17 +139,17 @@ public class reporteTarjetasResponsabilidad extends javax.swing.JPanel {
                                 .addGap(202, 202, 202)
                                 .addComponent(jLabel3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
         panelValidacionLayout.setVerticalGroup(
             panelValidacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelValidacionLayout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addGap(27, 27, 27)
                 .addComponent(actualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

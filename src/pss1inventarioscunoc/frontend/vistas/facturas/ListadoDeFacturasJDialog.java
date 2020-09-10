@@ -14,6 +14,8 @@ import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorFactura;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Factura;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
+import pss1inventarioscunoc.frontend.vistas.ConsultaBienes;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 
 /**
@@ -28,6 +30,8 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
     public ObservableList<Factura> listaObservableFacturas;
     private Factura factura;
     private BienesJPanel1 bienPanel;
+    private ConsultaBienes consultaBienes;
+    private ModificacionTarjetaResponsabilidad mtr;
 
     /**
      * Creates new form listadoDeFacturasJDialog
@@ -40,7 +44,35 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
         this.listaFacturas = new LinkedList<>();
         this.listaObservableFacturas = ObservableCollections.observableList(listaFacturas);
         actualizarLista(controlador.buscarFacturas());
+        this.consultaBienes = null;
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+
+    public ListadoDeFacturasJDialog(java.awt.Frame parent, boolean modal, ConsultaBienes consultaBienes) {
+        super(parent, modal);
+        this.consultaBienes = consultaBienes;
+        this.controlador = new ControladorFactura();
+        this.factura = null;
+        this.listaFacturas = new LinkedList<>();
+        this.listaObservableFacturas = ObservableCollections.observableList(listaFacturas);
+        actualizarLista(controlador.buscarFacturas());
+        this.bienPanel = null;
+        initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public ListadoDeFacturasJDialog(java.awt.Frame parent, boolean modal, ModificacionTarjetaResponsabilidad mtr) {
+        super(parent, modal);
+        this.mtr = mtr;
+        this.controlador = new ControladorFactura();
+        this.factura = null;
+        this.listaFacturas = new LinkedList<>();
+        this.listaObservableFacturas = ObservableCollections.observableList(listaFacturas);
+        actualizarLista(controlador.buscarFacturas());
+        this.bienPanel = null;
+        initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -153,10 +185,11 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(opcionBusquedajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(proveedorTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buscarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(proveedorTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(fecha1jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(fecha2jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -184,9 +217,17 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void seleccionarFacturajButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarFacturajButton1ActionPerformed
-
-        this.bienPanel.setFactura(this.factura);
-        this.bienPanel.getFacturaTextField10().setText(this.factura.getDescripcion());
+        if (bienPanel != null) {
+            this.bienPanel.setFactura(this.factura);
+            this.bienPanel.getFacturaTextField10().setText(this.factura.getDescripcion());
+        } else if (mtr != null){
+            this.mtr.setSelectedFactura(factura);
+            this.mtr.getNoFacturaTextField().setText(Integer.toString(mtr.getSelectedFactura().getIdFactura()));
+            this.mtr.setFacturaButtonSelected(true);
+        } else{
+            this.consultaBienes.setFactura(factura);
+            this.consultaBienes.getFacturaTextField10().setText(this.factura.getDescripcion());
+        }
 
         JOptionPane.showMessageDialog(this, "Descripcion factura seleccionada:" + this.factura.getDescripcion());
         this.dispose();
@@ -242,7 +283,7 @@ public class ListadoDeFacturasJDialog extends javax.swing.JDialog {
     public Vista getVista() {
         return vista;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarButton1;

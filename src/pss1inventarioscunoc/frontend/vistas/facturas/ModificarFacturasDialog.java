@@ -31,7 +31,9 @@ public class ModificarFacturasDialog extends javax.swing.JDialog {
         this.factura = factura;
         this.controlador = new ControladorFactura();
         initComponents();
+        this.setLocationRelativeTo(null);
         iniciarCamposDeFactura();
+        
     }
 
     /**

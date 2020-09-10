@@ -5,9 +5,16 @@
  */
 package pss1inventarioscunoc.frontend.vistas.bienes;
 
+import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.jdesktop.observablecollections.ObservableCollections;
+import org.jdesktop.observablecollections.ObservableList;
 import pss1inventarioscunoc.backend.controladores.ControladorInventario;
+import pss1inventarioscunoc.backend.enums.TipoDeBien;
 import pss1inventarioscunoc.backend.enums.Vista;
+import pss1inventarioscunoc.backend.pojos.Inventario;
 
 /**
  *
@@ -18,13 +25,22 @@ public class ReporteDeBiens extends javax.swing.JPanel {
     private ControladorInventario controlador;
     private Vista vista = Vista.REPORTE_BIENS_1;
 
+    public List<Inventario> listaInventarios;
+    public ObservableList<Inventario> listaObservableInventarios;
+    private Inventario inventarioSeleccionado;
+
     /**
      * Creates new form ReporteDeBiens
      */
     public ReporteDeBiens() {
         this.setName("Total en Inventario");
         this.controlador = new ControladorInventario();
+        this.listaInventarios = new LinkedList<>();
+        this.listaObservableInventarios = ObservableCollections.observableList(listaInventarios);
+        this.inventarioSeleccionado = null;
+        actualizarLista(controlador.recuperarInventarios());
         initComponents();
+        this.reporteInventariojEditorPane.setContentType("text/html");
     }
 
     /**
@@ -35,92 +51,174 @@ public class ReporteDeBiens extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        totalTextField1 = new javax.swing.JTextField();
-        buscarTotalButton = new javax.swing.JButton();
-        tipojComboBox1 = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
+        descripcionTextField1 = new javax.swing.JTextField();
+        buscarPorFechaButton = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inventariosjTable = new javax.swing.JTable();
+        fechaInicio = new com.toedter.calendar.JDateChooser();
+        fechaFinal = new com.toedter.calendar.JDateChooser();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        reporteInventariojEditorPane = new javax.swing.JEditorPane();
+        jLabel17 = new javax.swing.JLabel();
+        buscarTotalButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Total:");
+        jLabel12.setText("Busqueda por descripcion:");
 
-        totalTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        totalTextField1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        totalTextField1.setForeground(new java.awt.Color(0, 0, 102));
-        totalTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        totalTextField1.setEnabled(false);
-        totalTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalTextField1ActionPerformed(evt);
+        descripcionTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        descripcionTextField1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        descripcionTextField1.setForeground(new java.awt.Color(0, 0, 102));
+        descripcionTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        descripcionTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descripcionTextField1KeyPressed(evt);
             }
         });
 
-        buscarTotalButton.setBackground(new java.awt.Color(0, 204, 204));
-        buscarTotalButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        buscarTotalButton.setForeground(new java.awt.Color(255, 255, 255));
-        buscarTotalButton.setText("Buscar total");
-        buscarTotalButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        buscarTotalButton.addActionListener(new java.awt.event.ActionListener() {
+        buscarPorFechaButton.setBackground(new java.awt.Color(0, 204, 204));
+        buscarPorFechaButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        buscarPorFechaButton.setForeground(new java.awt.Color(255, 255, 255));
+        buscarPorFechaButton.setText("Busqueda por fecha");
+        buscarPorFechaButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buscarPorFechaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarTotalButtonActionPerformed(evt);
+                buscarPorFechaButtonActionPerformed(evt);
             }
         });
-
-        tipojComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activos", "DeBaja" }));
-
-        jLabel13.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Tipo:");
 
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("TOTAL INGRESOS INVENTARIO CONTABILIDAD");
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${listaObservableInventarios}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, inventariosjTable);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
+        columnBinding.setColumnName("Descripcion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaInicio}"));
+        columnBinding.setColumnName("Fecha Inicio");
+        columnBinding.setColumnClass(java.sql.Timestamp.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaFinalizacion}"));
+        columnBinding.setColumnName("Fecha Finalizacion");
+        columnBinding.setColumnClass(java.sql.Timestamp.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${unidadAcademica}"));
+        columnBinding.setColumnName("Unidad Academica");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${inventarioSeleccionado}"), inventariosjTable, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane1.setViewportView(inventariosjTable);
+
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Resultado");
+
+        jLabel16.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Fecha inicial:");
+
+        reporteInventariojEditorPane.setEditable(false);
+        jScrollPane2.setViewportView(reporteInventariojEditorPane);
+
+        jLabel17.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Fecha final:");
+
+        buscarTotalButton1.setBackground(new java.awt.Color(0, 204, 204));
+        buscarTotalButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        buscarTotalButton1.setForeground(new java.awt.Color(255, 255, 255));
+        buscarTotalButton1.setText("Ver total");
+        buscarTotalButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buscarTotalButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarTotalButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(totalTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(18, 18, 18)
-                                .addComponent(tipojComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(buscarTotalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buscarTotalButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(buscarPorFechaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(41, 41, 41)))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(descripcionTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel16))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addContainerGap(24, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(363, 363, 363)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
                         .addComponent(jLabel14)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel14)
                 .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(tipojComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarTotalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addComponent(jLabel14)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(buscarPorFechaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(descripcionTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buscarTotalButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -133,28 +231,30 @@ public class ReporteDeBiens extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarTotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTotalButtonActionPerformed
-        String tipo = this.tipojComboBox1.getSelectedItem().toString();
-        double valor;
-        if (tipo.equalsIgnoreCase("Activos")) {
-            valor = controlador.buscarTotalDeInventariuoDeAlta();
-        } else {
-            valor = controlador.buscarTotalDeInventarioDeBaja();
-        }
-        if(valor==-1){
-            JOptionPane.showMessageDialog(null, "No se puedo consultar el total", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-            this.totalTextField1.setText(String.valueOf(valor));
-        }
-//Activos, DeBaja
+    private void buscarTotalButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTotalButton1ActionPerformed
+        calcularCifrasInventario();
+    }//GEN-LAST:event_buscarTotalButton1ActionPerformed
 
-    }//GEN-LAST:event_buscarTotalButtonActionPerformed
-    
-    private void totalTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalTextField1ActionPerformed
+    private void buscarPorFechaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPorFechaButtonActionPerformed
+        if (fechaInicio.getDate() == null || fechaFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar las fechas", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            actualizarLista(controlador.buscarInventarioPorRangoDeFecha(new Timestamp(fechaInicio.getDate().getTime()), new Timestamp(fechaFinal.getDate().getTime())));
+        }
+        //Activos, DeBaja
+    }//GEN-LAST:event_buscarPorFechaButtonActionPerformed
+
+    private void descripcionTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcionTextField1KeyPressed
+        if (descripcionTextField1.getText().isEmpty()) {
+            actualizarLista(controlador.recuperarInventarios());
+        } else {
+            actualizarLista(controlador.buscarInventarioPorDescripcion(this.descripcionTextField1.getText()));
+        }
+    }//GEN-LAST:event_descripcionTextField1KeyPressed
 
     public Vista getVista() {
         return vista;
@@ -163,15 +263,136 @@ public class ReporteDeBiens extends javax.swing.JPanel {
     public void setVista(Vista vista) {
         this.vista = vista;
     }
-    
-    
+
+    public ObservableList<Inventario> getListaObservableInventarios() {
+        return listaObservableInventarios;
+    }
+
+    public void setListaObservableInventarios(ObservableList<Inventario> listaObservableInventarios) {
+        this.listaObservableInventarios = listaObservableInventarios;
+    }
+
+    public Inventario getInventarioSeleccionado() {
+        return inventarioSeleccionado;
+    }
+
+    public void setInventarioSeleccionado(Inventario inventario) {
+        if (inventario != null) {
+            this.inventarioSeleccionado = inventario;
+            this.buscarTotalButton1.setEnabled(true);
+        } else {
+            this.buscarTotalButton1.setEnabled(false);
+            this.inventarioSeleccionado = null;
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buscarTotalButton;
+    private javax.swing.JButton buscarPorFechaButton;
+    private javax.swing.JButton buscarTotalButton1;
+    private javax.swing.JTextField descripcionTextField1;
+    private com.toedter.calendar.JDateChooser fechaFinal;
+    private com.toedter.calendar.JDateChooser fechaInicio;
+    private javax.swing.JTable inventariosjTable;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> tipojComboBox1;
-    private javax.swing.JTextField totalTextField1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JEditorPane reporteInventariojEditorPane;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarLista(List<Inventario> listado) {
+        listaObservableInventarios.clear();
+        listaObservableInventarios.addAll((List<Inventario>) (List<?>) listado);
+    }
+
+    private void calcularCifrasInventario() {
+        int totalBienesActivos = controlador.sumarTodosLosBienesActivosDeUnInventario(inventarioSeleccionado.getNumero());
+        int totalBienesDeBaja = controlador.sumarTodosLosBienesDeBajaDeUnInventario(inventarioSeleccionado.getNumero());
+        //Tipo de bienes de alta
+        int totalCompraActivo = controlador.sumarBienesActivosPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA);
+        int elementosActivosCompra = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA, "1");
+
+        int totalDonacionActivo = controlador.sumarBienesActivosPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION);
+        int elementosActivosDonacion = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION, "1");
+
+        int totalTrasladoActivo = controlador.sumarBienesActivosPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO);
+        int elementosActivosTraslado = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO, "1");
+
+        int totalActivos = elementosActivosCompra + elementosActivosDonacion + elementosActivosTraslado;
+        //Tipos de bienes de baja
+        int totalCompraDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA);
+        int elementosDeBajaCompra = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.COMPRA, "0");
+
+        int totalDonacionDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION);
+        int elementosDeBajaDonacion = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.DONACION, "0");
+
+        int totalTrasladoDeBaja = controlador.sumarBienesDeBajaPorTipo(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO);
+        int elementosDeBajaTraslado = controlador.buscarTotalDeBienesDeInventario(inventarioSeleccionado.getNumero(), TipoDeBien.TRASLADO, "0");
+
+        int totalDeBaja = elementosDeBajaCompra + elementosDeBajaDonacion + elementosDeBajaTraslado;
+
+        this.reporteInventariojEditorPane.setText("<table style=\"width:100%\">\n"
+                + "  <tr>\n"
+                + "    <th>Estado</th>\n"
+                + "    <th>Tipo</th>\n"
+                + "    <th>Cantidad Q</th>\n"
+                + "   <th>No. Elementos Q</th>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Todos</td>\n"
+                + "    <td>" + totalBienesActivos + "</td>\n"
+                + "    <td>" + totalActivos + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Compra</td>\n"
+                + "    <td>" + totalCompraActivo + "</td>\n"
+                + "    <td>" + elementosActivosCompra + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Donacion</td>\n"
+                + "    <td>" + totalDonacionActivo + "</td>\n"
+                + "    <td>" + elementosActivosDonacion + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>Activo</td>\n"
+                + "    <td>Traslado</td>\n"
+                + "    <td>" + totalTrasladoActivo + "</td>\n"
+                + "    <td>" + elementosActivosTraslado + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Todos</td>\n"
+                + "    <td>" + totalBienesDeBaja + "</td>\n"
+                + "    <td>" + totalDeBaja + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Compra</td>\n"
+                + "    <td>" + totalCompraDeBaja + "</td>\n"
+                + "    <td>" + elementosDeBajaCompra + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Donacion</td>\n"
+                + "    <td>" + totalDonacionDeBaja + "</td>\n"
+                + "    <td>" + elementosDeBajaDonacion + "</td>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>De baja</td>\n"
+                + "    <td>Traslado</td>\n"
+                + "    <td>" + totalTrasladoDeBaja + "</td>\n"
+                + "    <td>" + elementosDeBajaTraslado + "</td>\n"
+                + "  </tr>\n"
+                + "</table>");
+    }
+
 }

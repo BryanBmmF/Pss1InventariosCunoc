@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import pss1inventarioscunoc.Pss1InventariosCunoc;
 import pss1inventarioscunoc.backend.bd.Conexion;
 import pss1inventarioscunoc.backend.controladores.ControladorBien;
+import pss1inventarioscunoc.backend.controladores.ControladorInventario;
 import pss1inventarioscunoc.backend.dao.interfaces.BienDAO;
 import pss1inventarioscunoc.backend.enums.TipoDeBien;
 import pss1inventarioscunoc.backend.pojos.Bien;
@@ -42,7 +43,7 @@ public class ImplementacionBien implements BienDAO {
         prepStatement.setString(6, model.getTipo().toString());
         prepStatement.setDouble(7, model.getValor());
         prepStatement.setString(8, model.getDivision());
-        //System.out.println(prepStatement.toString());
+        System.out.println("BIEN:\n\n"+prepStatement.toString()+"\n");
         prepStatement.executeUpdate();
         prepStatement.close();
 
@@ -61,7 +62,7 @@ public class ImplementacionBien implements BienDAO {
         prepStatement.setString(5, model.getTipo().toString());
         prepStatement.setDouble(6, model.getValor());
         prepStatement.setString(7, model.getDivision());
-        //System.out.println(prepStatement.toString());
+        System.out.println("Bien:\n\n"+prepStatement.toString()+"\n");
         prepStatement.executeUpdate();
         prepStatement.close();
 
@@ -89,7 +90,7 @@ public class ImplementacionBien implements BienDAO {
                 prepStatement.setString(3, String.valueOf(model.getAutorizacion()));
                 prepStatement.setString(4, model.getSeccion());
                 prepStatement.setString(5, model.getPersonaQueRecibio());
-                System.out.println(prepStatement.toString());
+                System.out.println("Bien Traslado:\n\n"+prepStatement.toString()+"\n");
                 prepStatement.executeUpdate();
                 prepStatement.close();
             } else if (model.getTipo() == TipoDeBien.DONACION) {
@@ -98,7 +99,7 @@ public class ImplementacionBien implements BienDAO {
                 prepStatement.setString(2, model.getPunto());
                 prepStatement.setInt(3, model.getNumeroActa());
                 prepStatement.setString(4, model.getCur());
-                System.out.println(prepStatement.toString());
+                System.out.println("Bien Donacion:\n\n"+prepStatement.toString()+"\n");
                 prepStatement.executeUpdate();
                 prepStatement.close();
             }
@@ -112,10 +113,11 @@ public class ImplementacionBien implements BienDAO {
     /**
      * Se devuelven todos los bienes
      *
+     * @param estado
      * @return
      */
     @Override
-    public List<Bien> recuperarLista() {
+    public List<Bien> recuperarLista(char estado) {
         
         /* para pruebas
         bienes.add(new Bien("cur6pk6",3,"Procedencia3",'1',"descripcion",TipoDeBien.COMPRA,200,"Ciencias Economicas"));
@@ -128,11 +130,15 @@ public class ImplementacionBien implements BienDAO {
         */
         ArrayList<Bien> bienes = new ArrayList<>();
         ResultSet resAux;
+        
+        
         PreparedStatement prepAux;
         Bien bien;
         TipoDeBien tipo;
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TODOS_LOS_BIENES);
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
             result = prepStatement.executeQuery();
             while (result.next()) {
                 //Busco el tipo de bien    
@@ -180,6 +186,74 @@ public class ImplementacionBien implements BienDAO {
         
         return bienes;
     }
+    
+    /**
+     * Se devuelven todos los bienes
+     *
+     * @param estado
+     * @return
+     */
+    @Override
+    public List<Bien> recuperarListaNoAsignados(char estado) {
+        
+        ArrayList<Bien> bienes = new ArrayList<>();
+        ResultSet resAux;
+        PreparedStatement prepAux;
+        Bien bien;
+        TipoDeBien tipo;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_TODOS_LOS_BIENES_NO_ASIGNADOS);
+            prepStatement.setString(1, String.valueOf(estado)); //enviando estado
+            result = prepStatement.executeQuery();
+            while (result.next()) {
+                //Busco el tipo de bien    
+                if (result.getString("tipo").equalsIgnoreCase(TipoDeBien.DONACION.toString())) {
+                    tipo = TipoDeBien.DONACION;
+                } else if (result.getString("tipo").equalsIgnoreCase(TipoDeBien.TRASLADO.toString())) {
+                    tipo = TipoDeBien.TRASLADO;
+                } else {
+                    tipo = TipoDeBien.COMPRA;
+                }
+                //Lleno el bien
+                bien = new Bien(result.getString(1), result.getInt(2), 
+                        result.getString(3), result.getString(4).charAt(0), 
+                        result.getString(5), tipo, result.getDouble(7), result.getString(8));
+                if (tipo == TipoDeBien.DONACION) {
+                    prepAux = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_DONACION_POR_CUR);
+                    prepAux.setString(1, result.getString("cur"));
+                    resAux = prepAux.executeQuery();
+                    resAux.next();
+                    //Le seteo las partes de donacion
+                    bien.setCorrelativo(resAux.getInt(1));
+                    bien.setPunto(resAux.getString(2));
+                    bien.setNumeroActa(resAux.getInt(3));
+                    prepAux.close();
+                    resAux.close();
+                } else if (tipo == TipoDeBien.TRASLADO) {
+                    prepAux = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_TRASLADO_POR_CUR);
+                    prepAux.setString(1, result.getString("cur"));
+                    resAux = prepAux.executeQuery();
+                    resAux.next();
+                    //Le seteo las partes de TRASLADO
+                    bien.setFecha(resAux.getTimestamp(1));
+                    bien.setAutorizacion(resAux.getString(2).charAt(0));
+                    bien.setSeccion(resAux.getString(3));
+                    bien.setPersonaQueRecibio(resAux.getString(4));
+                    prepAux.close();
+                    resAux.close();
+                }
+                bienes.add(bien);
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+        return bienes;
+    }
+    
      /**
      * Se actualiza un bien
      *
@@ -205,7 +279,7 @@ public class ImplementacionBien implements BienDAO {
                 prepStatement.setString(11, String.valueOf(model.getAutorizacion()));
                 prepStatement.setString(12, model.getSeccion());
                 prepStatement.setString(13, model.getPersonaQueRecibio());
-                prepStatement.setInt(14, Pss1InventariosCunoc.getInventario().getNumero());
+                prepStatement.setInt(14, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
                 System.out.println(prepStatement.toString());
                 prepStatement.executeUpdate();
                 prepStatement.close();
@@ -223,7 +297,7 @@ public class ImplementacionBien implements BienDAO {
                 prepStatement.setInt(10, model.getCorrelativo());
                 prepStatement.setString(11, model.getPunto());
                 prepStatement.setInt(12, model.getNumeroActa());
-                prepStatement.setInt(13, Pss1InventariosCunoc.getInventario().getNumero());
+                prepStatement.setInt(13, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
                 System.out.println(prepStatement.toString());
                 prepStatement.executeUpdate();
                 prepStatement.close();
@@ -238,13 +312,13 @@ public class ImplementacionBien implements BienDAO {
                     prepStatement.setString(7, model.getTipo().toString());
                     prepStatement.setDouble(8, model.getValor());
                     prepStatement.setString(9, model.getDivision());
-                    prepStatement.setInt(10, Pss1InventariosCunoc.getInventario().getNumero());
+                    prepStatement.setInt(10, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
                     //System.out.println(prepStatement.toString());
                     prepStatement.executeUpdate();
                     prepStatement.close();
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             return false;
         }
         return true;
@@ -258,16 +332,20 @@ public class ImplementacionBien implements BienDAO {
     /**
      * Devuelve los bienes de donacion, null si existiera error
      *
+     * @param estado
      * @return
      */
     @Override
-    public ArrayList<Bien> consultarBienDonacion() {
+    public ArrayList<Bien> consultarBienDonacion(char estado) {
         ArrayList<Bien> bienes = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_DONACION);
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
+            System.out.println(prepStatement);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.DONACION, result.getDouble(7), result.getString(8), result.getInt(10), result.getString(11), result.getInt(12)));
+                bienes.add(new Bien(result.getString("cur"), result.getInt("id_Factura"), result.getString("procedencia"), result.getString("estado").charAt(0), result.getString("descripcion"), TipoDeBien.DONACION, result.getDouble("valor"), result.getString("division"), result.getInt("correlativo"), result.getString("punto"), result.getInt("numero_acta")));
             }
             prepStatement.close();
             result.close();
@@ -281,16 +359,20 @@ public class ImplementacionBien implements BienDAO {
     /**
      * Devuelve los bienes de traslado,null si existiera error
      *
+     * @param estado
      * @return
      */
     @Override
-    public ArrayList<Bien> consultarBienTraslado() {
+    public ArrayList<Bien> consultarBienTraslado(char estado) {
         ArrayList<Bien> bienes = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_TRASLADO);
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
+            System.out.println(prepStatement);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.TRASLADO, result.getDouble(7), result.getString(8), result.getTimestamp(11), result.getString(12).charAt(0), result.getString(13), result.getString(14)));
+                bienes.add(new Bien(result.getString("cur"), result.getInt("id_Factura"), result.getString("procedencia"), result.getString("estado").charAt(0), result.getString("descripcion"), TipoDeBien.TRASLADO, result.getDouble("valor"), result.getString("division"), result.getTimestamp("fecha"), result.getString("autorizacion").charAt(0), result.getString("seccion"), result.getString("persona_que_recibio")));
             }
             prepStatement.close();
             result.close();
@@ -302,10 +384,13 @@ public class ImplementacionBien implements BienDAO {
     }
 
     @Override
-    public ArrayList<Bien> consultarBienCompra() {
+    public ArrayList<Bien> consultarBienCompra(char estado) {
         ArrayList<Bien> bienes = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(CONSULTAR_BIEN_POR_COMPRA);
+            prepStatement.setInt(1, ControladorInventario.INVENTARIO_ACTUAL.getNumero());
+            prepStatement.setString(2, String.valueOf(estado)); //enviando estado
+            System.out.println(prepStatement);
             result = prepStatement.executeQuery();
             while (result.next()) {
                 bienes.add(new Bien(result.getString(1), result.getInt(2), result.getString(3), result.getString(4).charAt(0), result.getString(5), TipoDeBien.COMPRA, result.getDouble(7), result.getString(8)));

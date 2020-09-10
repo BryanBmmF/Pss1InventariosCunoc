@@ -74,7 +74,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         panelValidacion = new javax.swing.JPanel();
@@ -113,7 +112,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         puntoTextField13 = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         numeroActaTextField14 = new javax.swing.JTextField();
-        tarjetaDeResponsabilidadButton = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -121,10 +119,7 @@ public class BienesJPanel1 extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(51, 119, 180));
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Bienes");
 
         jScrollPane2.setBackground(new java.awt.Color(51, 119, 180));
@@ -134,33 +129,26 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Ingreso de datos del bien");
 
         jPanel8.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel18.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Cur*:");
 
         jLabel19.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Procedencia*:");
 
         jLabel20.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Descripcion*:");
 
         jLabel22.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Valor*:");
 
         jLabel23.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Division*:");
 
         jLabel24.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Tipo*:");
 
         curTextField6.setBackground(new java.awt.Color(255, 255, 255));
@@ -192,7 +180,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
 
         guardarButton1.setBackground(new java.awt.Color(255, 153, 0));
         guardarButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        guardarButton1.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton1.setText("REGISTRAR BIEN");
         guardarButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         guardarButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +194,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         valorTextField10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel21.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Factura*:");
 
         facturaTextField10.setBackground(new java.awt.Color(255, 255, 255));
@@ -218,7 +204,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
 
         asignarFacturaButton2.setBackground(new java.awt.Color(0, 204, 204));
         asignarFacturaButton2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        asignarFacturaButton2.setForeground(new java.awt.Color(255, 255, 255));
         asignarFacturaButton2.setText("Asignar factura");
         asignarFacturaButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         asignarFacturaButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -230,15 +215,12 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         trasladoPanel.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel31.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setText("Bien por Traslado");
 
         jLabel32.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
         jLabel32.setText("Fecha:");
 
         jLabel33.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setText("Seccion:");
 
         seccionTextField17.setBackground(new java.awt.Color(255, 255, 255));
@@ -252,7 +234,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         receptorTextField16.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel34.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Receptor:");
 
         javax.swing.GroupLayout trasladoPanelLayout = new javax.swing.GroupLayout(trasladoPanel);
@@ -302,11 +283,9 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         donacionjPanel6.setBackground(new java.awt.Color(51, 119, 180));
 
         jLabel28.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Correlativo:");
 
         jLabel27.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("Bien por Donacion");
 
         correlativoTextField12.setBackground(new java.awt.Color(255, 255, 255));
@@ -315,7 +294,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         correlativoTextField12.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel29.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("Punto:");
 
         puntoTextField13.setBackground(new java.awt.Color(255, 255, 255));
@@ -324,7 +302,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         puntoTextField13.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel30.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Numero de acta:");
 
         numeroActaTextField14.setBackground(new java.awt.Color(255, 255, 255));
@@ -494,52 +471,28 @@ public class BienesJPanel1 extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(panelValidacion);
 
-        tarjetaDeResponsabilidadButton.setBackground(new java.awt.Color(0, 204, 204));
-        tarjetaDeResponsabilidadButton.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        tarjetaDeResponsabilidadButton.setForeground(new java.awt.Color(255, 255, 255));
-        tarjetaDeResponsabilidadButton.setText("IR A TARJETA DE RESPONSABILIDAD");
-        tarjetaDeResponsabilidadButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        tarjetaDeResponsabilidadButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tarjetaDeResponsabilidadButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tarjetaDeResponsabilidadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tarjetaDeResponsabilidadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -550,15 +503,20 @@ public class BienesJPanel1 extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void asignarFacturaButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarFacturaButton2ActionPerformed
+        ListadoDeFacturasJDialog listado = new ListadoDeFacturasJDialog(null, true, this);
+        listado.setVisible(true);
+    }//GEN-LAST:event_asignarFacturaButton2ActionPerformed
 
     private void guardarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButton1ActionPerformed
         //Validadndo valor
         String tipoDeBien = this.tipoBienComboBox.getSelectedItem().toString();
         int numeroFactura = ControladorBien.ID_FACTURA_INEXISTENTE;
-        boolean verValores = controlador.verificarValoresGenerales(curTextField6.getText(),procedenciaTextField5.getText(),descripcionTextField7.getText(),divisionTextField9.getText(),valorTextField10.getText());
+        boolean verValores = controlador.verificarValoresGenerales("---",facturaTextField10.getText(),curTextField6.getText(),procedenciaTextField5.getText(),descripcionTextField7.getText(),divisionTextField9.getText(),valorTextField10.getText());
         if (verValores) {
             if (factura != null) {
                 numeroFactura = factura.getIdFactura();
@@ -583,7 +541,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
             }
         }
 
-
     }//GEN-LAST:event_guardarButton1ActionPerformed
 
     private void tipoBienComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoBienComboBoxActionPerformed
@@ -601,15 +558,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
             desactivarPaneles();
         }
     }//GEN-LAST:event_tipoBienComboBoxActionPerformed
-
-    private void asignarFacturaButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarFacturaButton2ActionPerformed
-        ListadoDeFacturasJDialog listado = new ListadoDeFacturasJDialog(null, true, this);
-        listado.setVisible(true);
-    }//GEN-LAST:event_asignarFacturaButton2ActionPerformed
-
-    private void tarjetaDeResponsabilidadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaDeResponsabilidadButtonActionPerformed
-
-    }//GEN-LAST:event_tarjetaDeResponsabilidadButtonActionPerformed
 
     private void actualizarLista() {
 //        this.controlador.actualizarEncargadosValidacionEncargados(this);
@@ -648,7 +596,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField numeroActaTextField14;
     private javax.swing.JPanel panelValidacion;
@@ -656,7 +603,6 @@ public class BienesJPanel1 extends javax.swing.JPanel {
     private javax.swing.JTextField puntoTextField13;
     private javax.swing.JTextField receptorTextField16;
     private javax.swing.JTextField seccionTextField17;
-    private javax.swing.JButton tarjetaDeResponsabilidadButton;
     private javax.swing.JComboBox<String> tipoBienComboBox;
     private javax.swing.JPanel trasladoPanel;
     private javax.swing.JTextField valorTextField10;

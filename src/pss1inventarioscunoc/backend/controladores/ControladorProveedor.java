@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionProveedor;
 import pss1inventarioscunoc.backend.dao.interfaces.ProveedorDAO;
 import pss1inventarioscunoc.backend.pojos.Proveedor;
+import pss1inventarioscunoc.frontend.tarjetasresponsabilidad.ModificacionTarjetaResponsabilidad;
 
 /**
  *
@@ -16,6 +17,10 @@ import pss1inventarioscunoc.backend.pojos.Proveedor;
 public class ControladorProveedor {
 
     private ProveedorDAO proveedorDAO;
+    /*valores predeterminados de un bien sin se especifica una factura,
+        esto con el fin de que si despues se le quiera asociar una factura 
+        no tenga que borrar el bien y crearlo de nuevo*/
+    public static Proveedor proveedorPredetermindo;
 
     public ControladorProveedor() {
         this.proveedorDAO = new ImplementacionProveedor();
@@ -37,7 +42,7 @@ public class ControladorProveedor {
      * @return
      */
     public ArrayList<Proveedor> buscarProveedores() {
-        return (ArrayList<Proveedor>) proveedorDAO.recuperarLista();
+        return (ArrayList<Proveedor>) proveedorDAO.recuperarLista('e');
     }
 
     /**
@@ -120,4 +125,51 @@ public class ControladorProveedor {
         }
         return true;
     }
+    
+    /**
+     * ===== Metodos pertenecientes a GUI ModificacionTarjetaResponsabilidad =====
+     */
+    
+    public void actualizarProveedoresModificacionTarjetaResponsabilidad(ModificacionTarjetaResponsabilidad ceb){
+        ceb.getListaProveedoresObsr().clear();
+        ceb.getListaProveedoresObsr().addAll(this.buscarProveedores());
+    }
+    
+    public void tablaProveedoresMouseClickedModificacionTarjetaResponsabilidad(ModificacionTarjetaResponsabilidad ceb){
+        ceb.getSelectedProveedorLabel().setText(Integer.toString(ceb.getSelectedProveedor().getIdProveedor()));
+        ceb.setTableProveedoresSelected(true);
+    }
+    
+    /**
+     * Verifica que que el proveedor predeterminado no haya sido creado
+     *
+     * @return proveedor predetrminado
+     */
+    public Proveedor consultarProveedorPred() {
+        //verificando que el proveedor no este seteado ya
+        if (proveedorPredetermindo!=null) {
+            return proveedorPredetermindo;
+        } else {
+            /*sino esta ya en la BD hay que crearlo por defecto*/
+            proveedorPredetermindo = proveedorDAO.buscarProveedor("PROVEEDOR_UNICO_PREDETERMINADO");
+            
+            if (proveedorPredetermindo==null) {
+                proveedorPredetermindo = new Proveedor("PROVEEDOR_UNICO_PREDETERMINADO", "--------", "--------", "--------", "--------");
+                registrar(proveedorPredetermindo);
+                proveedorPredetermindo = proveedorDAO.buscarProveedor("PROVEEDOR_UNICO_PREDETERMINADO");
+            } 
+            System.out.println(""+proveedorPredetermindo.getNombreDeProveedor()+proveedorPredetermindo.getIdProveedor());
+            return proveedorPredetermindo;
+        }
+    }
+
+    public static Proveedor getProveedorPredetermindo() {
+        return proveedorPredetermindo;
+    }
+
+    public static void setProveedorPredetermindo(Proveedor proveedorPredetermindo) {
+        ControladorProveedor.proveedorPredetermindo = proveedorPredetermindo;
+    }
+ 
+    
 }

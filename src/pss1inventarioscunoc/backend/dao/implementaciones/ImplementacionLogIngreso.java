@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pss1inventarioscunoc.backend.bd.Conexion;
+import pss1inventarioscunoc.backend.controladores.ControladorLogIngreso;
 import pss1inventarioscunoc.backend.dao.interfaces.LogIngresoDAO;
 import pss1inventarioscunoc.backend.pojos.LogIngreso;
 
@@ -38,6 +39,7 @@ public class ImplementacionLogIngreso implements LogIngresoDAO {
             prepStatement.setString(2, model.getTipo());
             prepStatement.setString(3, model.getIdUsuario());
             prepStatement.setString(4, model.getDeescripcion());
+            System.out.println(prepStatement.toString());
             prepStatement.executeUpdate();
             prepStatement.close();
             return true;
@@ -48,7 +50,7 @@ public class ImplementacionLogIngreso implements LogIngresoDAO {
     }
 
     @Override
-    public List<LogIngreso> recuperarLista() {
+    public List<LogIngreso> recuperarLista(char estado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -77,6 +79,25 @@ public class ImplementacionLogIngreso implements LogIngresoDAO {
             ex.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public ArrayList<String> buscarLogEvento() {
+        ArrayList<String> logs = new ArrayList<>();
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(COSULTAR_LOG_EVENTO);
+            prepStatement.setInt(1, ControladorLogIngreso.LOG_DE_SESION.getId());
+            result=prepStatement.executeQuery();
+            while(result.next()){
+                logs.add(result.getString(1));
+            }
+            prepStatement.close();
+            result.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return logs;
     }
 
 }

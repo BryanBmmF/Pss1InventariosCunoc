@@ -7,7 +7,13 @@ package pss1inventarioscunoc.backend.controladores;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import pss1inventarioscunoc.backend.dao.implementaciones.ImplementacionFactura;
 import pss1inventarioscunoc.backend.dao.interfaces.FacturaDAO;
@@ -21,6 +27,10 @@ import pss1inventarioscunoc.backend.pojos.Proveedor;
 public class ControladorFactura {
 
     private FacturaDAO facturaDao;
+    /*valores predeterminados de un bien sin se especifica una factura,
+        esto con el fin de que si despues se le quiera asociar una factura 
+        no tenga que borrar el bien y crearlo de nuevo*/
+    public static Factura facturaPredeterminda;
 
     public ControladorFactura() {
         facturaDao = new ImplementacionFactura();
@@ -63,7 +73,7 @@ public class ControladorFactura {
      * @return
      */
     public ArrayList<Factura> buscarFacturas() {
-        return (ArrayList<Factura>) facturaDao.recuperarLista();
+        return (ArrayList<Factura>) facturaDao.recuperarLista('e');
     }
 
     /**
@@ -147,4 +157,49 @@ public class ControladorFactura {
             return new Factura(-1, Integer.valueOf(numeroDeFactura), new Timestamp(fecha.getTime()), descripcion, Double.parseDouble(valor));
         }
     }
+    
+    /**
+     * Verifica que que la factura predeterminada no haya sido creada
+     *
+     * @return factura predetrminada
+     */
+    public Factura consultarFacturaPred() {
+        //verificando que la factura no este seteada ya
+        if (facturaPredeterminda!=null) {
+            return facturaPredeterminda;
+        } else {
+            /*sino esta ya en la BD hay que crearlo por defecto*/
+            facturaPredeterminda= facturaDao.buscarFacturaPorDescripcion("FACTURA_UNICA_PREDETERMINADA");
+            if (facturaPredeterminda==null) {
+                    String pattern = "yyyy-MM-dd HH:mm:ss";
+                    String timestampAsString = "2018-01-01 00:00:00";
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                    LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(timestampAsString));
+                    Timestamp timestamp = Timestamp.valueOf(localDateTime);
+                    
+                    System.out.println("proveedor: "+ControladorProveedor.getProveedorPredetermindo().getIdProveedor());
+                    facturaPredeterminda = new Factura(ControladorProveedor.getProveedorPredetermindo().getIdProveedor(), 0, timestamp, "FACTURA_UNICA_PREDETERMINADA", 0);
+                    registrarFacturaConProveedor(facturaPredeterminda);
+                    facturaPredeterminda= facturaDao.buscarFacturaPorDescripcion("FACTURA_UNICA_PREDETERMINADA");
+            } 
+            return facturaPredeterminda;
+        }
+    }
+
+    public ArrayList<Factura> buscarFacturaPorId(int id){
+        ArrayList<Factura> lista = new ArrayList<>();
+        lista.add(facturaDao.buscarFacturaPorId(id));
+        return lista;
+    }
+    
+    public static Factura getFacturaPredeterminda() {
+        return facturaPredeterminda;
+    }
+
+    public static void setFacturaPredeterminda(Factura facturaPredeterminda) {
+        ControladorFactura.facturaPredeterminda = facturaPredeterminda;
+    }
+    
+    
+    
 }

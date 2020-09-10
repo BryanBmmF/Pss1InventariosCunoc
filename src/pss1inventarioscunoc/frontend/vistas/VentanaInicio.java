@@ -3,34 +3,108 @@
  */
 package pss1inventarioscunoc.frontend.vistas;
 
+import java.awt.Image;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
+import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
-import pss1inventarioscunoc.frontend.encargados.ManejoEncargados;
+import javax.swing.WindowConstants;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
+import pss1inventarioscunoc.backend.bd.Conexion;
+import pss1inventarioscunoc.frontend.encargados.ValidacionEncargados;
 import javax.swing.UIManager;
+import pss1inventarioscunoc.backend.controladores.ControladorDeArchivos;
+import pss1inventarioscunoc.backend.controladores.ControladorFactura;
+import pss1inventarioscunoc.backend.controladores.ControladorProveedor;
 import pss1inventarioscunoc.backend.controladores.ControladorVistas;
 import pss1inventarioscunoc.backend.enums.GrupoVista;
 import pss1inventarioscunoc.backend.enums.Vista;
+import pss1inventarioscunoc.frontend.sesion.VentanaSesion;
 import pss1inventarioscunoc.frontend.vistas.bienes.BienesJPanel1;
 import pss1inventarioscunoc.frontend.vistas.bienes.ReporteDeBiens;
 import pss1inventarioscunoc.frontend.vistas.facturas.FacturasJPanel;
+import pss1inventarioscunoc.frontend.vistas.info.InfoDepartamento;
+import pss1inventarioscunoc.frontend.vistas.info.InfoSistema;
+import pss1inventarioscunoc.frontend.vistas.inventarios.InventarioPanel;
 import pss1inventarioscunoc.frontend.vistas.proveedores.ProveedorJPanel;
+import sun.awt.WindowClosingListener;
 
 /**
  *
  * @author fabricio
  */
 public class VentanaInicio extends javax.swing.JFrame {
-    
+
+    protected static final String ICON_URL = "/pss1inventarioscunoc/frontend/media/logo-inventarios.jpg";
     private Vista vista = Vista.INICIO;
     private ControladorVistas controlador = null;
+    private InfoDepartamento infoDepartamento;
+    private InfoSistema infoSistema;
+
     /**
      * Creates new form VentanaInicio
      */
     public VentanaInicio() {
         initComponents();
+
         this.setLocationRelativeTo(this);
         this.setTitle("Sistema de Inventarios CUNOC");
         this.controlador = new ControladorVistas();
+        this.ventanaPrincipal.add(new InventarioPanel());
         this.initDependencies();
+        ControladorProveedor conP = new ControladorProveedor();
+        conP.consultarProveedorPred();
+        ControladorFactura conF = new ControladorFactura();
+        conF.consultarFacturaPred();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+//                JOptionPane.showMessageDialog(null, "BIENVENIDO");
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                //Aca se escribira el log
+                ControladorDeArchivos.escribirLog();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                //             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                //               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                //              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -50,22 +124,26 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        reportesButton = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         tarjetaRespButton = new javax.swing.JButton();
         usuariosButton = new javax.swing.JButton();
         encargadosButton = new javax.swing.JButton();
         bienesButton = new javax.swing.JButton();
+        inventariosButton1 = new javax.swing.JButton();
+        reportesButton2 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        lbUserLog = new javax.swing.JLabel();
         ventana = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         ventanaPrincipal = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -79,6 +157,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jButton9.setFocusPainted(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(ICON_URL)));
         setMinimumSize(new java.awt.Dimension(1002, 550));
 
         jPanel1.setBackground(new java.awt.Color(0, 50, 102));
@@ -99,8 +178,8 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("REPORTES");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        jLabel2.setText("INVENTARIOS");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,7 +189,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ENCARGADOS");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, 20));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,21 +205,13 @@ public class VentanaInicio extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/icons8-grupo-de-primer-plano-seleccionado-45.png"))); // NOI18N
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 45, 45));
 
-        reportesButton.setBackground(new java.awt.Color(0, 51, 153));
-        reportesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
-        reportesButton.setBorder(null);
-        reportesButton.setBorderPainted(false);
-        reportesButton.setContentAreaFilled(false);
-        reportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        reportesButton.setFocusPainted(false);
-        reportesButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        reportesButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
-        reportesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportesButtonActionPerformed(evt);
-            }
-        });
-        jPanel3.add(reportesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 60));
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("REPORTES");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/icons8-caja-vacía-45.png"))); // NOI18N
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 360, 45, 45));
 
         tarjetaRespButton.setBackground(new java.awt.Color(0, 51, 153));
         tarjetaRespButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
@@ -204,19 +275,69 @@ public class VentanaInicio extends javax.swing.JFrame {
                 bienesButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(bienesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 250, 60));
+        jPanel3.add(bienesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 250, 60));
+
+        inventariosButton1.setBackground(new java.awt.Color(0, 51, 153));
+        inventariosButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        inventariosButton1.setBorder(null);
+        inventariosButton1.setBorderPainted(false);
+        inventariosButton1.setContentAreaFilled(false);
+        inventariosButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        inventariosButton1.setFocusPainted(false);
+        inventariosButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        inventariosButton1.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        inventariosButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventariosButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(inventariosButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 250, 60));
+
+        reportesButton2.setBackground(new java.awt.Color(0, 51, 153));
+        reportesButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-off.jpg"))); // NOI18N
+        reportesButton2.setBorder(null);
+        reportesButton2.setBorderPainted(false);
+        reportesButton2.setContentAreaFilled(false);
+        reportesButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        reportesButton2.setFocusPainted(false);
+        reportesButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        reportesButton2.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/button-select-on.jpg"))); // NOI18N
+        reportesButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportesButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(reportesButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 60));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/icons8-reporte-de-negocios-45.png"))); // NOI18N
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 45, 45));
+
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Usuario:");
+
+        lbUserLog.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbUserLog, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 257, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbUserLog, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         ventana.setBackground(new java.awt.Color(0, 50, 102));
@@ -243,35 +364,54 @@ public class VentanaInicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("Archivo");
+        jMenu2.setText("Sesión");
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("jMenuItem2");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("jMenuItem3");
-        jMenu1.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edición");
-
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("Cerrar Sesión");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setText("Salir del Sistemma");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Acerca");
+        jMenu4.setText("Reportes");
 
-        jMenuItem6.setText("jMenuItem6");
+        jMenuItem8.setText("Generar un Reporte");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu3.setText("Acerca de");
+
+        jMenuItem6.setText("Departamento de Inventarios CUNOC");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
-        jMenuItem7.setText("jMenuItem7");
+        jMenuItem7.setText("Sistema");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuBar1.add(jMenu3);
@@ -300,11 +440,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         controlador.bienesButtonVentanaInicio(this);
     }//GEN-LAST:event_bienesButtonActionPerformed
 
-    private void reportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesButtonActionPerformed
-        controlador.reportesButtonVentanaInicio(this);
-    }//GEN-LAST:event_reportesButtonActionPerformed
-
     private void usuariosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosButtonActionPerformed
+        controlador.usuariosButtonVentanaInicio(this);
     }//GEN-LAST:event_usuariosButtonActionPerformed
 
     private void encargadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encargadosButtonActionPerformed
@@ -315,6 +452,63 @@ public class VentanaInicio extends javax.swing.JFrame {
         controlador.tarjetasRespButtonVentanaInicio(this);
     }//GEN-LAST:event_tarjetaRespButtonActionPerformed
 
+    private void inventariosButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventariosButton1ActionPerformed
+        controlador.inventarioButtonVentanaInicio(this);
+    }//GEN-LAST:event_inventariosButton1ActionPerformed
+
+    private void reportesButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesButton2ActionPerformed
+        // TODO add your handling code here:
+        controlador.reportesButtonVentanaInicio(this);
+    }//GEN-LAST:event_reportesButton2ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        controlador.reportesButtonVentanaInicio(this);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        VentanaSesion nuevaVentana = new VentanaSesion();
+        nuevaVentana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        infoDepartamento = new InfoDepartamento(true);
+        infoDepartamento.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        infoSistema = new InfoSistema(true);
+        infoSistema.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    public void habilitarParaInventarios() {
+        usuariosButton.setEnabled(false);
+    }
+
+    public void habilitarParaExternos() {
+        tarjetaRespButton.setEnabled(false);
+        usuariosButton.setEnabled(false);
+        encargadosButton.setEnabled(false);
+        inventariosButton1.setEnabled(false);
+        bienesButton.setEnabled(false);
+        reportesButton2.setEnabled(true);
+        ventanaPrincipal.removeAll();
+
+    }
+
+    public void setUserLog(String user) {
+        this.lbUserLog.setText(user);
+    }
+
     public Vista getVista() {
         return vista;
     }
@@ -322,17 +516,23 @@ public class VentanaInicio extends javax.swing.JFrame {
     public JTabbedPane getVentanaPrincipal() {
         return ventanaPrincipal;
     }
-    
-    public void initDependencies(){
+
+    public void initDependencies() {
         this.controlador.insertIntoInicioDefaultGrupoVista(this);
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bienesButton;
     private javax.swing.JButton encargadosButton;
+    private javax.swing.JButton inventariosButton1;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -341,24 +541,24 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton reportesButton;
+    private javax.swing.JLabel lbUserLog;
+    private javax.swing.JButton reportesButton2;
     private javax.swing.JButton tarjetaRespButton;
     private javax.swing.JButton usuariosButton;
     private javax.swing.JPanel ventana;
     private javax.swing.JTabbedPane ventanaPrincipal;
     // End of variables declaration//GEN-END:variables
+
 }

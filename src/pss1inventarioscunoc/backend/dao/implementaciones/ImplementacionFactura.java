@@ -42,6 +42,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setTimestamp(3, model.getFecha());
             prepStatement.setString(4, model.getDescripcion());
             prepStatement.setDouble(5, model.getValor());
+            System.out.println("FACTURA:\n" + prepStatement.toString() + "\n");
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -57,13 +58,15 @@ public class ImplementacionFactura implements FacturaDAO {
      * @return
      */
     @Override
-    public List<Factura> recuperarLista() {
+    public List<Factura> recuperarLista(char estado) {
         ArrayList<Factura> facturas = new ArrayList<>();
         try {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA);
             result = prepStatement.executeQuery();
             while (result.next()) {
-                facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));
+                if(!result.getString(5).equalsIgnoreCase("FACTURA_UNICA_PREDETERMINADA")) {
+                    facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));
+                }
             }
             prepStatement.close();
             result.close();
@@ -99,7 +102,9 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setString(1, "%" + nombreProveedor + "%");
             result = prepStatement.executeQuery();
             while (result.next()) {
-                facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));
+                if(!result.getString(5).equalsIgnoreCase("FACTURA_UNICA_PREDETERMINADA")) {
+                    facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));
+                }
             }
             prepStatement.close();
             result.close();
@@ -109,23 +114,25 @@ public class ImplementacionFactura implements FacturaDAO {
         }
         return facturas;
     }
-    
+
     /**
      * Busca una factura por su propio id
+     *
      * @param id
-     * @return 
+     * @return
      */
     @Override
-    public Factura buscarFacturaPorId(int idFactura){
+    public Factura buscarFacturaPorId(int idFactura) {
         Factura factura = null;
         try {
             prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA_POR_ID);
             prepStatement.setInt(1, idFactura);
             result = prepStatement.executeQuery();
-            while(result.next()){
-                factura = new Factura(result.getInt(2), result.getInt(3), 
+            while (result.next()) {
+                factura = new Factura(result.getInt(1),result.getInt(2), result.getInt(3),
                         result.getTimestamp(4), result.getString(5), result.getDouble(6));
             }
+            System.out.println("\n\nFACTURA:"+prepStatement.toString());
             prepStatement.close();
             result.close();
         } catch (SQLException ex) {
@@ -153,7 +160,9 @@ public class ImplementacionFactura implements FacturaDAO {
             System.out.println(prepStatement.toString());
             result = prepStatement.executeQuery();
             while (result.next()) {
-                facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));
+                if(!result.getString(5).equalsIgnoreCase("FACTURA_UNICA_PREDETERMINADA")) {
+                    facturas.add(new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7)));
+                }
             }
             prepStatement.close();
             result.close();
@@ -179,6 +188,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setTimestamp(3, model.getFecha());
             prepStatement.setString(4, model.getDescripcion());
             prepStatement.setDouble(5, model.getValor());
+            System.out.println("FACTURA:\n" + prepStatement.toString() + "\n");
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -202,7 +212,7 @@ public class ImplementacionFactura implements FacturaDAO {
             prepStatement.setTimestamp(2, model.getFecha());
             prepStatement.setString(3, model.getDescripcion());
             prepStatement.setDouble(4, model.getValor());
-            System.out.println(prepStatement.toString());
+            System.out.println("FACTURA:\n" + prepStatement.toString() + "\n");
             prepStatement.executeUpdate();
             prepStatement.close();
         } catch (SQLException ex) {
@@ -263,5 +273,21 @@ public class ImplementacionFactura implements FacturaDAO {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Factura buscarFacturaPorDescripcion(String desc) {
+        Factura fac=null;
+        try {
+            prepStatement = Conexion.getConexion().prepareStatement(BUSCAR_FACTURA_POR_DESCRIPCION);
+            prepStatement.setString(1,desc);
+            result = prepStatement.executeQuery();
+            while(result.next()){
+                fac = new Factura(result.getInt(1), result.getInt(2), result.getInt(3), result.getTimestamp(4), result.getString(5), result.getDouble(6), result.getString(7));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return fac;
     }
 }

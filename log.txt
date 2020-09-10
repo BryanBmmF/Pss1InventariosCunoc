@@ -1,0 +1,90 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Usuario:superU->2020-09-07 11:53:28.Cambio de estado en Bien(v,n):(1,0)
+
+
+
+
+Usuario:superU->2020-09-07 10:41:20.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 10:41:20.Se inserto la factura con descripcion:FACTURA_UNICA_PREDETERMINADA
+Usuario:superU->2020-09-07 10:41:26.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+
+Usuario:superU->2020-09-07 10:37:25.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 10:37:25.Se inserto la factura con descripcion:FACTURA_UNICA_PREDETERMINADA
+
+Usuario:superU->2020-09-07 10:30:29.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 10:30:29.Se inserto la factura con descripcion:FACTURA_UNICA_PREDETERMINADA
+
+
+
+Usuario:superU->2020-09-07 00:14:22.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Distribuidora Carrillo
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Ecotec
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Papelera Internacional S.A
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Anclo-Difassa
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Abastecedora de color
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Dacema
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Intelaf
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Acerradero Madera Fina
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario correspondiente al Ciclo 2016
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Primer semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Segundo semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2018
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2019
+
+Usuario:superU->2020-09-07 00:14:22.Se inserto el proveedor:PROVEEDOR_UNICO_PREDETERMINADO
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Distribuidora Carrillo
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Ecotec
+Usuario:superU->2020-09-07 00:14:23.Se inserto el proveedor:Papelera Internacional S.A
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Anclo-Difassa
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Abastecedora de color
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Dacema
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Intelaf
+Usuario:superU->2020-09-07 00:14:24.Se inserto el proveedor:Acerradero Madera Fina
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario correspondiente al Ciclo 2016
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Primer semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Segundo semestre 2017
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2018
+Usuario:superU->2020-09-07 00:14:25.Creacion de un nuevo inventario:Inventario Ciclo 2019
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Usuario:1->2020-09-04 09:20:17.Insercion de bien:1234578 tipo:compra
+
+Usuario:1->2020-09-02 08:52:55.Actualizacion Nombre Proveedor(v,n):(otro proveedorsdadfasdfasdf,ot)
+Usuario:1->2020-09-02 08:52:55.Actualizacion Direccion Proveedor(v,n):(asdfas,asdfasASDFASDF)
+
+Usuario:1->2020-09-02 08:52:17.Actualizacion Nombre Proveedor(v,n):(dasdasd,dasdasdAAAAA)
+
+
+12020-09-02 08:39:42.Se inserto el proveedor:asdf
+12020-09-02 08:39:57.Se inserto la factura con descripcion:asdfa
+1
+12020-09-02 08:37:27.Se inserto el proveedor:dasd
+12020-09-02 08:32:42.Se inserto la factura con descripcion:asdf
+12020-09-02 08:31:46.Se inserto el proveedor:dsa

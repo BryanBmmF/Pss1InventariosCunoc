@@ -22,10 +22,11 @@ public class TarjetaResponsabilidad {
     private long idResponsable;
     private String noSolicitudCompra;
     private long idProveedor;
+    private String estado;
 
     public TarjetaResponsabilidad(long id, Timestamp fechaApertura, String descripcion, 
             long noFactura, String noSerie, Timestamp fechaFactura, String noOrdenCompra, 
-            String curBien, long idResponsable, String noSolicitudCompra, long idProveedor) {
+            String curBien, long idResponsable, String noSolicitudCompra, long idProveedor, String estado) {
         this.id = id;
         this.fechaApertura = fechaApertura;
         this.descripcion = descripcion;
@@ -37,11 +38,12 @@ public class TarjetaResponsabilidad {
         this.idResponsable = idResponsable;
         this.noSolicitudCompra = noSolicitudCompra;
         this.idProveedor = idProveedor;
+        this.estado = estado;
     }
     
     public TarjetaResponsabilidad(Timestamp fechaApertura, String descripcion, 
             long noFactura, String noSerie, Timestamp fechaFactura, String noOrdenCompra, 
-            String curBien, long idResponsable, long idProveedor) {
+            String curBien, long idResponsable, long idProveedor, String estado) {
         this.fechaApertura = fechaApertura;
         this.descripcion = descripcion;
         this.noFactura = noFactura;
@@ -51,6 +53,7 @@ public class TarjetaResponsabilidad {
         this.curBien = curBien;
         this.idResponsable = idResponsable;
         this.idProveedor = idProveedor;
+        this.estado = estado;
     }
 
     public long getId() {
@@ -139,6 +142,14 @@ public class TarjetaResponsabilidad {
 
     public void setIdProveedor(long idProveedor) {
         this.idProveedor = idProveedor;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

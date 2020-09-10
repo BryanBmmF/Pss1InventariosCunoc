@@ -93,7 +93,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="1" min="-2" pref="701" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -108,7 +108,7 @@
                               <EmptySpace pref="212" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -116,11 +116,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="264" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="264" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="actualizarButton" min="-2" pref="34" max="-2" attributes="0"/>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -199,11 +199,6 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                       </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -216,32 +211,28 @@
                         <BindingParameter name="NAME" value="Id"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${fechaApertura}">
-                        <BindingParameter name="NAME" value="Fecha Apertura"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.sql.Timestamp.class"/>
+                      <Subbinding sourcePath="${curBien}">
+                        <BindingParameter name="NAME" value="Bien"/>
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${descripcion}">
                         <BindingParameter name="NAME" value="Descripcion"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${curBien}">
-                        <BindingParameter name="NAME" value="Cur Bien"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                      </Subbinding>
-                      <Subbinding sourcePath="${noFactura}">
-                        <BindingParameter name="NAME" value="No Factura"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
-                      </Subbinding>
-                      <Subbinding sourcePath="${fechaFactura}">
-                        <BindingParameter name="NAME" value="Fecha Factura"/>
+                      <Subbinding sourcePath="${fechaApertura}">
+                        <BindingParameter name="NAME" value="Apertura"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.sql.Timestamp.class"/>
                       </Subbinding>
+                      <Subbinding sourcePath="${noFactura}">
+                        <BindingParameter name="NAME" value="Factura"/>
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                      </Subbinding>
                       <Subbinding sourcePath="${idResponsable}">
-                        <BindingParameter name="NAME" value="Id Responsable"/>
+                        <BindingParameter name="NAME" value="Responsable"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${idProveedor}">
-                        <BindingParameter name="NAME" value="Id Proveedor"/>
+                        <BindingParameter name="NAME" value="Proveedor"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                       </Subbinding>
                     </BindingProperty>

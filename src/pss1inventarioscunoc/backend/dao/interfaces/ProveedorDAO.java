@@ -17,8 +17,10 @@ public interface ProveedorDAO extends CRUD<Proveedor>{
     public ArrayList<Proveedor> buscarProveedoresPorDireccion(String direccion);
     public ArrayList<Proveedor> buscarProveedorPorDescripcion(String descripcion);
     public boolean modificarProveedor(Proveedor proveedor);
+    public Proveedor buscarProveedor(String nombre);
     /*Querys a utilizar*/
     public static final String BUSQUEDA_POR_NOMBRE="SELECT * FROM PROVEEDOR WHERE nombre_Proveedor LIKE ?";
+    public static final String BUSQUEDA_POR_NOMBRE_UNICO="SELECT * FROM PROVEEDOR WHERE nombre_Proveedor=?";
     public static final String BUSQUEDA_POR_DIRECCION="SELECT * FROM PROVEEDOR WHERE direccion LIKE ?";
     public static final String BUSQUEDA_POR_DESCRIPCION="SELECT * FROM PROVEEDOR WHERE descripcion LIKE ?";
     public static final String MODIFICAR_PROVEEDOR="UPDATE PROVEEDOR SET nombre_Proveedor=?,nit=?,direccion=?,descripcion=?,correoElectronico=? WHERE id_Proveedor=?";

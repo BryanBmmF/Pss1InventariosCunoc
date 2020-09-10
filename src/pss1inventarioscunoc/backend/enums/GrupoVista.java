@@ -16,7 +16,9 @@ public enum GrupoVista {
     BIENES("Bienes"),
     REPORTES("Reportes"),
     ENCARGADOS("Encargados"),
-    TARJETAS_RESPONSABILIDAD("Tarjetas")
+    TARJETAS_RESPONSABILIDAD("Tarjetas"),
+    INVENTARIOS("Inventarios"),
+    USUARIOS("Inventarios")
     ;
     
     private String nombre;

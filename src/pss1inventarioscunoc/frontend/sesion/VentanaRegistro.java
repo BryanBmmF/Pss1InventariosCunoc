@@ -5,6 +5,7 @@
 package pss1inventarioscunoc.frontend.sesion;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import pss1inventarioscunoc.backend.controladores.ControladorUser;
 import pss1inventarioscunoc.backend.enums.Vista;
 import pss1inventarioscunoc.backend.pojos.Usuario;
@@ -18,13 +19,15 @@ public class VentanaRegistro extends javax.swing.JFrame {
     
     private Vista vista = Vista.VENTANA_REGISTRO;
     private ControladorUser contrUser;
+    private VentanaUsuarios ventanaUsuarios;
     
     /** Creates new form VentanaRegistro */
-    public VentanaRegistro() {
+    public VentanaRegistro(VentanaUsuarios ventanaUsuarios) {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Registro Nuevo Usuario");
         this.contrUser = new ControladorUser();
+        this.ventanaUsuarios= ventanaUsuarios;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -53,6 +56,8 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        comboTipo = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,7 +93,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/registrar-button-off.png"))); // NOI18N
         btnRegistrar.setBorder(null);
         btnRegistrar.setContentAreaFilled(false);
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrar.setFocusPainted(false);
         btnRegistrar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/registrar-button-on.png"))); // NOI18N
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +101,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 509, -1, -1));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pss1inventarioscunoc/frontend/media/logo-inventarios.jpg"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, -1, -1));
@@ -173,10 +178,20 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jLabel11.setText("Nombre Usuario");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("sansserif", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel12.setText("Contraseña");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
+        jLabel12.setText("Tipo:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 510, -1, -1));
+
+        comboTipo.setBackground(new java.awt.Color(187, 187, 187));
+        comboTipo.setForeground(new java.awt.Color(0, 102, 102));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Dep.Inventarios", "Dep.Tesoreria", "Dep.Secretaria", "Otro Departamento" }));
+        jPanel1.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 510, 250, -1));
+
+        jLabel13.setFont(new java.awt.Font("sansserif", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel13.setText("Contraseña");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,7 +201,9 @@ public class VentanaRegistro extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,9 +216,22 @@ public class VentanaRegistro extends javax.swing.JFrame {
         String correo = txtCorreo.getText();
         String pass1 = String.valueOf(txtPass1.getPassword());
         String pass2 = String.valueOf(txtPass2.getPassword());
+        String userTipo = "";
+        
+        switch (comboTipo.getSelectedItem().toString()) {
+            case "Administrador":
+                userTipo= Usuario.USUARIO_ADMIN;
+                break;
+            case "Dep.Inventarios":
+                userTipo= Usuario.USUARIO_ADMIN;
+                break;
+            default:
+                userTipo= Usuario.USUARIO_VISITANTE;
+        }
         
         if (contrUser.verificarRegistro(nombre, user, correo, pass1, pass2)) {
-            contrUser.registrar(new Usuario(user, nombre, "", pass1, "estadoJ", Usuario.USUARIO_NORMAL, correo));
+            contrUser.registrar(new Usuario(user, nombre, "", pass1, "activo", userTipo, correo));
+            this.ventanaUsuarios.actualizarListadoObservable(this.ventanaUsuarios.getControlador().busquedaUsuarios());
             this.dispose();
         } 
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -226,9 +256,11 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
